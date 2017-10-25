@@ -1,0 +1,104 @@
+body {padding-top: 50px; }
+
+#mapid {
+	position: relative;
+	height:85vh;
+	width:100%;
+	}
+#miniMap {
+	position: relative;
+	height:250px;
+	width:100%;
+	margin-top: 5px;
+	}
+
+.mapSelect:before, .mapSelect:after {
+  content: '';
+  position: absolute;
+  top: 40%;
+  bottom: 40%;
+  left: 40%;
+  right: 40%;
+  z-index: 999;
+  pointer-events: none;
+}
+.mapSelect:before {
+  bottom: 50%;
+  border-bottom: 2px #e03020 solid;
+}
+.mapSelect:after {
+  right: 50%;
+  border-right: 2px #e03020 solid;
+}
+
+/*********************************************/
+/************     marker      ****************/
+/*********************************************/
+div.leaflet-div-icon-ont.defaultmap-icon,
+.marker.leaflet-marker-icon {
+	margin:0px;
+	background-repeat: no-repeat;
+	width: 24px;
+	height: 31px;
+	position: absolute;
+	top: -31px;
+	left: -11px;
+	zoom:1;
+}
+.iconInList {
+    background: url('cssImg/markers-soft-480.png') no-repeat -456px 0; /* dark grey marker as default if no other */
+		display: block ;
+    margin-left: 10px;
+    width: 24px;
+		margin-right: 15px;
+		margin-top: -5px;
+		min-height: 31px;
+		float: left;
+}
+
+/* default icon, if no other */
+div.defaultmap-icon, .cat-0 {
+	background: url('cssImg/markers-soft-480.png') no-repeat -456px 0; /* dark gray marker as default if no other */
+}
+.cat-1{
+    background: url('cssImg/markers-soft-480.png') no-repeat 0px 0;
+}
+.cat-2 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -24px 0;
+}
+.cat-3 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -48px 0;
+}
+.cat-4 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -72px 0;
+}
+.cat-5 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -96px 0;
+}
+.cat-6 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -120px 0;
+}
+.cat-7 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -144px 0;
+}
+.cat-8 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -168px 0;
+}
+.cat-9 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -192px 0;
+}
+.cat-10 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -216px 0;
+}
+.cat-11 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -240px 0;
+}
+.cat-12 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -264px 0;
+}
+.cat-13 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -288px 0;
+}
+.cat-14 {
+    background: url('cssImg/markers-soft-480.png') no-repeat -312px 0;
+}

@@ -1,0 +1,26 @@
+<div id="send" ng-controller="sendCtrl">
+
+  <br><br>
+
+  <div ng-if="appData.sendOK=='sending'">
+      Bitte warten, die Daten werden übertragen...
+  </div>
+
+  <div ng-if="appData.sendOK=='success'">
+    Herzlichen Glückwunsch !
+  </div>
+
+  <div ng-if="appData.sendOK=='failed'">
+    Das hat leider nicht geklappt.
+  </div>
+
+
+
+<pre ng-if="debug">
+appData:
+{{appData|json}}
+imageData:
+{{imageData|json}}
+</pre>
+
+</div>

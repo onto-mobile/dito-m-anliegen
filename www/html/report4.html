@@ -1,0 +1,31 @@
+<div id="report4" class="report">
+ <div class="btn-group-vertical" role="group" aria-label="add picture">
+      <button class="btn btn-default" ng-click="getImage('camera')">Foto machen</button>
+      <!-- validateInput('device', 'imageData.filepath') -->
+      <button class="btn btn-default" ng-click="getImage('gallery')" >Bild aus Galerie</button>
+      <button class="btn btn-default" ng-show="appData.image.is_valid"  ng-click="DataFactory.resetData('image')">Zurücksetzen</button>
+      <!-- Alternate file chooser: -->
+      <!-- This is an alternate method by angular directive, provided for standard browser debugging. -->
+      <!-- The directive 'fileRead' implements a filesystem chooser. We get the full data as base64 back into html, which makes stuff slow. -->
+      <!-- Note: file-change also returns the $event -->
+      <input   ng-if="!device_has_cam" class="btn btn-default" id="imgAttch" type="file" file-read="imageData.base64"
+                   value="imageData.base64"
+                   ng-model="imageData.base64"
+                   file-change="validateInput('fileread',files[0])"
+                   />
+ </div>
+
+ <div class="pageFeedback">{{imageMessage}}</div>
+
+ <div class="previewBox" ng-if="appData.image.is_valid">
+     <!-- <img id="imgAttchPreview" ng-src="{{imageData.filepath}}"  ng-if="device_has_cam"/> -->
+     <img id="imgAttchPreview" ng-src="{{imageData.filepath}}" ng-if="device_has_cam" ng-if="appData.image.is_valid"/>
+     <img id="imgAttchPreview" ng-src="{{imageData.base64}}" ng-if="!device_has_cam" ng-if="appData.image.is_valid"/>
+ </div>
+
+  <!-- <pre ng-if="debug">
+  {{imageData|json}}
+  {{appData.image|json}}
+  </pre> -->
+
+</div>

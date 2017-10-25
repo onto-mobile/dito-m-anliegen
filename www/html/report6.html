@@ -1,0 +1,37 @@
+<div id="report6" class="report">
+    <form name="emailForm" novalidate>
+      <div class="form-group" ng-class="{'has-error':emailForm.$invalid}">
+        <label for="exampleInputEmail1" ng-class="{'text-danger':emailForm.$invalid}">Email address</label>
+        <input id="Email"
+               name="Email"
+               type="email"
+               class="form-control"
+               placeholder="Email"
+               ng-model="appData.email.text"
+               value="appData.email.text"
+               spellcheck="false"
+               autofocus
+               required
+               check-email/>
+          <span ng-show="emailForm.$invalid" ng-class="{'text-danger':emailForm.$invalid}">Bitte geben Sie eine gültige Emailaddresse ein.</span>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input
+              type="checkbox"
+              ng-model="appData.check_privacy_accepted.is_valid"
+              ng-click="DataToolServices.updateAppData('check_privacy_accepted.state','toggle')"/> Ich akzeptiere die AGB und Datenschutzbestimmungen
+        </label>
+      </div>
+  </form>
+</div>
+
+<pre ng-if = "debug">
+  Mandatory completed: {{appData.report_mandatory_completed_counter|json}}
+  Email: {{appData.email|json}}
+  Privacy check: {{appData.check_privacy_accepted|json}}
+  Image: {{appData.image|json}}
+</pre>
+<pre ng-if = "debug && imageData.base64.length == 0">
+ImageData: {{imageData|json}}
+</pre>

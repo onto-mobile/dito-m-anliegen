@@ -1,0 +1,102 @@
+/* REPORT */
+
+.report 						{
+											font-size:1em;
+										}
+
+div.pageFeedback	{
+											position: relative;
+											top:2vh;
+											padding: auto;
+											background-color:inherit;
+										}
+
+/*  input */
+
+input,textarea			{
+											width: 90%;
+										}
+textarea						{
+											height: 40vh;
+										}
+
+input#Email					{
+											color: blue;
+										}
+
+input.ng-invalid 		{
+  										color: red;
+										}
+
+
+div.selectBox					{
+											width:80vw;
+											position: relative;
+											margin: auto;
+/*										transform: translate(-10%, -50%); */
+											}
+
+
+ul.selectChooser			{
+											font: bold 1em sans-serif;
+											/* font: font-style, font-variant, font-weight, font-size, line-height und font-family. */
+											text-align: center;
+											background: darkblue;
+											color: white;
+/*										list-style-image:url(images/folder.svg);  */
+											list-style-type: none;
+ 											margin: 0;
+ 											padding: 1%;
+											line-height: 1.4em;
+											margin-bottom: 1.2em;
+										 	}
+
+.selectChooser li			{
+												padding:1em;
+											}
+
+.selectChooser	.selected
+ 											{
+  										background-color: green;
+											}
+
+.selectChooser	.selected:hover
+											{
+  										cursor: pointer;
+											}
+
+
+div.buttonBox				{
+											position: relative;
+											top:5vh;
+											height:auto;
+				 						 }
+
+.reportButton				 {
+											position: static;
+											background-color: lightblue;
+											border: 2px solid white ;
+											border-radius:10%;
+											padding:1em;
+											}
+
+.report #imgAttch 	 {
+											display: none;
+										 }
+
+div.previewBox			{
+											position: relative;
+											top:5vh;
+											height:auto;
+  			 						 }
+
+.report #imgAttchPreview  {
+													height:50vh;
+													position: relative;
+													margin: auto;
+											    }
+
+/*  checkbox */
+.report input[type=checkbox]  { padding: 10px; }
+.report input[type=checkbox] + label#privCheck { background: lightblue; }
+.report input[type=checkbox]:checked + label#privCheck { background: green; }

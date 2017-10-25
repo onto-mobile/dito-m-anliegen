@@ -1,0 +1,16 @@
+.nav.navbar-nav{
+  width:100%;
+}
+div.report {
+  margin:5px;
+}
+div.report .btn-group-vertical{
+  width:100%;
+}
+div.detail{
+  margin: 5px
+}
+.info .modal-header,
+.info .panel-default{
+  display: none;
+}
