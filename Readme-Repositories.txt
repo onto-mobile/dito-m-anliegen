@@ -60,7 +60,7 @@ git fetch --prune
 
 git reset -A
 
-git reset --hard origin/master ...........................  
+git reset --hard origin/master ...........................  Force 'pull', overwrite local files
 
 git push --force --set-upstream origin master ............. Erzwungenes Überschreiben des remote repositories mit den lokalen commits (alle Konflikte werden ignoriert)
 
