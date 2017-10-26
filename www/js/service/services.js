@@ -128,101 +128,30 @@ this.getDeviceImage = function (source) {
 		debug && console.warn('Service getDeviceImage:');
 		debug && console.log('Options for ' + source + ':', photoOptions[source]);
 
-
-		function camAngularPromise() {
-
-			var deferred = $q.defer();
+		var deferred = $q.defer();
 
 			navigator.camera.getPicture(
 
 						function onSucc(response) {
 																	debug && console.log('cordova camera plugin returns:', response);
 																	deferred.resolve( { uri: response } );
-																	return true;
+																	// return true;
 																	},
 
 						function onFail(response) {
 																			debug && console.warn("cordova camera plugin: No picture loaded: " + response);
 																			deferred.reject( { failed: response }  );
-																			return false;
+																			// return false;
 																			},
 						photoOptions[source])
 
 			return deferred.promise;
 
-		} // End promised getPicture()
+		// } // End promised getPicture()
 
-		// Process promise return
-		camAngularPromise().then( function( status ){
+		// return angularPromise;
 
-		// SUCCESS:
-
-			// ! if android
-			imageData.native = status.uri;
-
-			switch (source) {
-
-					case 'camera':
-												imageData.filepath = status.uri;
-
-												// We also want the cordova cdv:// path and the file size
-												window.resolveLocalFileSystemURL(imageData.filepath, function(fileEntry) {
-
-																					imageData.cdv = fileEntry.toInternalURL()
-
-																					fileEntry.file(function(fileObj) {
-																																						imageData.type = fileObj.type;
-																																						imageData.size = fileObj.size;
-																																					});
-																					imageData.fileEntry = fileEntry;
-																			});
-					break;
-
-
-
-
-					case 'gallery':
-
-												// @Android: Using 'cordova filepath plugin' to resolve content:// links to file:// path
-												window.FilePath.resolveNativePath(status.uri, function onSucc(result) {
-
-													 imageData.filepath = result;
-
-													 // We also want the cordova cdv:// path and the file size
-													 window.resolveLocalFileSystemURL(imageData.filepath, function(fileEntry) {
-
-																			 imageData.cdv = fileEntry.toInternalURL()
-
-																			 fileEntry.file(function(fileObj) {
-																																				 imageData.type = fileObj.type;
-																																				 imageData.size = fileObj.size;
-																																			  });
- 																			 imageData.fileEntry = fileEntry;
-																 	 });
-
-										     }, function onFail() { console.warn("Filepath plugin failed: ", result); }
-				 						 	);
-					break;
-
-			}  // End switch
-
-
-			debug && console.log("Service getDeviceImage saved imageData:", imageData);
-
-			return true;
-
-
-		}, function( status ){
-
-		// FAIL:
-
-			console.warn( 'Service getDeviceImage:', status.failed );
-
-			return false;
-
-		}) // End promise
-
-} // End getDeviceImage
+} // End promised getDeviceImage
 
 
 // Read image filepath as base64 data -- unused --
@@ -431,7 +360,7 @@ this.updateAppData = function(property,value,is_valid) {
 
 									}  // End switch
 
-									// Update 'valid' state if thirrd call parameter was given
+									// Update 'valid' state with thirrd parameter boolean if it was given
 									// (this is kind of a "function overloading" hack)
 									$rootScope.debug && console.log("Option is_valid:", is_valid);
 									if (typeof is_valid !== "undefined") appData[path[0]].is_valid = is_valid;

@@ -17,15 +17,16 @@
 
  <div class="pageFeedback">{{imageMessage}}</div>
 
- <div class="previewBox" ng-if="appData.image.is_valid">
-     <!-- <img id="imgAttchPreview" ng-src="{{imageData.filepath}}"  ng-if="device_has_cam"/> -->
-     <img id="imgAttchPreview" ng-src="{{imageData.filepath}}" ng-if="device_has_cam" ng-if="appData.image.is_valid"/>
-     <img id="imgAttchPreview" ng-src="{{imageData.base64}}" ng-if="!device_has_cam" ng-if="appData.image.is_valid"/>
+<!-- ng-if="appData.image.is_valid" -->
+ <div class="previewBox">
+     <img id="imgAttchPreview" ng-src="{{imageData.filepath}}" ng-if="device_has_cam"/>
+     <img id="imgAttchPreview" ng-src="{{imageData.base64}}" ng-if="!device_has_cam"/>
  </div>
 
-  <!-- <pre ng-if="debug">
+</div>
+<!--
+  <pre ng-if="debug">
   {{imageData|json}}
   {{appData.image|json}}
-  </pre> -->
-
-</div>
+  </pre>
+-->

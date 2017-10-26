@@ -1,7 +1,7 @@
 <div id="report6" class="report">
     <form name="emailForm" novalidate>
-      <div class="form-group" ng-class="{'has-error':emailForm.$invalid}">
-        <label for="exampleInputEmail1" ng-class="{'text-danger':emailForm.$invalid}">Email address</label>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Bitte geben Sie für die Rückmeldung der Stadt eine Email-Addresse an:</label>
         <input id="Email"
                name="Email"
                type="email"
@@ -13,7 +13,7 @@
                autofocus
                required
                check-email/>
-          <span ng-show="emailForm.$invalid" ng-class="{'text-danger':emailForm.$invalid}">Bitte geben Sie eine gültige Emailaddresse ein.</span>
+          <span ng-show="emailForm.$invalid" ng-class="{'text-danger':emailForm.$invalid}">Bitte geben Sie eine gültige Email-Addresse ein.</span>
       </div>
       <div class="checkbox">
         <label>
@@ -33,5 +33,5 @@
   Image: {{appData.image|json}}
 </pre>
 <pre ng-if = "debug && imageData.base64.length == 0">
-ImageData: {{imageData|json}}
+ ImageData: {{imageData|json}}
 </pre>

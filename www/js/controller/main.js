@@ -1,16 +1,16 @@
-rootApp.controller('mainCtrl', function($scope,$rootScope,$q,DataToolServices,DeviceService,NetworkService,MapFactory,DataFactory) {
+rootApp.controller('mainCtrl', function($scope,$rootScope,$q,$route,DataToolServices,DeviceService,NetworkService,MapFactory,DataFactory) {
 // alternate:
 //	rootApp.controller('mainCtrl',['$scope','DataToolServices','NetworkService','MapFactory', function($scope,DataToolServices) {
 this.$onInit = function () {
 
-				debug && console.warn("Initializing mainCtrl.");
+				console.warn("Initializing mainCtrl.");
 
 				// Enable html debug switch button
 				$scope.switchDebug = function() {$rootScope.debug = !$scope.debug;}
 				// We access these services from html:
 				$scope.DataFactory = DataFactory;		// report4 image
 //				$scope.DeviceService = DeviceService;  // report4 image
-				$scope.DataToolServices = DataToolServices;  // report2 categroy
+				$scope.DataToolServices = DataToolServices;  // report2 categories
 
 	}	// End onInit
 
@@ -18,51 +18,82 @@ $scope.debug && console.warn("Controller: mainCtrl.");
 
 // CONTROLLER METHODS
 
+// updateView
+//
+// This is the main navigation logic which implements what to do at which view
 $scope.updateView = function (view,item) {
 
-		$scope.debug && console.log('--------------------------------------------------------\nView:', view);
-		appData.view = view;
-		$scope.view = view;
-		$scope.hintMessage=pageInfo[view];
+	$scope.debug && console.log('--------------------------------------------------------\nView:', view);
 
-		switch (view) {
+	// The view value where we came from is still not updated in $scope
+	// since we need it for some conditions.
+	// Here, we need to update the position coordinates everytime we are
+	// leaving report1, no matter to what page:
+	if ($scope.view == 'report1') {
+			DataToolServices.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
+			// We want to recall the full selector map state so we also save the zoom
+			appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
+	  }
+
+
+	// If we are entering a native report stage (not a saved one) then save it
+	// because we want to be able to pick up that stage from anywhere else again
+	switch (view) {
+			case 'report1':case 'report2':case 'report3':case 'report4':case 'report5':case 'report6':
+			 								debug && console.log("Saving view:", view);
+											appData.report_saved_view = view;
+			break;
+  } // End switch
+
+
+
+	switch (view) {
 
 				case "home":	// actions 'HOME' and 'Cancel'
-
-								if ($scope.view =="report1") {
-											// coming from 'cancel' => reset all data
-											DataFactory.initAppData();
-											// $route.reload();
-								 }
-							 	MapFactory.showPlacemarks();
-						    MapFactory.setMap('view');
-
+									if ($scope.view =="report1") {
+												// coming from 'cancel' => reset all data
+												DataFactory.initAppData();
+												MapFactory.mapControl('rebuild_map');
+												MapFactory.mapControl('center', cityCenter, initialZoomLevel);
+												//$route.reload();
+									 }
+								 	 MapFactory.showPlacemarks();
 				break;
 				case 'detail':   // detail view, we need to pass the selected item
 									$rootScope.listItem = item;
 				break;
 				case 'map':   // SHOW PLACEMARKS
-									// MapFactory.setMap('reconnect');
+									MapFactory.mapControl('rebuild_map');
+									$rootScope.baseMap.setZoom(initialZoomLevel);
 									MapFactory.showPlacemarks();
-
 				break;
-				case 'report1': // HIDE PLACEMARKS
+				case 'report_saved':
+									// When we enter this from any other than report views (like my,map,list,info)
+									// then the last saved report stage is recalled
+									view = appData.report_saved_view;
+									debug && console.log("Recalled report view:", view)
+									$scope.report_saved_view = view;
+				// !nobreak
 
+				case 'report1':		// MAP POSITION SELECTOR
+									//MapFactory.mapControl('rebuild_map');
 									MapFactory.hidePlacemarks();
-
+									// If there is already a selected position then recall it:
+									if (appData.position.coordinates.lat !== "") MapFactory.mapControl('center',appData.position.coordinates,appData.report_saved_select_zoom);
 				break;
-        case 'report2':		// CATEGORY CHOOSER
-                  // Update map position
-                  DataToolServices.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
-        break;  // End CATEGORY
 
-        default: $scope.debug && console.log('updateView: Nothing special here.'); break;
+        default:  $scope.debug && console.log('updateView: Nothing special here.'); break;
 
-	} // End switch
+  } // End switch
+
+	appData.view = view;
+	$scope.view = view;
+	$scope.hintMessage=pageInfo[view];
+
 } // End update-view
 
 $scope.typeCssClass = function (type)   {
-	console.log(type);
+	//$scope.debug && console.log(type);
 	switch (type) {
 				case 'gp.status.open':
 				return 'label-danger';
@@ -88,54 +119,85 @@ $scope.categoryCssClass = function (articleLabel)   {
 	return 'cat-'+indexOfCat;
 }
 
+
+
+
 $scope.getImage = function(source) {
 
 if ($rootScope.device_has_cam) {  // Ensure that we are on a device with camera
 
 
-	function imagePromise() {
+ 	DeviceService.getDeviceImage(source).then( function( status ){
 
-					var response = $q.defer();
-					console.log(DeviceService.getDeviceImage(source) );
+ 	// SUCCESS:
 
-					// does not wait w/o:
-																				// function () { response.resolve({ success: true });		},
-																				//
-																				// function() { response.reject({ failed: true });    })
-				  return response.promise;
+	// ! if android
+	$scope.imageData.native = status.uri;
 
-				}
+	 switch (source) {
+
+			 case 'camera':
+										 $scope.imageData.filepath = status.uri;
+
+										 // We also want the cordova cdv:// path and the file size
+										 window.resolveLocalFileSystemURL($scope.imageData.filepath, function(fileEntry) {
+
+																			 $scope.imageData.cdv = fileEntry.toInternalURL()
+
+																			 fileEntry.file(function(fileObj) {
+																																				 $scope.imageData.type = fileObj.type;
+																																				 $scope.imageData.size = fileObj.size;
+																																			 });
+																			 $scope.imageData.fileEntry = fileEntry;
+																	 });
+			 break;
+
+			 case 'gallery':
+
+										 // @Android: Using 'cordova filepath plugin' to resolve content:// links to file:// path
+										 window.FilePath.resolveNativePath(status.uri, function onSucc(result) {
+
+												$scope.imageData.filepath = result;
+
+												// We also want the cordova cdv:// path and the file size
+												window.resolveLocalFileSystemURL($scope.imageData.filepath, function(fileEntry) {
+
+																		$scope.imageData.cdv = fileEntry.toInternalURL()
+
+																		fileEntry.file(function(fileObj) {
+																																			$scope.imageData.type = fileObj.type;
+																																			$scope.imageData.size = fileObj.size;
+																																		 });
+																		$scope.imageData.fileEntry = fileEntry;
+																});
+
+											}, function onFail() { console.warn("Filepath plugin failed: ", result); }
+									 );
+			 break;
+
+	 }  // End switch
+
+	 debug && console.log("Service getDeviceImage saved $scope.imageData:", $scope.imageData);
+
+	 // log response:
+	 					// DataToolServices.updateAppData('image.text','returned device image',true)
+	 					// DataToolServices.updateAppData('image.text','failed device image',false)
+
+	 // validate image
+
+	 					// $scope.validateImage
+
+	 // update App data happens in validation
 
 
+ 	}, function( status ){
 
-		imagePromise().then(
+ 	// FAIL:
 
-			 // success
-			 function( status ) {
-														console.log("XXX status succ:", status.success);
-												 		console.log("imageData:", imageData);
-													},
+	 console.warn( 'Service getDeviceImage:', status.failed );
 
+ }) // End promise);
 
-	   	 // failed
-			 function( status ) {
-
-													  console.log("XXX status fail:", status.failed);
-														console.log("imageData:", imageData);
-
-													 }) // End then
-
-
-
-
-// log response:
-					// DataToolServices.updateAppData('image.text','returned device image',true)
-					// DataToolServices.updateAppData('image.text','failed device image',false)
-
-// validate image
-					// $scope.validateInput = function('device',listItem)
-
-// update App data happens in validation
 
 
 } else  {  // No camera device, probably a browser:
@@ -146,56 +208,42 @@ if ($rootScope.device_has_cam) {  // Ensure that we are on a device with camera
 } // End getImage
 
 
-// DEBUG: Letś say we validatet the image already as OK
-$scope.appData.image.is_valid = true;
-
-
-$scope.updateImagePreview = function() {
-		//if (imageData.filepath.length !== 0)
-		return imageData.filepath;
-	}
-
-
-$scope.validateInput = function(mode,file)  {
+$scope.validateImage = function(mode,file)  {
 
 					$scope.debug && console.log('validateInput: Checking', mode);
-
-					// do we need switch(mode) ? no.
 
 					let result = DataToolServices.validateImage(mode,file);
 
 									if (result == true) {
 																				// valid image -> image message no more needed
 																				DataToolServices.updateAppData('image.text','valid '+mode+' image',true)
-																				$rootScope.imageData.file = file;
+																				$scope.imageData.file = file;
 																				$scope.imageMessage = null;
 
 									} else { // image invalid
 																				// need this, else doesn't update in time
 																				$scope.imageMessage = $rootScope.imageMessage;
 
-																				if (mode="fileread") $rootScope.imageData.base64=null;  // clear memory
-																				// console.log("R:",$rootScope.imageData.base64, "S:", $scope.imageData.base64, "L:", imageData.base64);
+																				if (mode="fileread") $scope.imageData.base64=null;  // clear memory
+																				// console.log("R:",$rootScope.$scope.imageData.base64, "S:", $scope.$scope.imageData.base64, "L:", $scope.imageData.base64);
 									}
 
-}  // End validate
+}  // End validateImage
 
 
 });  // End main controller
-
 
 // alternate: }]); // End controller
 
 
 
 
-	// EXAMPLES
+// router EXAMPLE
+// Using this example for doing stuff on route Change ? : ->
 
-	// Using this example for saving centerposition on route Change ? : ->
-	//
-			 //* `routeTemplateMonitor` monitors each `$route` change and logs the current
-			 //* template via the `batchLog` service.
-			 //*
+//* `routeTemplateMonitor` monitors each `$route` change and logs the current
+//* template via the `batchLog` service.
+//*
 	// batchModule.factory('routeTemplateMonitor', ['$route', 'batchLog', '$rootScope',
 	//   function($route, batchLog, $rootScope) {
 	//     return {
@@ -206,79 +254,3 @@ $scope.validateInput = function(mode,file)  {
 	//       }
 	//     };
 	//   }]);
-
-
-	//Add in a crosshair as placemark
-	//var crosshairIcon = L.icon({
-	//    iconUrl: 'css/images/crosshair.png',
-	//    iconSize:     [80, 80], // size of the icon
-	//    iconAnchor:   [40, 40], // point of the icon which will correspond to marker's location
-	//});
-	//crosshair = new L.marker(baseMap.getCenter(), {icon: crosshairIcon, clickable:false});
-	//crosshair.addTo(baseMap);
-	//// Move the crosshair when user panes
-	//baseMap.on('move', function(e) {
-	//    crosshair.setLatLng(baseMap.getCenter());
-	//});
-
-
-	// Exanmple adding options:
-	//var geojsonMarkerOptions = {
-	//	    radius: 8,
-	//	    fillColor: "#ff7800",
-	//	    color: "#000",
-	//	    weight: 1,
-	//	    opacity: 1,
-	//	    fillOpacity: 0.8
-	//	};
-	//
-	//	L.geoJSON(someGeojsonFeature, {
-	//	    pointToLayer: function (feature, latlng) {
-	//	        return L.circleMarker(latlng, geojsonMarkerOptions);
-	//	    }
-	//	}).addTo(map);
-  //
-	// shortcut to stuff like add popups -- not used:
-	//	L.geoJson(geoData, {
-	//		onEachFeature: addPopup,
-	//		}).addTo(baseMap);
-	//
-	//	function addPopup(feature,layer) {
-	//		// console.log(feature);
-	//		layer.bindPopup(feature.properties.title);
-	//	}
-	// };
-
-
-
-// ================ OLD XHR =========================
-/*
-	var xhr = new XMLHttpRequest();
-	// 'preflight' CORS request
-	xhr.open("GET", url_geoData, true);
-		// onload event
-		xhr.onload = function() {
-		geoData=JSON.parse(xhr.responseText)
-		// Load data to Leaflet Map
-		// We could do it just as
-		// L.geoJSON(geoData).addTo(baseMap);
-		// but we want only the details that we need
-		// making the thing faster too
-		vectorArray = geoData.features;
-		for (var i = 0; i < vectorArray.length; i++) {
-			var feature = vectorArray[i];
-			// There may be entries w/o coordinates, entered in the Mühlheim Web Interface, so we need to test:
-			if(feature.geometry != null && feature.geometry.coordinates!= null) {
-				var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { title: feature.properties.title, alt:feature.properties.id});
-				marker.bindPopup('<h2>'+feature.properties.title+'</h2>');
-				// See http://leafletjs.com/reference-1.2.0.html#popup
-				marker.addTo(baseMap);
-			}
-		};
-		// error event
-		xhr.onerror = function() {
-		console.log('Error loading the placemarks!');
-		};
-	// perform request (async)
-	xhr.send();
-	*/

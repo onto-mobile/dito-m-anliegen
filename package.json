@@ -14,6 +14,9 @@
             "cordova-plugin-file": {},
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-filepath": {},
+            "cordova-plugin-geolocation": {
+                "GEOLOCATION_USAGE_DESCRIPTION": "Purpose of this application is to report geolocated incidents. Enabling geolocation detection helps users find their position and speeds up the reporting process."
+            },
             "cordova-plugin-whitelist": {}
         }
     },
@@ -23,6 +26,7 @@
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-filepath": "^1.1.0",
+        "cordova-plugin-geolocation": "^2.4.3",
         "cordova-plugin-whitelist": "^1.3.2"
     }
 }

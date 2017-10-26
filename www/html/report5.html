@@ -1,34 +1,39 @@
 <div id="report5" class="report">
     <form name="titleForm" novalidate>
+
       <div class="form-group">
         <label for="titleInput">Bitte fassen Sie ihr Anliegen in einer Überschrift zusammen:</label>
-        <input class="form-control report" id="titleInput" type="text" value="appData.title.text"
+        <input id="titleInput" class="form-control report" type="text" value="appData.title.text"
                ng-model="appData.title.text"
-               ng-change=""
-               ng-pattern=""
-               ng-minlength="3"
+               ng-minlength="5"
                ng-maxlength="150"
                spellcheck="false"
+               required
                autofocus
-               required/>
+               check-title/>
+        <span class="text-danger clearfix" ng-if="!appData.title.is_valid">Bitte mindestens 5 und maximal 150 Zeichen.</span>
         </div>
-          <!-- directive: check-title -->
-        <div class="form-group"  ng-class="{'has-error':appData.note.text.length >= 1500 }">
-      		<label for="noteInput" ng-class="{'text-danger':appData.note.text.length >= 1500}">Möchten Sie ihr Anliegen genauer beschreiben ?</label>
-          <textarea  class="report form-control"
+
+        <div class="form-group">
+      		<label for="noteInput">Wenn Sie möchten, können Sie ihr Anliegen hier genauer beschreiben:</label>
+          <textarea  id="noteInput"
+                     class="report form-control"
                      value="appData.note.text"
                      ng-model="appData.note.text"
                      ngTrim = "true"
-                      rows="5"
+                     rows = "5"
                      spellcheck="false">
           </textarea>
+          <!-- ng-pattern="/^[0-9a-z\s]{0,1500}$/" -->
           <span class="char-left" ng-class="{'text-danger':appData.note.text.length >= 1500}">{{appData.note.text.length}} / 1500</span>
-          <span class="text-danger clearfix" ng-if="appData.note.text.length >= 1500">All characters after the character 1500 will be trimed</span>
+          <span class="text-danger clearfix" ng-if="appData.note.text.length >= 1500">Der Text kann maximal 1500 Zeichen lang sein, darüber hinaus wird er abgeschnitten.</span>
     </form>
-</div>
-
-<pre ng-if = "debug">
-  Title: {{appData.title|json}}
-  Note: {{appData.note|json}}
-  Mandatory completed: {{appData.report_mandatory_completed_counter|json}}
- </pre>
+  </div>
+  <!--
+  <pre ng-if = "debug">
+    Title: {{appData.title|json}}
+    Note: {{appData.note|json}}
+    Mandatory completed: {{appData.report_mandatory_completed_counter|json}}
+  </pre>
+ -->
+ 

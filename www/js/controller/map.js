@@ -1,18 +1,17 @@
+// unused now ->  obsolete ?
 rootApp.controller('mapCtrl', function($scope,$rootScope,DataService,MapFactory) {
 
 
 switch($scope.view) {
 
 		case '/':		// CREATE PLACEMARKS
-		
-
-							// LOAD PLACEMARKS json by http service:
-							DataService.getJSON().then(
-
-													function (geoData) {
-																		let markerArray = MapFactory.addPlacemarks($rootScope.baseMap, geoData.features);
-													}  // End function
-									) // End then
+								// // LOAD PLACEMARKS json by http service:
+								// DataService.getJSON().then(
+								//
+								// 						function (geoData) {
+								// 											let markerArray = MapFactory.addPlacemarks($rootScope.baseMap, geoData.features);
+								// 						}  // End function
+								// 		) // End then
 		break;
 
 

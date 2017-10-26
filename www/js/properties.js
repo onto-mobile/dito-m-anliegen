@@ -1,4 +1,5 @@
 var debug=true;
+var fake_geoloc=false;
 // URL
 // var url_dito = 'http://anliegen.noam.de:8080/dito/explore';
 var url_dito = 'http://anliegen.muehlheim.ontopica.de/dito/explore';
@@ -8,12 +9,14 @@ var url_categories = url_dito+'?action=journalhelperajax&id=2692&method=getCateg
 var url_info = url_dito+'?action=readprivacy&id=2701';
 
 // MAP and PLACEMARK
-var mapAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
-var mapCenter = { lat:50.121, lng:8.832 };
+var mapAttribution = '<a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
+var cityCenter = { lat:50.121, lng:8.832 };
+var mapCenter = angular.copy(cityCenter);
+var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
 var minZoomLevel = 3;
-var maxZoomLevel = 20;
+var maxZoomLevel = 18;
 var initialZoomLevel = 13;
-
+var geolocZoomLevel = 16;
 // beamed to rootScope:
 var baseMap = {};
 var markerLayer = {};
@@ -74,11 +77,11 @@ var AppDataTemplate =  {
                   'position'  :       { coordinates:{lat:"",lng:""},is_valid:true,mandatory:true},
                   'category'  :       { text:"undefined",is_valid:false,mandatory:true},
                   'image'     :       { text:"undefined",is_valid:false,mandatory:false},
-                  'title'     :       { text:"yet another thing to mention",is_valid:true,mandatory:true},
-                  'note'      :       { text:"\n",is_valid:true,mandatory:false},
+                  'title'     :       { text:"",is_valid:false,mandatory:true},
+                  'note'      :       { text:"",is_valid:true,mandatory:false},
                   'email'     :       { text:"mw@ontopica.de",is_valid:true,mandatory:true},
                   'check_privacy_accepted'  :  {state:false,is_valid:false,mandatory:true},
-                  'report_mandatory_completed_counter'  : 3,
+                  'report_mandatory_completed_counter'  : 2,
                   'report_mandatory_is_complete'  : false,
                    mandatoryNumber : function () {
                                               console.log('Mandatory items:');
@@ -93,6 +96,8 @@ var AppDataTemplate =  {
                                                 return number;
                                       }, // End method
                   'view'  :       'home',
+                  'report_saved_view' : 'report1',
+                  'report_saved_select_zoom' : '',
                   'sendOK'  :  'undefined'
                   };  // End appData
 
@@ -100,7 +105,7 @@ var AppDataTemplate =  {
 var view = AppDataTemplate.view;
 
 // dito data converts the report data to dito API
-// by now still fully implemented in the makeDitoData factory
+// For now this is hardcoded in the makeDitoData factory
 //
 var ditoData = {};
 
@@ -131,7 +136,7 @@ var uploadData = {};
 // but we can't do this before 'deviceready', so we reconfigure the options in deviceready.js
 // using the string values given here, e.g. 'CAMERA' here becomes Camera.DestinationType.CAMERA there.
 //
-photoOptions = {
+var photoOptions = {
           'camera' : {
                         sourceType: 'CAMERA',
                         destinationType: 'FILE_URI',
@@ -150,15 +155,47 @@ photoOptions = {
                       destinationType: 'NATIVE_URI',
                       mediaType: 'PICTURE'
                     },
-        'cleanup' :  {
+          'cleanup' : {
                       sourceType: 'CAMERA',
                       destinationType: 'FILE_URI'
                       }
     };
 
+
+var geolocateOptions = {
+  //                  locateOptions : method options, see code
+  //                  onLocationError : function
+  //                  onLocationOutsideMapBounds : function
+                    enableHighAccuracy: true,
+                    setView : 'false',
+                    flyTo : true,
+                    keepCurrentZoomLevel  : false,
+                    maxZoom: geolocZoomLevel,
+                    // clickBehavior :  {inView: 'stop', outOfView: 'setView'},
+                    position  : 'topleft',
+                    drawCircle  : false,
+                    //markerClass : L.CircleMarker,
+                    markerStyle : {
+                                    radius: 12,
+                                    fillColor :'red',
+                                    color: 'white',
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                  },
+                    icon  : 'fa fa-map-marker',
+                    iconLoading : 'fa fa-spinner fa-spin',
+                    strings: {
+                                title : "Standort automatisch erkennen und Karte anpassen",
+                                popup : "Geolokalisierung aktiviert."
+                              }
+      };
+
     // OTHER
     //
-    // Plugins check @ app init
+    // The most important plugins are checked @ app init, where we propagate
+    // the results to rootscope so that any component can use them
     var device_has_cam = "undefined";
+    var device_has_geoloc = "undefined";
     var device_has_filetransfer = "undefined";
-    var device_has_filereader = "undefined"; // html file-reader fallback
+    var device_has_filereader = "undefined"; // html file-reader is fallback for camera

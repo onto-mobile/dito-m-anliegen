@@ -14,8 +14,6 @@ angular.module('rootApp')
 //
 .directive('checkEmail', ['DataToolServices', function(DataToolServices) {
 
-debug && console.log('Email validator -->');
-
 let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 // debug && ( regExpr = /test/ );
 
@@ -27,40 +25,75 @@ let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 									// Overwrite browser validator:
 									ctrl.$validators.email = function(value) {
 
-																	debug && console.log('Custom email validator:');
-																	debug && console.log('Last validation state:', appData.email.is_valid);
+														// debug && console.log('Custom email validator:');
+														// debug && console.log('Last validation state:', appData.email.is_valid);
 
-																	// the damm validator sets true for undefined, so:
-																	if (!value) {
+														// the damm validator sets true when undefined, so:
+														if (!value) {
+																		// debug && console.log('Input field cleared.');
+																		if (appData.email.is_valid == true)
+																					{
+																						DataToolServices.updateMandatoryCounter("-");
+																						appData.email.is_valid = false
+																					 }
+																					return false;
 
-																					debug && console.log('Input field cleared.');
+														 }	else  {  // Input field was modified but not cleared
 
-																					if (appData.email.is_valid == true)
-																								{
-																									DataToolServices.updateMandatoryCounter("-");
-																									appData.email.is_valid = false
-																								 }
-																								return false;
-
-																	 }	else  {  // Input field was modified but not cleared
-
-																			  result=regExpr.test(value);
-
-																				debug && console.log("New result:",result);
-
-																				if ((result == false) && (appData.email.is_valid == true)) DataToolServices.updateMandatoryCounter("-");
-																				if ((result == true) && (appData.email.is_valid == false)) DataToolServices.updateMandatoryCounter("+");
-																				appData.email.is_valid = result
-																				return result;
-																			}
-																} // End func
+																  result=regExpr.test(value);
+																	// debug && console.log("New result:",result);
+																	if ((result == false) && (appData.email.is_valid == true)) DataToolServices.updateMandatoryCounter("-");
+																	if ((result == true) && (appData.email.is_valid == false)) DataToolServices.updateMandatoryCounter("+");
+																	appData.email.is_valid = result
+																	return result;
+															} // End if
+										} // End func
 						}  // End link
 	 };  // End return
 }])  // End directive email
 
 
-// This is a relict from browser file-reader evalutaion
-// UNUSED now, but i want to keep it for reference
+// validator: TITLE
+//
+.directive('checkTitle', ['DataToolServices', function(DataToolServices) {
+
+let regExpr = /^[0-9a-z\s]{5,150}$/i;
+	return {
+						require:'ngModel',
+						link:function(scope,element,attr,ctrl) {
+
+						// Overwrite browser validator:
+						ctrl.$validators.text = function(value) {
+
+						// debug && console.log('Title text validator:');
+						// debug && console.log('Last validation state:', appData.title.is_valid);
+
+										// the damm validator sets true when undefined, so:
+										if (!value) {
+														// debug && console.log('Input field cleared.');
+														if (appData.title.is_valid == true)
+																	{
+																		DataToolServices.updateMandatoryCounter("-");
+																		appData.title.is_valid = false
+																	 }
+																	return false;
+
+										 }	else  {  // Input field was modified but not cleared
+													  result=regExpr.test(value);
+														// debug && console.log("New result:",result);
+														if ((result == false) && (appData.title.is_valid == true)) DataToolServices.updateMandatoryCounter("-");
+														if ((result == true) && (appData.title.is_valid == false)) DataToolServices.updateMandatoryCounter("+");
+														appData.title.is_valid = result
+														return result;
+		 							} // End if
+							}  // End func
+						}  // End link
+	 };  // End return
+}])  // End directive title
+
+
+// This is used in the browser file-reader fallback
+// UNUSED on device, but i want to keep it for reference
 //
 // <attr file-change="function(parameters,$event,files)">
 //
