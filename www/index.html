@@ -131,9 +131,9 @@
 <div ng-cloak>
   <nav class="navbar navbar-default navbar-fixed-bottom" id="navBottom" ng-if="true">
     <ul class="nav navbar-nav">
-      <li class="col-xs-2" ng-class="{'active': view == 'list'}"><a href="#!list" ng-click="updateView('list')"><i class="fa fa-lg fa-list" aria-hidden="true"></i></a></li>
+      <li class="col-xs-2" ng-class="{'active': view == 'list'}" ng-click="updateView('list')"><a href="#!list"><i class="fa fa-lg fa-list" aria-hidden="true"></i></a></li>
       <li class="col-xs-8 text-center">{{appTitle}}</li>
-      <li class="col-xs-2"><a href="#!map" ng-click="updateView('map')"><i class="fa fa-lg fa-map" aria-hidden="true"></i></a></li>
+      <li class="col-xs-2" ng-click="updateView('map')"><a href="#!map"><i class="fa fa-lg fa-map" aria-hidden="true"></i></a></li>
     </ul>
   </nav>
 </div>   <!-- ng-cloak -->
