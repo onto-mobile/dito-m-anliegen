@@ -6,11 +6,11 @@
 
 # and except these files:
 # Note that we don't want the different config.xml and package.json to be overwritten from either cordova or phonegap
-!Readme*
-!config-cordova.xml
-!config-phonegap.xml
-!.project
-!.bithoundrc
+!/Readme*
+!/config-cordova.xml
+!/config-phonegap.xml
+!/.project
+!/.bithoundrc
 
 # Ignore anything in res folder which for phonegap is in www folder
 /www/res/*
