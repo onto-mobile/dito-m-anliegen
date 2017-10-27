@@ -3,50 +3,47 @@
 }
 
 .nav li  {
-  border:collapse;
-  padding:0px;
-}
-
-.nav a  {
-  margin:0;
-  display:block;
-  text-decoration: none;
+    margin-top: 15px;
 }
 
 /* center buttons */
-.nav .text-center {
-  font-size:1.3em;
+
+
+li.text-center {
   text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.navbar-fixed-top li.text-center {
+  font-size:1.2em;
 }
 
 /* app title */
-#navBottom .text-center {
-  text-align: center;
-  font-size:1.4em;
+.navbar-fixed-bottom li.text-center {
+  font-size:1.3em;
   color:green;
-  line-height:2.5;
-  display: inline-block;
-  vertical-align: middle;
-*/
 }
+
 
 div.report .btn-group-vertical{
   width:100%;
 }
+
 div.detail{
   margin: 5px
 }
+
 .info .modal-header,
 .info .panel-default{
   display: none;
 }
 
-
 /* input validation colors */
 /*.form-control {
   border: 1px solid #27a000;
 }
-
 .text-danger {
   color: #1990;
 }

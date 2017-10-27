@@ -57,89 +57,88 @@
 
 <body>
 
-<!--#####################################################################################-->
-<!--vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-->
+  <!--#####################################################################################-->
+  <!--vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-->
 
-<div ng-cloak>
+  <div ng-cloak>
 
-  <!-- this means we're coming from anywhere else than a "report*" view: -->
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view.indexOf('report') < 0">
-    <ul class="nav navbar-nav">
-      <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="updateView('my')"><a href="#!my"><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></a></li>
-       <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
-      <li ng-if="view == 'home'" class="col-xs-8" ng-class="{'active': view == 'report1'}" ng-click="updateView('report1')"><a class="text-center" href="#!report1">MELDEN</a></li>
-      <li ng-if="view !== 'home'" class="col-xs-8" ng-class="{'active': view == 'report1'}" ng-click="updateView('report_saved')"><a class="text-center" href="#!{{report_saved_view}}">MELDEN</a></li>
-      <li class="col-xs-2" ng-class="{'active': view == 'info'}" ng-click="updateView('info')"><a href="#!info"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report1'">
-    <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-class="{'active': view == 'home'}" ng-click="updateView('home')"><a href="#!home"><i class="fa fa-lg fa-times" aria-hidden="true"></i></a></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8" ng-click="updateView('send')"><a class="text-center" href="#!send">ABSENDEN</a></li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active" ><a class="text-center">{{hintMessage}}</a></li>
-      <li class="col-xs-2" ng-class="{'active': view == 'report2'}" ng-click="updateView('report2')"><a href="#!report2"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-  <!-- The report moves from report2 to report4 because we will have report3 some day (showing the nearby reports) -->
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report2'">
-    <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report1')"><a href="#!report1"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></a></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8" ng-click="updateView('send')"><a class="text-center" href="#!send">ABSENDEN</a></li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active" ><a class="text-center">{{hintMessage}}</a></li>
-      <li class="col-xs-2" ng-show="appData.category.is_valid" ng-click="updateView('report4')"><a href="#!report4"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-  <!-- not implemented: report3: Show list of nearby reports -->
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report4'">
-    <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report2')"><a href="#!report2"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></a></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8" ng-click="updateView('send')"><a class="text-center" href="#!send">ABSENDEN</a></li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active" ><a class="text-center">{{hintMessage}}</a></li>
-      <li class="col-xs-2" ng-click="updateView('report5')"><a href="#!report5"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report5'">
-    <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report4')"><a href="#!report4"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></a></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8" ng-click="updateView('send')"><a class="text-center" href="#!send">ABSENDEN</a></li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active" ><a class="text-center">{{hintMessage}}</a></li>
-      <li class="col-xs-2" ng-click="updateView('report6')"><a href="#!report6"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report6'">
-    <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report5')"><a href="#!report5"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></a></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8" ng-click="updateView('send')"><a class="text-center" href="#!send">ABSENDEN</a></li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active" ><a class="text-center">{{hintMessage}}</a></li>
-      <li class="col-xs-2" ng-click="updateView('info')"><a href="#!info"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-</div>  <!-- ng-cloak -->
+    <!-- this means we're coming from anywhere else than a "report*" view: -->
+    <nav class="navbar navbar-default navbar-fixed-top" ng-if="view.indexOf('report') < 0">
+      <ul class="nav navbar-nav">
+        <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="updateView('my')"><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></li>
+         <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
+        <li ng-if="view == 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="updateView('report1')">MELDEN</li>
+        <li ng-if="view !== 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="updateView('report_saved')">MELDEN</li>
+        <li class="col-xs-2" ng-class="{'active': view == 'info'}" ng-click="updateView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
+      </ul>
+    </nav>
+    <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report1'">
+      <ul class="nav navbar-nav ">
+        <li class="col-xs-2" ng-class="{'active': view == 'home'}" ng-click="updateView('home')"><i class="fa fa-lg fa-times" aria-hidden="true"></i></li>
+        <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+        <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+        <li class="col-xs-2" ng-class="{'active': view == 'report2'}" ng-click="updateView('report2')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      </ul>
+    </nav>
+    <!-- The report moves from report2 to report4 because we will have report3 some day (showing the nearby reports) -->
+    <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report2'">
+      <ul class="nav navbar-nav ">
+        <li class="col-xs-2" ng-click="updateView('report1')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+        <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+        <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+        <li class="col-xs-2" ng-show="appData.category.is_valid" ng-click="updateView('report4')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      </ul>
+    </nav>
+    <!-- not implemented: report3: Show list of nearby reports -->
+    <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report4'">
+      <ul class="nav navbar-nav ">
+        <li class="col-xs-2" ng-click="updateView('report2')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+        <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+        <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+        <li class="col-xs-2" ng-click="updateView('report5')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      </ul>
+    </nav>
+    <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report5'">
+      <ul class="nav navbar-nav ">
+        <li class="col-xs-2" ng-click="updateView('report4')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+        <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+        <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+        <li class="col-xs-2" ng-click="updateView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></a></li>
+      </ul>
+    </nav>
+    <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report6'">
+      <ul class="nav navbar-nav ">
+        <li class="col-xs-2" ng-click="updateView('report5')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+        <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+        <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+        <li class="col-xs-2" ng-click="updateView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></a></li>
+      </ul>
+    </nav>
+  </div>  <!-- ng-cloak -->
 
-<!--#####################################################################################-->
+  <!--#####################################################################################-->
 
-<div id="viewport">
+  <div id="viewport">
+     <div id="mapid" ng-show="map_view_active"></div>
+  	 <!-- <div id="mapid" ng-show="view=='home'|| view=='map'||view=='report1'"></div> -->
+  	 <ng-view></ng-view>
 
-	 <div id="mapid" ng-show="view=='home'|| view=='map'||view=='report1'">
-	 </div>
-	<ng-view></ng-view>
+  </div>
 
-</div>
+  <!--#####################################################################################-->
 
-<!--#####################################################################################-->
+  <div ng-cloak>
+    <nav class="navbar navbar-default navbar-fixed-bottom" id="navBottom" ng-if="true">
+      <ul class="nav navbar-nav">
+        <li class="col-xs-2" ng-class="{'active': view == 'list'}" ng-click="updateView('list')"><i class="fa fa-lg fa-list" aria-hidden="true"></i></li>
+        <li class="col-xs-8 text-center">{{appTitle}}</li>
+        <li class="col-xs-2 text-right" ng-click="updateView('map')"><i class="fa fa-lg fa-map" aria-hidden="true"></i></li>
+      </ul>
+    </nav>
+  </div>   <!-- ng-cloak -->
 
-<div ng-cloak>
-  <nav class="navbar navbar-default navbar-fixed-bottom" id="navBottom" ng-if="true">
-    <ul class="nav navbar-nav">
-      <li class="col-xs-2" ng-class="{'active': view == 'list'}" ng-click="updateView('list')"><a href="#!list"><i class="fa fa-lg fa-list" aria-hidden="true"></i></a></li>
-      <li class="col-xs-8 text-center">{{appTitle}}</li>
-      <li class="col-xs-2" ng-click="updateView('map')"><a href="#!map"><i class="fa fa-lg fa-map" aria-hidden="true"></i></a></li>
-    </ul>
-  </nav>
-</div>   <!-- ng-cloak -->
-
-<!--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-->
-<!--#####################################################################################-->
+  <!--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-->
+  <!--#####################################################################################-->
 
 </body>
 

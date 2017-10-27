@@ -3,7 +3,10 @@ var rootApp = angular.module('rootApp',['ngRoute','ngSanitize']);
 //
 //   APP config: route provider
 //
-rootApp.config(function($routeProvider) {
+rootApp.config(function($routeProvider,$locationProvider) {
+
+
+// config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
       // Note that some separate subcontrollers are declared in the html templates
       // Also note that when there is no controller specified, then
@@ -33,8 +36,9 @@ rootApp.run(function($rootScope,MapFactory,DataFactory,NetworkService) {
       // Keep these things accessible through all controller instances
       // (We use rootscope, to avoid making things complicated and hard to debug)
  			$rootScope.debug=debug;
-
+      //
 			// DEVICE ENVIRONMENT
+      //
       debug && console.log("Checking Cordova plugins:");
       $rootScope.device_has_geoloc = (typeof navigator.geolocation !== "undefined" ) ? true:false;
       debug && console.log("Geolocation:",$rootScope.device_has_geoloc);
@@ -45,14 +49,17 @@ rootApp.run(function($rootScope,MapFactory,DataFactory,NetworkService) {
       //
       $rootScope.device_has_filereader =  ( window.FileReader !== "undefined" ) ? true:false;
       !$rootScope.device_has_filereader && console.log("Broswer does not support native html file-reader.");
-
-
+      //
       // APP / REPORT DATA init
+      //
       DataFactory.initAppData();
+      //
       // Initial view
+      //
       view=appData.view;
       debug && console.log("App initialized view:", view);
-
+      $rootScope.map_view_active = map_view_active;
+      //
       // MAP INIT
       //
       $rootScope.fake_geoloc=fake_geoloc;
@@ -70,18 +77,9 @@ rootApp.run(function($rootScope,MapFactory,DataFactory,NetworkService) {
       // MapFactory.mapControl('get_cordova_geoloc');
       // However, the geolocation is done by leaflet plugin now:
       MapFactory.addControl('geoloc');
-
-      // We want to access these from all controllers and pages:
-      // $rootScope.DataToolServices = DataToolServices;
-      // $rootScope.listOfCategories = listOfCategories;
-      $rootScope.appTitle = pageInfo.app_title;
-      $rootScope.pageMessage = pageMessage;
-      $rootScope.imageMessage = imageMessage;
-      $rootScope.imageTypesAllowed = imageTypesAllowed;
-      $rootScope.photoOptions = photoOptions;
-      report_mandatory_number = appData.mandatoryNumber();
       //
       // Load categroies from server
+      //
       NetworkService.getCategories().then(
             function (receivedCategories) {
                   // old version: only names
@@ -92,4 +90,10 @@ rootApp.run(function($rootScope,MapFactory,DataFactory,NetworkService) {
             }
        ) // End then
 
+       report_mandatory_number = appData.mandatoryNumber();
+
+       // We want to access these from all controllers and pages:
+       $rootScope.appTitle = pageInfo.app_title;
+       $rootScope.imageTypesAllowed = imageTypesAllowed;
+       $rootScope.photoOptions = photoOptions;
 	});  // End rootApp run

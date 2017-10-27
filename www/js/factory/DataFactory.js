@@ -22,16 +22,19 @@ resetData : function(choice)  {
 						switch(choice) {
 
 									case 'app':
+											$rootScope.appData = null;
+											delete $rootScope.appData;
 											appData = angular.copy(AppDataTemplate);
 											$rootScope.appData = appData;
 											$rootScope.view = appData.view;
 									break;
 									case 'image':
+											$rootScope.imageData = null;
+											delete $rootScope.imageData;
 											imageData = angular.copy(ImageDataTemplate);
 											$rootScope.imageData = imageData;
 											// need this for correct mandatory counter:
 											DataToolServices.updateAppData('image.text','reset',false);
-											$rootScope.imageMessage = "Kein Bild ausgewählt.";
 									break;
 							}
 }, // End resetData

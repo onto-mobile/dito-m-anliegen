@@ -13,8 +13,8 @@ var mapAttribution = '<a href="http://openstreetmap.org">OpenStreetMap</a> contr
 var cityCenter = { lat:50.121, lng:8.832 };
 var mapCenter = angular.copy(cityCenter);
 var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
-var minZoomLevel = 3;
-var maxZoomLevel = 18;
+var minZoomLevel = 12;
+var maxZoomLevel = 19;
 var initialZoomLevel = 13;
 var geolocZoomLevel = 16;
 // beamed to rootScope:
@@ -55,7 +55,6 @@ var pageInfo = {
 'error'  : "Fehler :(",
 'detail' : "detail"
 };
-var pageMessage="";
 
 // obj appData:
 //
@@ -97,18 +96,19 @@ var AppDataTemplate =  {
                                       }, // End method
                   'view'  :       'home',
                   'report_saved_view' : 'report1',
-                  'report_saved_select_zoom' : '',
+                  'report_saved_select_zoom' : initialZoomLevel,
                   'sendOK'  :  'undefined'
                   };  // End appData
 
-// Need to init this here because ng router initializes even before rootApp.run
+// We maintain the view by mainCtrl.updateView and these are rooScope vars
+// W weed to init them here because ng router initializes even before rootApp.run
 var view = AppDataTemplate.view;
-
+var map_view_active = true;
+//
 // dito data converts the report data to dito API
 // For now this is hardcoded in the makeDitoData factory
-//
 var ditoData = {};
-
+//
 // image data object with many possible properties for maximal flexibility.
 // Also separate from appData because keeping base64 data in appData slows app down.
 // base64 still is in use for browser mode which uses a browser file-read fallback in the image input-form directive

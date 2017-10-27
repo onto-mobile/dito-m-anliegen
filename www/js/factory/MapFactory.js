@@ -210,7 +210,7 @@ mapControl: function(mode,coords,zoom)  {
 
               case 'rebuild_map':
                                 // What can we do about blocked tiles ?
-                                $rootScope.baseMap.invalidateSize();
+                                // $rootScope.baseMap.invalidateSize();
               break;
 
               case 'get_cordova_geoloc':  // this was used for custom geocontrol, unused by now

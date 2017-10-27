@@ -124,34 +124,31 @@ rootApp.service('DeviceService', function($rootScope,$q,$timeout,DataFactory,Dat
 //
 this.getDeviceImage = function (source) {
 
-
 		debug && console.warn('Service getDeviceImage:');
 		debug && console.log('Options for ' + source + ':', photoOptions[source]);
 
 		var deferred = $q.defer();
 
-			navigator.camera.getPicture(
+		navigator.camera.getPicture(
 
 						function onSucc(response) {
-																	debug && console.log('cordova camera plugin returns:', response);
-																	deferred.resolve( { uri: response } );
-																	// return true;
-																	},
+
+						    debug && console.log('cordova camera plugin returns:', response);
+								deferred.resolve( { uri: response } );
+								// return true;
+						},
 
 						function onFail(response) {
-																			debug && console.warn("cordova camera plugin: No picture loaded: " + response);
-																			deferred.reject( { failed: response }  );
-																			// return false;
-																			},
+
+								debug && console.warn("cordova camera plugin: No picture loaded: " + response);
+								deferred.reject( { failed: response }  );
+								// return false;
+						},
 						photoOptions[source])
 
-			return deferred.promise;
+		return deferred.promise;
 
-		// } // End promised getPicture()
-
-		// return angularPromise;
-
-} // End promised getDeviceImage
+} // End getDeviceImage
 
 
 // Read image filepath as base64 data -- unused --
@@ -214,7 +211,12 @@ rootApp.service('DataToolServices', function($rootScope) {
 
 // -----------------------------------------------------------------------------
 
-
+// mode: 'device' or 'filreread'
+// item: for file-read, the files[0] object returned from the file-reader
+// 			 for device, the fileEntry object created by makeImageData
+//
+// The service returns true/false and an error message
+//
 this.validateImage = function(mode,item)  {
 
 				$rootScope.debug && console.log('DataToolServices: Validating', mode);
@@ -242,37 +244,33 @@ this.validateImage = function(mode,item)  {
 
 				// Validate
 
+				let text = "";
+
 				if (imageTypesAllowed.includes(type)) {
+								// Check size
+								// $rootScope.debug && console.log('File size:', filesize, "Limit:", maxFileSize);
+								if (filesize <= maxFileSize) {
 
-											// Check size
-											// $rootScope.debug && console.log('File size:', filesize, "Limit:", maxFileSize);
-											if (filesize <= maxFileSize) {
+														 result = true;
 
-																	 result = true;
+								} else {  // file too large
 
-											} else {  // file too large
+													with (Math) {
+																	var sizeKB = floor(filesize/1000);
+																	var maxKB = floor(maxFileSize/1000);
+																	var maxMB = round(maxKB/1000);
+															 		}
+									result = false;
+									text="file too large";
 
-																with (Math) {
-																				var sizeKB = floor(filesize/1000);
-																				var maxKB = floor(maxFileSize/1000);
-																				var maxMB = round(maxKB/1000);
-																		 		}
+							}  // End file too large
 
-																				$rootScope.imageMessage = "Das Bild ist " + sizeKB + " Kilobyte groß.\nSie können nur Dateien bis maximal " + maxKB + " Kilobyte anhängen.";
-												result = false;
-												this.updateAppData('image.text','file too large',false)
-
-											}  // End file too large
-
-					} else {  // invalid file type
-
-								 $rootScope.imageMessage = 'Der Dateityp "' + type + '" wird nicht unterstützt.\nSie können nur die Bildformate ' + imageTypesAllowed + ' anhängen.';
+						} else {  // invalid file type
 								 result = false;
-								 this.updateAppData('image.text','unsupported format',false)
-							   }
+								 text = "unsupported format";
+	       }
 
-				return 	result;
-
+return 	{ result:result, text: text };
 
 } // End validate
 

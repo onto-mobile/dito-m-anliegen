@@ -57,7 +57,7 @@ let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 //
 .directive('checkTitle', ['DataToolServices', function(DataToolServices) {
 
-let regExpr = /^[0-9a-z\s]{5,150}$/i;
+  // let regExpr = /^[0-9a-z\s]{5,150}$/i;
 	return {
 						require:'ngModel',
 						link:function(scope,element,attr,ctrl) {
@@ -79,7 +79,9 @@ let regExpr = /^[0-9a-z\s]{5,150}$/i;
 																	return false;
 
 										 }	else  {  // Input field was modified but not cleared
-													  result=regExpr.test(value);
+													  // result=regExpr.test(value);
+														//value = value.trim();
+														result =  value.length > 4 && value.length <= 150;
 														// debug && console.log("New result:",result);
 														if ((result == false) && (appData.title.is_valid == true)) DataToolServices.updateMandatoryCounter("-");
 														if ((result == true) && (appData.title.is_valid == false)) DataToolServices.updateMandatoryCounter("+");
