@@ -3,8 +3,15 @@
 }
 
 .nav li  {
-    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 11px;
+    border:2px red solid;
 }
+
+.nav i  {
+    border:1px green solid;;
+}
+
 
 /* center buttons */
 
@@ -17,12 +24,12 @@ li.text-center {
 
 
 .navbar-fixed-top li.text-center {
-  font-size:1.2em;
+  font-size:16px;
 }
 
 /* app title */
 .navbar-fixed-bottom li.text-center {
-  font-size:1.3em;
+  font-size:16px;
   color:green;
 }
 
