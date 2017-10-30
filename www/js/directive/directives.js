@@ -12,7 +12,7 @@ angular.module('rootApp')
 
 // validator: EMAIL
 //
-.directive('checkEmail', ['DataToolServices', function(DataToolServices) {
+.directive('checkEmail', ['DataServices', function(DataServices) {
 
 let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 // debug && ( regExpr = /test/ );
@@ -33,7 +33,7 @@ let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 																		// debug && console.log('Input field cleared.');
 																		if (appData.email.is_valid == true)
 																					{
-																						DataToolServices.updateMandatoryCounter("-");
+																						DataServices.updateMandatoryCounter("-");
 																						appData.email.is_valid = false
 																					 }
 																					return false;
@@ -42,8 +42,8 @@ let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 
 																  result=regExpr.test(value);
 																	// debug && console.log("New result:",result);
-																	if ((result == false) && (appData.email.is_valid == true)) DataToolServices.updateMandatoryCounter("-");
-																	if ((result == true) && (appData.email.is_valid == false)) DataToolServices.updateMandatoryCounter("+");
+																	if ((result == false) && (appData.email.is_valid == true)) DataServices.updateMandatoryCounter("-");
+																	if ((result == true) && (appData.email.is_valid == false)) DataServices.updateMandatoryCounter("+");
 																	appData.email.is_valid = result
 																	return result;
 															} // End if
@@ -55,7 +55,7 @@ let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 
 // validator: TITLE
 //
-.directive('checkTitle', ['DataToolServices', function(DataToolServices) {
+.directive('checkTitle', ['DataServices', function(DataServices) {
 
   // let regExpr = /^[0-9a-z\s]{5,150}$/i;
 	return {
@@ -64,30 +64,15 @@ let regExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
 
 						// Overwrite browser validator:
 						ctrl.$validators.text = function(value) {
-
-						// debug && console.log('Title text validator:');
-						// debug && console.log('Last validation state:', appData.title.is_valid);
-
-										// the damm validator sets true when undefined, so:
-										if (!value) {
-														// debug && console.log('Input field cleared.');
-														if (appData.title.is_valid == true)
-																	{
-																		DataToolServices.updateMandatoryCounter("-");
-																		appData.title.is_valid = false
-																	 }
-																	return false;
-
-										 }	else  {  // Input field was modified but not cleared
-													  // result=regExpr.test(value);
-														//value = value.trim();
-														result =  value.length > 4 && value.length <= 150;
-														// debug && console.log("New result:",result);
-														if ((result == false) && (appData.title.is_valid == true)) DataToolServices.updateMandatoryCounter("-");
-														if ((result == true) && (appData.title.is_valid == false)) DataToolServices.updateMandatoryCounter("+");
+						// no value means nothing typed in yet (pristine) or input was cleared
+								if (value) {
+														result = (4 < value.length && value.length < 151);
+													  debug && console.log("New result:",value.length, result);
+														if ((result == false) && (appData.title.is_valid == true)) DataServices.updateMandatoryCounter("-");
+														if ((result == true) && (appData.title.is_valid == false)) DataServices.updateMandatoryCounter("+");
 														appData.title.is_valid = result
 														return result;
-		 							} // End if
+													}
 							}  // End func
 						}  // End link
 	 };  // End return

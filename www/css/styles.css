@@ -1,3 +1,51 @@
+/* bootup messages */
+
+div.text-device-error {
+  background-color: #fe9585;
+}
+
+div.text-device-ok {
+  background-color: green;
+}
+
+div.deviceMessage {
+  width:90vw;
+  height:22vh;
+  display:inline-block;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  margin: auto;
+  border-radius: 10px;
+  border-style: groove;
+}
+
+div.deviceMessageInner {
+  font-family: sans;
+  font-size: 16px;
+  font-weight: 500;
+  text-align:center;
+  vertical-align:middle;
+  width:90%;
+  height:80%;
+  display:inline-block;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  margin: auto;
+}
+
+
+/* NAV */
+
+#viewport {
+  margin: 0 5px 0 5px;
+}
+
 .nav.navbar-nav {
   width:100%;
 }
@@ -5,16 +53,11 @@
 .nav li  {
     padding-top: 15px;
     padding-bottom: 11px;
-    border:2px red solid;
-}
-
-.nav i  {
-    border:1px green solid;;
+    /*border:2px red solid;*/
 }
 
 
-/* center buttons */
-
+/* nav center buttons */
 
 li.text-center {
   text-align: center;
@@ -27,25 +70,57 @@ li.text-center {
   font-size:16px;
 }
 
-/* app title */
+/* bottom center = app title */
 .navbar-fixed-bottom li.text-center {
   font-size:16px;
   color:green;
 }
 
 
-div.report .btn-group-vertical{
-  width:100%;
-}
+/* DETAIL */
 
-div.detail{
+div.detail {
   margin: 5px
 }
+
+
+
+/* REPORT */
 
 .info .modal-header,
 .info .panel-default{
   display: none;
 }
+
+div.report .btn-group-vertical{
+  width:100%;
+}
+
+.report {
+  font-size:1em;
+}
+
+div.pageFeedback {
+  position: relative;
+  top:2vh;
+  padding: auto;
+  background-color:inherit;
+}
+
+/* IMAGE */
+
+div.previewBox {
+	text-align:center;
+	padding: 10px 5px 0px 5px;
+}
+
+#imgAttchPreview {
+	max-height:65vh;
+	max-width:100%;
+}
+
+
+/* INPUT TEXT */
 
 /* input validation colors */
 /*.form-control {
@@ -55,3 +130,27 @@ div.detail{
   color: #1990;
 }
 */
+
+.report label {
+  margin:20px 0 10px 0;
+}
+
+#email {
+  text-indent:10px;
+}
+
+#report5 #report6 .input-group-addon {
+  background-color: none;
+}
+
+i.ok {
+ color:green;
+}
+
+i.not-ok {
+  color:darkorange;
+}
+
+/*  checkbox */
+/*.report input[type=checkbox] { background: lightblue; }
+.report input[type=checkbox]:checked { background: green; }*/

@@ -1,91 +1,221 @@
 
+// =============== Message CONFIG ===============
 
-// Example fork  device <--> browser:
-// Put this inside a script tag before the /body tag.
+// Status messages
+let text_error="Keine Verbindung ... bitte aktivieren Sie ihr Netzwerk!";
+let text_ok="OK";
+
+// Adding or removing app boot HTML messages
+// example: createElement('myID','OK!','text-ok','fa fa-check fa-2x')
 //
-//   angular.element(document).ready(function () {
-//     if (window.cordova) {
-//       console.log("Running in Cordova, will bootstrap AngularJS once 'deviceready' event fires.");
-//       document.addEventListener('deviceready', function () {
-//         console.log("Deviceready event has fired, bootstrapping AngularJS.");
-//         angular.bootstrap(document.body, ['app']);
-//       }, false);
-//     } else {
-//       console.log("Running in browser, bootstrapping AngularJS now.");
-//       angular.bootstrap(document.body, ['app']);
-//     }
-//   });
+function messageCreate(id, text, text_class, icon_class) {
+      document.write('<div id="'+id+'" class="deviceMessage '+text_class+'"><div class="deviceMessageInner"><i class="'+icon_class+'" style="margin:5px 0 15px 0;"></i><br>'+text+'</div></div>');
+}
 
-console.warn("dito-m-anliegen: Entering deviceready.js");
+function messageDelete(id) {
+      let element = document.getElementById(id);
+      element.outerHTML = "";
+      delete element;
+}
+
+
+
+// =============== CORDOVA CONFIGURATION ===============
 
 var cordovaEvents = {
-    // Application Constructor
-    initialize: function() {
+  // Application Constructor
+  initialize: function() {
 
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+      console.log("Cordova init.");
+      document.addEventListener('deviceready', this.onDeviceReady, false);
+      document.addEventListener("resume", this.onResume, false);
+      document.addEventListener("backbutton", this.onBackKeyDown, false);
+      // window.addEventListener('online',  doMyStuff());
+      // window.addEventListener('offline',  doMyStuff());
+  },
 
-        document.addEventListener("resume", this.onResume, false);
+  // deviceready
+  //
+  onDeviceReady: function() {
 
-        document.addEventListener("backbutton", this.onBackKeyDown, false);
-    },
-
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function()
-                        {
                         console.warn("dito-m-anliegen: device ready.");
-//                        console.log("Cordova file:",cordova.file);
 
-                          // Update camera plugin options from template in properties.js
-                          // This is because Camera methods are not yet available when properties are initialized
-                          photoOptions.camera.sourceType = Camera.PictureSourceType[photoOptions.camera.sourceType];
-                          photoOptions.camera.destinationType = Camera.DestinationType[photoOptions.camera.destinationType];
-                          photoOptions.camera.mediaType = Camera.MediaType[photoOptions.camera.mediaType];
-                          photoOptions.camera.encodingType = Camera.EncodingType[photoOptions.camera.encodingType];
-                          //
-                          photoOptions.gallery.sourceType = Camera.PictureSourceType[photoOptions.gallery.sourceType];
-                          photoOptions.gallery.destinationType = Camera.DestinationType[photoOptions.gallery.destinationType];
-                          photoOptions.gallery.mediaType = Camera.MediaType[photoOptions.gallery.mediaType];
-                          //
-                          photoOptions.cleanup.sourceType = Camera.PictureSourceType[photoOptions.cleanup.sourceType];
-                          photoOptions.cleanup.destinationType = Camera.DestinationType[photoOptions.cleanup.destinationType];
 
-                          // The same problem with angular - needs to be initialized after deviceready
-                          angular.bootstrap(document, ['rootApp']);
+                        // XXX Style iOS bugs?
+                        // oder https://www.npmjs.com/package/cordova-plugin-statusbar
 
-                            // Example see below
-                            // this.receivedEvent('deviceready');
-                        },
+                        // if (parseFloat(window.device.version) === 7.0) {
+                        //          document.body.style.marginTop = "20px";
+                        //    }
 
-    onPause: function() {
-                            console.log("devready: PASUE");
-                        },
+                        // Update camera plugin options from template in properties.js
+                        // This is because Camera methods are not yet available when properties are initialized
+                        photoOptions.camera.sourceType = Camera.PictureSourceType[photoOptions.camera.sourceType];
+                        photoOptions.camera.destinationType = Camera.DestinationType[photoOptions.camera.destinationType];
+                        photoOptions.camera.mediaType = Camera.MediaType[photoOptions.camera.mediaType];
+                        photoOptions.camera.encodingType = Camera.EncodingType[photoOptions.camera.encodingType];
+                        //
+                        photoOptions.gallery.sourceType = Camera.PictureSourceType[photoOptions.gallery.sourceType];
+                        photoOptions.gallery.destinationType = Camera.DestinationType[photoOptions.gallery.destinationType];
+                        photoOptions.gallery.mediaType = Camera.MediaType[photoOptions.gallery.mediaType];
+                        //
+                        photoOptions.cleanup.sourceType = Camera.PictureSourceType[photoOptions.cleanup.sourceType];
+                        photoOptions.cleanup.destinationType = Camera.DestinationType[photoOptions.cleanup.destinationType];
 
-    onResume: function() {
-                            console.log("devready: RESUME");
-                         },
+                        // =============== APP LAUNCHER ===============
 
-    onBackKeyDown: function()
-                        {
-                            console.log("devready: BACK-BUTTON");
-                        },
+                        // NETWORK DETECTION
+                        // Check online / offline status
+                        // Using cordova plujgin network-information
 
-  };
+                        function deviceOnline() {
+                              var networkState = navigator.connection.type;
+                              switch (networkState) {
+                                case "unknown": case "none":
+                                  var status = false;
+                                break;
+                                default: var status = true;  break;
+                              } // End switch
+                              return status;
+                         }
 
-  cordovaEvents.initialize();
+                        console.warn("Online:", deviceOnline());
+                        console.log("XXX", navigator.connection);
 
-    // // Eaxmple update DOM on a Received Event
-    // receivedEvent: function(id) {
-    //     var parentElement = document.getElementById(id);
-    //     var listeningElement = parentElement.querySelector('.listening');
-    //     var receivedElement = parentElement.querySelector('.received');
-    //
-    //     listeningElement.setAttribute('style', 'display:none;');
-    //     receivedElement.setAttribute('style', 'display:block;');
-    //
-    //     console.log('Received Event: ' + id);
-    //     console.log("Avaliable plugins:");
-    //     console.log(navigator.camera);
-    // },
+                        if (deviceOnline()) {
+                              // LAUNCH APP
+                              console.log('deviceready.js: Initializing Angular App');
+                              // Angular needs to be initialized after deviceready
+                              angular.bootstrap(document, ['rootApp']);
+
+                         } else {
+
+                              messageCreate("netMsg", text_error, "text-device-error", "fa fa-spin fa-spinner fa-2x");
+
+                              // INTERVAL CHECK LOOP
+
+                              let onlineCheck = setInterval(function(){
+
+                                debug && console.log('Waiting for net connection ... ');
+
+                                      if (deviceOnline()) {
+
+                                            console.warn('Network connection found.');
+                                            messageDelete("netMsg");
+
+                                            clearInterval(onlineCheck);
+
+                                            // wait a second for full network coming up
+
+                                            setTimeout(function() {
+                                                // LAUNCH APP
+                                                console.log('deviceready.js: Initializing Angular App');
+
+                                                // Angular needs to be initialized after deviceready
+                                                angular.bootstrap(document, ['rootApp']);
+
+                                              },1000);  // End timeout
+
+                                          } // End if online
+
+                                }, 2000 ); // End interval
+
+                        }  // End device offline
+
+                      },  // End devicereday
+
+  onPause: function() {
+                          console.log("devready: PASUE");
+                      },
+
+  onResume: function() {
+                          console.log("devready: RESUME");
+                       },
+
+  onBackKeyDown: function()
+                      {
+                          console.log("devready: BACK-BUTTON");
+                      },
+
+};  // End var cordova
+
+
+
+// =============== APP ENTRY ===============
+
+// Helper fork to support browser debugging
+
+if (window.cordova) {
+
+ debug && console.log("Cordova detected.")
+
+cordovaEvents.initialize();
+
+
+} else {  // browser debugging mode
+
+       debug && console.log("Browser detected.")
+       // if (document.createEvent) { element.dispatchEvent('deviceready'); }
+
+       function deviceOnline() { return navigator.onLine }
+
+       console.warn("Online:", deviceOnline());
+
+       if (deviceOnline()) {
+             // LAUNCH APP
+             console.log('deviceready.js: Initializing Angular App');
+             // Angular needs to be initialized after deviceready
+             angular.bootstrap(document, ['rootApp']);
+
+        } else {  // device offline
+
+             messageCreate("netMsg", text_error, "text-device-error", "fa fa-spin fa-spinner fa-2x");
+
+             // INTERVAL CHECK LOOP
+
+             let onlineCheck = setInterval(function(){
+
+               debug && console.log('Waiting for net connection ... ');
+
+                     if (deviceOnline()) {
+
+                           console.warn('Network connection found.');
+                           messageDelete("netMsg");
+
+                           clearInterval(onlineCheck);
+
+                           // wait a second for full network coming up
+
+                           setTimeout(function() {
+                               // LAUNCH APP
+                               console.log('deviceready.js: Initializing Angular App');
+
+                               // Angular needs to be initialized after deviceready
+                               angular.bootstrap(document, ['rootApp']);
+
+                             },1000);  // End timeout
+
+                         } // End if online
+
+               }, 2000 ); // End interval
+
+       }  // End device offline
+
+}  // End browser debug mode
+
+
+
+
+// // Eaxmple update DOM on a Received Event
+// receivedEvent: function(id) {
+//     var parentElement = document.getElementById(id);
+//     var listeningElement = parentElement.querySelector('.listening');
+//     var receivedElement = parentElement.querySelector('.received');
+//
+//     listeningElement.setAttribute('style', 'display:none;');
+//     receivedElement.setAttribute('style', 'display:block;');
+//
+//     console.log('Received Event: ' + id);
+//     console.log("Avaliable plugins:");
+//     console.log(navigator.camera);
+// },

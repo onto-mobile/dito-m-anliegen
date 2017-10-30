@@ -4,7 +4,7 @@
            <ul class="selectChooser list-group">
                 <li class="list-group-item"
                     ng-repeat="item in listOfCategories"
-                    ng-click="DataToolServices.updateAppData('category.text',item.name,true)"
+                    ng-click="DataServices.updateAppData('category.text',item.name,true)"
                     ng-class="{'active': item.name == appData.category.text}">
                     <span class="iconInList" ng-class="categoryCssClass(item.name)"></span>{{item.name}}
                 </li>

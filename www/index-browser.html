@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 
-<html ng-controller="mainCtrl" ng-app="rootApp">
+<!-- <html ng-controller="mainCtrl" ng-app="rootApp"> -->
+<html ng-controller="mainCtrl">
 
 <head>
-    <!--
-        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+  <!--
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
 
-        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
 
-        * Disabled use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this, add 'unsafe-inline' to default-src
+      * Disabled use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this, add 'unsafe-inline' to default-src
 
-        * Enabling external JS: "script-src 'self' 'unsafe-inline' 'unsafe-eval"
+      * Enabling external JS: "script-src 'self' 'unsafe-inline' 'unsafe-eval"
 
-    General Example:
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+  General Example:
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
 
-    Example for window 10:
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+  Example for window 10:
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 
-   Whitelisting protocols:
+ Whitelisting  protocols:
 
-    style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'"
+  style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'"
 
-    * The whitelist plugin enables http://cordova.apache.org in config.xml, adding dito server seems to be not necessary with the follwoing CSP:
-  -->
-  <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; media-src *; img-src * data: cdv:;">
+  * The whitelist plugin enables http://cordova.apache.org in config.xml, adding dito server seems to be not necessary with the follwoing CSP:
+
+  TODO: Add to default-src and try on android first ....  data: gap: ms-appdata:
+-->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; media-src *; img-src * data: cdv:;">
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+  <!-- <meta name="format-detection" content="telephone=no"> -->
 
-      <!-- LEAFLET STYLE -->
-      <link rel="stylesheet" type="text/css" href="css/libs/leaflet.css" />
-       <!-- Fix for missing tiles?
-       <style> .leaflet-tile { visibility: visible!important }	</style>
-      -->
-      <link rel="stylesheet" type="text/css" href="css/libs/L.Control.Locate.css" />
+  <!-- LEAFLET STYLE -->
+  <link rel="stylesheet" type="text/css" href="css/libs/leaflet.css" />
+   <!-- Fix for missing tiles?
+   <style> .leaflet-tile { visibility: visible!important }	</style>
+  -->
+  <link rel="stylesheet" type="text/css" href="css/libs/L.Control.Locate.css" />
 
-      <link rel="stylesheet" type="text/css" href="css/libs/bootstrap.min.css" />
-      <link rel="stylesheet" type="text/css" href="css/libs/bootstrap-theme.min.css" />
-      <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/libs/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/libs/bootstrap-theme.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome/css/font-awesome.min.css">
 
-    <!-- CUSTOM -->
-		<link rel="stylesheet" type="text/css" href="css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="css/map.css" />
-		<!-- <link rel="stylesheet" type="text/css" href="css/report.css" /> -->
-
-
+  <!-- CUSTOM -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <link rel="stylesheet" type="text/css" href="css/map.css" />
 
 
 <title>muehlmapp Demo</title>
@@ -62,53 +63,53 @@
   <!-- this means we're coming from anywhere else than a "report*" view: -->
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view.indexOf('report') < 0">
     <ul class="nav navbar-nav">
-      <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="updateView('my')"><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="changeView('my')"><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></li>
        <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
-      <li ng-if="view == 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="updateView('report1')">MELDEN</li>
-      <li ng-if="view !== 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="updateView('report_saved')">MELDEN</li>
-      <li class="col-xs-2 text-right" ng-class="{'active': view == 'info'}" ng-click="updateView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
+      <li ng-if="view == 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="changeView('report1')">MELDEN</li>
+      <li ng-if="view !== 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report_saved'}" ng-click="changeView('report_saved')">MELDEN</li>
+      <li class="col-xs-2 text-right" ng-class="{'active': view == 'info'}" ng-click="changeView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report1'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-class="{'active': view == 'home'}" ng-click="updateView('home')"><i class="fa fa-lg fa-times" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+      <li class="col-xs-2" ng-class="{'active': view == 'home'}" ng-click="changeView('home')"><i class="fa fa-lg fa-times" aria-hidden="true"></i></li>
+      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
       <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-class="{'active': view == 'report2'}" ng-click="updateView('report2')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-class="{'active': view == 'report2'}" ng-click="changeView('report2')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <!-- The report moves from report2 to report4 because we will have report3 some day (showing the nearby reports) -->
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report2'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report1')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+      <li class="col-xs-2" ng-click="changeView('report1')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
       <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-show="appData.category.is_valid" ng-click="updateView('report4')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-show="appData.category.is_valid" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <!-- not implemented: report3: Show list of nearby reports -->
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report4'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report2')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+      <li class="col-xs-2" ng-click="changeView('report2')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
       <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-click="updateView('report5')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report5'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report4')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
+      <li class="col-xs-2" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
       <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-click="updateView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li class="col-xs-2 text-right" ng-show="(appData.title.dirty) && (validState('title'))" ng-click="changeView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report6'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="updateView('report5')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="updateView('send')">ABSENDEN</li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-click="updateView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></a></li>
+      <li class="col-xs-2" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li ng-if="validState('report6')" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
+      <li ng-if="!validState('report6')" class="col-xs-8 active text-center">{{hintMessage}}</li>
+      <li class="col-xs-2 text-right" ng-click="changeView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
     </ul>
   </nav>
 </div>  <!-- ng-cloak -->
@@ -119,7 +120,6 @@
    <div id="mapid" ng-show="map_view_active"></div>
 	 <!-- <div id="mapid" ng-show="view=='home'|| view=='map'||view=='report1'"></div> -->
 	 <ng-view></ng-view>
-
 </div>
 
 <!--#####################################################################################-->
@@ -127,9 +127,9 @@
 <div ng-cloak>
   <nav class="navbar navbar-default navbar-fixed-bottom" id="navBottom" ng-if="true">
     <ul class="nav navbar-nav">
-      <li class="col-xs-2" ng-class="{'active': view == 'list'}" ng-click="updateView('list')"><i class="fa fa-lg fa-list" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-class="{'active': view == 'list'}" ng-click="changeView('list')"><i class="fa fa-lg fa-list" aria-hidden="true"></i></li>
       <li class="col-xs-8 text-center">{{appTitle}}</li>
-      <li class="col-xs-2 text-right" ng-click="updateView('map')"><i class="fa fa-lg fa-map" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-class="{'active': view == 'map'}" ng-click="changeView('map')"><i class="fa fa-lg fa-map" aria-hidden="true"></i></li>
     </ul>
   </nav>
 </div>   <!-- ng-cloak -->
@@ -139,39 +139,42 @@
 
 </body>
 
+<!--  ANGULAR -->
+<!-- Need to load first  -->
+<script type="text/javascript" src="js/extern/angular.min.js"></script>
+<script type="text/javascript" src="js/extern/angular-route.min.js"></script>
+<script type="text/javascript" src="js/extern/angular-sanitize.js"></script>
 
-<!--  EXTERNAL JS -->
-  <script type="text/javascript" src="js/extern/angular.min.js"></script>
-  <script type="text/javascript" src="js/extern/angular-route.min.js"></script>
-  <script type="text/javascript" src="js/extern/angular-sanitize.js"></script>
-
-  <!-- <script type="text/javascript" src="cordova.js"></script> -->
-  <!-- Init angular on Device Ready -->
-  <!-- <script type="text/javascript" src="js/cordova/deviceready.js"></script> -->
-
-
-  <!-- Make sure you put this AFTER Leaflet css: -->
-  <script type="text/javascript" src="js/extern/leaflet.js"></script>
-  <!--  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" -->
-  <!--    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" -->
-  <!--    crossorigin=""></script> -->
-  <script type="text/javascript" src="js/extern/L.Control.Locate.js"></script>
-
+<!-- LEAFLET -->
+<!-- Make sure you put this AFTER Leaflet css: -->
+<script type="text/javascript" src="js/extern/leaflet.js"></script>
+<!--  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" -->
+<!--    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" -->
+<!--    crossorigin=""></script> -->
+<script type="text/javascript" src="js/extern/L.Control.Locate.js"></script>
 
 <!--  custom JS -->
-  <script type="text/javascript" src="js/properties.js"></script>
-  <script type="text/javascript" src="js/rootApp.js"></script>
+<script type="text/javascript" src="js/rootApp.js"></script>
+<script type="text/javascript" src="js/controller/main.js"></script>
+<script type="text/javascript" src="js/factory/MapFactory.js"></script>
+<script type="text/javascript" src="js/factory/DataFactory.js"></script>
+<script type="text/javascript" src="js/service/DataServices.js"></script>
+<script type="text/javascript" src="js/service/DeviceServices.js"></script>
+<script type="text/javascript" src="js/service/NetworkServices.js"></script>
+<script type="text/javascript" src="js/controller/send.js"></script>
+<script type="text/javascript" src="js/controller/my.js"></script>
+<script type="text/javascript" src="js/controller/list.js"></script>
+<script type="text/javascript" src="js/controller/info.js"></script>
+<script type="text/javascript" src="js/controller/error.js"></script>
+<script type="text/javascript" src="js/directive/directives.js"></script>
 
-  <script type="text/javascript" src="js/controller/main.js"></script>
-  <script type="text/javascript" src="js/factory/MapFactory.js"></script>
-  <script type="text/javascript" src="js/factory/DataFactory.js"></script>
-  <script type="text/javascript" src="js/service/services.js"></script>
-  <script type="text/javascript" src="js/controller/send.js"></script>
-  <script type="text/javascript" src="js/controller/my.js"></script>
-  <script type="text/javascript" src="js/controller/list.js"></script>
-  <script type="text/javascript" src="js/controller/info.js"></script>
-  <script type="text/javascript" src="js/controller/error.js"></script>
-  <script type="text/javascript" src="js/directive/directives.js"></script>
-
+<!-- CORDOVA and APP INIT on device ready -->
+<!-- These scripts need be loaed in this order, and after cordova.js -->
+<!-- <script type="text/javascript" src="cordova.js"></script> -->
+<script type="text/javascript" src="js/properties.js"></script>
+<script type="text/javascript" src="js/deviceready.js"></script>
+<!-- angular support for cordova file plugin: -->
+<!-- <script type="text/javascript" src="js/cordova/ng-cordova.js"></script> -->
+<!-- See http://ngcordova.com/build -->
 
 </html>

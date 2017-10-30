@@ -1,18 +1,33 @@
+// =============== DEBUG
+//
 var debug=true;
 var fake_geoloc=false;
+var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
+
+// =============== URL
+//
 // URL
 // var url_dito = 'http://anliegen.noam.de:8080/dito/explore';
 var url_dito = 'http://anliegen.muehlheim.ontopica.de/dito/explore';
-var url_tiles = url_dito+'?action=tiles';
 var url_geoData = url_dito+'?action=browsermap&id=2692&geojson';
 var url_categories = url_dito+'?action=journalhelperajax&id=2692&method=getCategories';
 var url_info = url_dito+'?action=readprivacy&id=2701';
+//
+// var tile_server='dito';
+// var url_tiles = url_dito+'?action=tiles';
+//
+var tile_server='mapbox';
+var mapbox_id='mapbox.streets';
+var url_tiles = 'https://api.tiles.mapbox.com/v4/'
+var mapbox_access_token='pk.eyJ1IjoiY29kZWpvZGxlciIsImEiOiJjajc0eXVydGUwY3B1MnBzYndnanc0dmpjIn0.jXdtsPAHawa9Xwou8CalQw'
+//
 
+// =============== MAP
+//
 // MAP and PLACEMARK
-var mapAttribution = '<a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>';
+var mapAttribution = '<a href="http://leafletjs.com">LeafLet</a> | Data © <a href="http://openstreetmap.org">OpenStreetMap</a> <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>  | Imagery © <a href="http://mapbox.com">Mapbox</a>';
 var cityCenter = { lat:50.121, lng:8.832 };
 var mapCenter = angular.copy(cityCenter);
-var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
 var minZoomLevel = 12;
 var maxZoomLevel = 19;
 var initialZoomLevel = 13;
@@ -32,11 +47,11 @@ var lat = 1;
 var lng = 1;
 var zoom = 1;
 
-// LIST
+// =============== LIST
 var listItem = {};
 var listOfCategories = {};
 
-// REPORT
+// =============== REPORT
 var listOfCategoryNames = [];
 var pageInfo = {
 'app_title'  : "Dito CityApp",
@@ -56,7 +71,7 @@ var pageInfo = {
 'detail' : "detail"
 };
 
-// obj appData:
+// =============== APPDATA
 //
 // storage object for all 'new report' input data
 //
@@ -67,7 +82,7 @@ var pageInfo = {
 //
 // * obj method: count self number of mandatories
 // * because navigation is async, the app needs some 'report completed' counter and flag
-// * since app starts with map view, the position-coords are always completed (counter default +1)
+// * since app starts with map view, the position-coords are always completed (counter default = +1)
 //
 // Important: If you set defaults for debugging, adjust the  'report_mandatory_completed_counter'
 // and do not forget to correct if after you reverted to production use.
@@ -76,11 +91,11 @@ var AppDataTemplate =  {
                   'position'  :       { coordinates:{lat:"",lng:""},is_valid:true,mandatory:true},
                   'category'  :       { text:"undefined",is_valid:false,mandatory:true},
                   'image'     :       { text:"undefined",is_valid:false,mandatory:false},
-                  'title'     :       { text:"",is_valid:false,mandatory:true},
+                  'title'     :       { text:"",is_valid:false,mandatory:true,dirty:false},
                   'note'      :       { text:"",is_valid:true,mandatory:false},
-                  'email'     :       { text:"mw@ontopica.de",is_valid:true,mandatory:true},
+                  'email'     :       { text:"",is_valid:false,mandatory:true,dirty:false},
                   'check_privacy_accepted'  :  {state:false,is_valid:false,mandatory:true},
-                  'report_mandatory_completed_counter'  : 2,
+                  'report_mandatory_completed_counter'  : 1,
                   'report_mandatory_is_complete'  : false,
                    mandatoryNumber : function () {
                                               console.log('Mandatory items:');
@@ -100,14 +115,19 @@ var AppDataTemplate =  {
                   'sendOK'  :  'undefined'
                   };  // End appData
 
-// We maintain the view by mainCtrl.updateView and these are rooScope vars
-// W weed to init them here because ng router initializes even before rootApp.run
-var view = AppDataTemplate.view;
-var map_view_active = true;
-//
+// appData.title.text range
+var minTitle=5;
+var maxTitle=150;
+
+// Email validation regular expression
+let emailRegExpr = /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i;
+
 // dito data converts the report data to dito API
 // For now this is hardcoded in the makeDitoData factory
 var ditoData = {};
+
+
+// =============== IMAGE DATA
 //
 // image data object with many possible properties for maximal flexibility.
 // Also separate from appData because keeping base64 data in appData slows app down.
@@ -122,19 +142,26 @@ var ImageDataTemplate = {
                  'fileEntry':''
                 };
 // max image size in Bytes. 5000000 is 5M.
-var maxFileSize = 5000000;
-var imageTypesAllowed = ['jpeg','png']
+var maxImageFileSize = 4000000;
+var imageTypesAllowed = ['jpg','png']
 var imageMessage = "Möchten Sie ein Bild anfügen ?";
 
-
+// =============== VIEW
+//
+// We maintain the view by mainCtrl.changeView and these are rooScope vars
+// W weed to init them here because ng router initializes even before rootApp.run
+var view = AppDataTemplate.view;
+var map_view_active = true;
 
 // CORDOVA PLUGINS
 var uploadData = {};
 
 // Cordova Canera plugin options
-// Normally one would configure number-encoded (0,1,2) vlaues directly from plugin methods
-// but we can't do this before 'deviceready', so we reconfigure the options in deviceready.js
-// using the string values given here, e.g. 'CAMERA' here becomes Camera.DestinationType.CAMERA there.
+// It is possible to configure number-encoded (0,1,2) values here, but is hard to read.
+// It is also possible to get these values directly from plugin methods, but we can't do this
+// before 'deviceready'. My solution is to reconfigure the options in deviceready.js, using the
+// option names as string values from the properties file. Thus we can do the entire configuration here.
+// e.g. 'CAMERA' here becomes Camera.DestinationType.CAMERA there.
 //
 var photoOptions = {
           'camera' : {

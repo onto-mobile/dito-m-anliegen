@@ -1,33 +1,37 @@
 <div id="report5" class="report">
-    <form name="titleForm" novalidate>
 
-      <div class="form-group">
-        <label for="titleInput">Bitte fassen Sie ihr Anliegen in einer Überschrift zusammen:</label>
-        <input id="titleInput" class="form-control report" type="text" value="appData.title.text"
+    <form name="forms.titleForm" novalidate>
+
+    <label for="title">Bitte fassen Sie ihr Anliegen in einer Überschrift zusammen:</label>
+
+    <div class="input-group">
+        <input name="title" class="form-control report" type="text"
+               value="appData.title.text"
                ng-model="appData.title.text"
-               ng-minlength="5"
-               ng-maxlength="150"
                spellcheck="false"
-               required
-               autofocus
-               check-title/>
-        <span class="text-danger clearfix" ng-if="!appData.title.is_valid">Bitte mindestens 5 und maximal 150 Zeichen.</span>
-        </div>
+               ng-click="increaseDirtyness('title')"
+               ng-blur="validateInput('title')"/>
+       <span class="input-group-addon" ng-if="!validState('title')" ng-click="appData.title.dirty=2"><i class="fa fa-question not-ok" aria-hidden="true"></i></span>
+       <span class="input-group-addon" ng-if="validState('title')"><i class="fa fa-check ok" aria-hidden="true"></i></span>
+    </div>
+    <span class="char-left">{{appData.title.text.length}} / {{maxTitle}}</span>
+    <span class="text-danger clearfix" ng-show="(appData.title.dirty > 1) && (!validState('title'))">Bitte mindestens {{minTitle}} und maximal {{maxTitle}} Zeichen.</span>
 
-        <div class="form-group">
-      		<label for="noteInput">Wenn Sie möchten, können Sie ihr Anliegen hier genauer beschreiben:</label>
-          <textarea  id="noteInput"
-                     class="report form-control"
-                     value="appData.note.text"
-                     ng-model="appData.note.text"
-                     ngTrim = "true"
-                     rows = "5"
-                     spellcheck="false">
-          </textarea>
-          <!-- ng-pattern="/^[0-9a-z\s]{0,1500}$/" -->
-          <span class="char-left" ng-class="{'text-danger':appData.note.text.length >= 1500}">{{appData.note.text.length}} / 1500</span>
-          <span class="text-danger clearfix" ng-if="appData.note.text.length >= 1500">Der Text kann maximal 1500 Zeichen lang sein, darüber hinaus wird er abgeschnitten.</span>
+    <div class="input-group">
+  		<label for="note">Wenn Sie möchten, können Sie ihr Anliegen hier genauer beschreiben:</label>
+      <textarea  name="note" class="report form-control"
+                 value="appData.note.text"
+                 ng-model="appData.note.text"
+                 ngTrim = "true"
+                 rows = "5"
+                 spellcheck="false">
+      </textarea>
+      <!-- ng-pattern="/^[0-9a-z\s]{0,1500}$/" -->
+      <span class="char-left">{{appData.note.text.length}} / 1500</span>
+      <span class="text-danger clearfix" ng-show="appData.note.text.length >= 1500">Der Text kann maximal 1500 Zeichen lang sein, darüber hinaus wird er abgeschnitten.</span>
+    </div>
     </form>
+
   </div>
   <!--
   <pre ng-if = "debug">
@@ -36,4 +40,3 @@
     Mandatory completed: {{appData.report_mandatory_completed_counter|json}}
   </pre>
  -->
- 

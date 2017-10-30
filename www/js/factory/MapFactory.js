@@ -4,52 +4,82 @@ rootApp.factory('MapFactory', function($rootScope,NetworkService) {
 
 // -----------------------------------------------------------------------------
 
- thisfactory = {
+thisfactory = {
 
   createBaseMap: function() {
 
+        switch (tile_server) {
 
+                case 'dito':
                 baseLayer = L.tileLayer(url_tiles + '&z={z}&x={x}&y={y}&r=mapnik',
-                                              {
-                                                attribution: mapAttribution,
-                                                    maxZoom: maxZoomLevel,
-                                                    minZoom: minZoomLevel
-                                              });
+                                            {
+                                              attribution: mapAttribution,
+                                                  maxZoom: maxZoomLevel,
+                                                  minZoom: minZoomLevel
+                                            });
+                break;
 
-                baseMap = L.map('mapid', {
-                                                center  : [mapCenter.lat, mapCenter.lng],
-                                                zoom    : initialZoomLevel,
-                                                zoomControl : false
-                                              });
+                case 'mapbox':
+                baseLayer = L.tileLayer(url_tiles + mapbox_id + '/{z}/{x}/{y}.png?access_token=' + mapbox_access_token,
+                                            {
+                                              accessToken: mapbox_access_token,
+                                              attribution: mapAttribution,
+                                                  maxZoom: maxZoomLevel,
+                                                  minZoom: minZoomLevel
+                                            });
+                break;
 
-              // var baseMap = L.map('mapid').setView([mapCenter.lat, mapCenter.lng], initialZoomLevel);
-              // var baseMap = L.map('mapid').locate({setView: true; maxzoom: 16});
+        }  // End switch
 
-              L.layerGroup().addLayer(baseLayer).addTo(baseMap);
+        baseMap = L.map('mapid',{
+                                  center  : [mapCenter.lat, mapCenter.lng],
+                                  zoom    : initialZoomLevel,
+                                  zoomControl : false
+                                 });
 
-              debug && console.warn('MapFactory: baseMap created');
+          // var baseMap = L.map('mapid').setView([mapCenter.lat, mapCenter.lng], initialZoomLevel);
+          // var baseMap = L.map('mapid').locate({setView: true; maxzoom: 16});
 
-  						return baseMap;
+          L.layerGroup().addLayer(baseLayer).addTo(baseMap);
 
-},  // End createBaseMap
+          debug && console.warn('MapFactory: baseMap created');
+
+      		return baseMap;
+
+  },  // End createBaseMap
 
 
-createMiniMap: function(divId,lat,lng) {
+  createMiniMap: function(divId,lat,lng) {
+          // debug && console.log('MiniMap:',divId, coords );
+          // debug && console.warn('tiles_url ', url_tiles);
+          switch (tile_server) {
 
-            // debug && console.log('MiniMap:',divId, coords );
-            // debug && console.warn('tiles_url ', url_tiles);
-            miniLayer = L.tileLayer( url_tiles + '&z={z}&x={x}&y={y}&r=mapnik',
-                                          {
-                                            // attribution: mapAttribution,
-                                                maxZoom: maxZoomLevel,
-                                                minZoom: minZoomLevel
-                                          });
+              case 'dito':
+                miniLayer = L.tileLayer( url_tiles + '&z={z}&x={x}&y={y}&r=mapnik',
+                            {
+                                  maxZoom: maxZoomLevel,
+                                  minZoom: minZoomLevel
+                                  // attribution: mapAttribution,
+                             });
+              break;
 
-            miniMap = L.map(divId, {
-                                          center: [lat,lng],
-                                          zoom: 16,
-                                          zoomControl : false
-                                          });
+              case 'mapbox':
+                miniLayer = L.tileLayer(url_tiles + mapbox_id + '/{z}/{x}/{y}.png?access_token=' + mapbox_access_token,
+                            {
+                                  accessToken: mapbox_access_token,
+                                  maxZoom: maxZoomLevel,
+                                  minZoom: minZoomLevel
+                                  // attribution: mapAttribution,
+                             });
+              break;
+
+          } // End switch
+
+          miniMap = L.map(divId, {
+                                  center: [lat,lng],
+                                  zoom: 16,
+                                  zoomControl : false
+                                  });
 
           L.layerGroup().addLayer(miniLayer).addTo(miniMap);
 
@@ -174,7 +204,7 @@ addPlacemarks: function(vectorArray) {
 
 
 // 'view': Go back to starting position
-// 'rebuild_map': Reset the map internally, no position change, no animation
+//  Any setView is done within an angular $timout (setting to new digest cycle)
 // (this is an attempt to fix tile loading block)
 //
 mapControl: function(mode,coords,zoom)  {
@@ -196,16 +226,14 @@ mapControl: function(mode,coords,zoom)  {
               break;
 
               case 'center':      // center map to parameters
-                                  //  mapCenter.lat = coords.lat;
-                                  //  mapCenter.lng = coords.lng;
-                                   baseMap.setView([coords.lat, coords.lng],zoom,{animation:true});
+                                  baseMap.setView([coords.lat, coords.lng],zoom,{animation:true});
               break;
 
-              case 'set_geoloc':    // center map on geolocation with specific options
-                                    // mapCenter.lat = options.lat;
-                                    // mapCenter.lng = options.lng;
-                                    $rootScope.mapCenter = coords;
-                                    baseMap.setView([coords.lat, coords.lng],geolocZoomLevel,{animation:geolocateOptions.flyTo});
+              case 'set_geoloc':  // center map on geolocation with specific options
+                                  // mapCenter.lat = options.lat;
+                                  // mapCenter.lng = options.lng;
+                                  $rootScope.mapCenter = coords;
+                                  baseMap.setView([coords.lat, coords.lng],geolocZoomLevel,{animation:geolocateOptions.flyTo});
               break;
 
               case 'rebuild_map':
@@ -230,8 +258,8 @@ mapControl: function(mode,coords,zoom)  {
                                                   baseMap.setView([mapCenter.lat, mapCenter.lng],initialZoomLevel,{animation:true});
                                               });
                                 } else {
-                                   debug && console.warn('MapFactory: No geoloc available, using defaults.');
-                                   baseMap.setView([mapCenter.lat, mapCenter.lng],initialZoomLevel,{animation:true});
+                                  debug && console.warn('MapFactory: No geoloc available, using defaults.');
+                                  baseMap.setView([mapCenter.lat, mapCenter.lng],initialZoomLevel,{animation:true});
                                 }
 
               break;

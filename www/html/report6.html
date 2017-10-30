@@ -1,26 +1,29 @@
 <div id="report6" class="report">
-    <form name="emailForm" novalidate>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Bitte geben Sie für die Rückmeldung der Stadt eine Email-Addresse an:</label>
-        <input id="Email"
+
+    <form name="forms.emailForm" novalidate>
+
+      <label>Bitte geben Sie für die Rückmeldung der Stadt eine Email-Addresse an:</label>
+      <div class="input-group">
+        <input id="email"
                name="Email"
-               type="email"
-               class="form-control"
                placeholder="Email"
+               class="form-control"
                ng-model="appData.email.text"
                value="appData.email.text"
                spellcheck="false"
-               autofocus
-               required
-               check-email/>
-          <span ng-show="emailForm.$invalid" ng-class="{'text-danger':emailForm.$invalid}">Bitte geben Sie eine gültige Email-Addresse ein.</span>
+               ng-click="increaseDirtyness('email')"
+               ng-blur="validateInput('email')"/>
+         <span class="input-group-addon" ng-if="!validState('email')" ng-click="appData.email.dirty=2"><i class="fa fa-question not-ok" aria-hidden="true"></i></span>
+         <span class="input-group-addon" ng-if="validState('email')"><i class="fa fa-check ok" aria-hidden="true"></i></span>
       </div>
+      <span  class="text-danger clearfix" ng-show="(appData.email.dirty > 1) && (!validState('email'))">Bitte geben Sie eine gültige Email-Addresse ein.</span>
+
       <div class="checkbox">
         <label>
           <input
               type="checkbox"
               ng-model="appData.check_privacy_accepted.is_valid"
-              ng-click="DataToolServices.updateAppData('check_privacy_accepted.state','toggle')"/> Ich akzeptiere die AGB und Datenschutzbestimmungen
+              ng-click="DataServices.updateAppData('check_privacy_accepted.state','toggle')"/> Ich akzeptiere die AGB und Datenschutzbestimmungen
         </label>
       </div>
   </form>
@@ -28,8 +31,10 @@
 
 <pre ng-if = "debug">
   Mandatory completed: {{appData.report_mandatory_completed_counter|json}}
+  title: {{appData.title.text|json}}
   Email: {{appData.email|json}}
   Privacy check: {{appData.check_privacy_accepted|json}}
+  -----------------------------------------------------
   Image: {{appData.image|json}}
 </pre>
 <pre ng-if = "debug && imageData.base64.length == 0">

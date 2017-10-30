@@ -12,7 +12,7 @@ rootApp.config(function($routeProvider,$locationProvider) {
       // Also note that when there is no controller specified, then
       // it's just dealt by mainCtrl which is declared on top of index.html.
       //
-      debug && console.log("Link router initialized with view:", view);
+      debug && console.log("Angular link router initialized with view:", view);
 
   		$routeProvider
 
@@ -29,7 +29,7 @@ rootApp.config(function($routeProvider,$locationProvider) {
 //
 //   APP INIT
 //
-rootApp.run(function($rootScope,MapFactory,DataFactory,NetworkService) {
+rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService) {
 
       debug && console.log("rootApp.run init");
 

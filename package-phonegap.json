@@ -7,7 +7,10 @@
       "browser"
     ],
     "plugins": {
-      "cordova-plugin-camera": {},
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION":"Usage of this app implies attaching a photo of the reported incident.",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION":"Usage of this app implies attaching a photo of the reported incident."
+    },
       "cordova-plugin-battery-status": {},
       "cordova-plugin-console": {},
       "cordova-plugin-contacts": {},
@@ -22,7 +25,9 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-vibration": {},
       "cordova-plugin-compat": {},
-      "cordova-plugin-geolocation": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION":"Purpose of this application is to report geolocated incidents. Enabling geolocation detection helps users find their position and speeds up the reporting process."
+      },
       "cordova-plugin-media": {},
       "cordova-plugin-media-capture": {},
       "cordova-plugin-file": {},

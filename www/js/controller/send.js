@@ -1,4 +1,4 @@
-rootApp.controller('sendCtrl', function($scope,$rootScope,$http,DeviceService,NetworkService,DataFactory,DataToolServices) {
+rootApp.controller('sendCtrl', function($scope,$rootScope,$http,DeviceService,NetworkService,DataFactory,DataServices) {
 
 debug && console.warn("Controller: sendCtrl.");
 
@@ -28,15 +28,20 @@ switch (appData.image.is_valid) {
                               }
 
         function onSucc(response) {
-                                    appData.sendOK = "success";
-                                    console.log("Send OK ! Response = ", response);
-                                    }
+                                      $timeout(function(){
+                                      appData.sendOK = "success";
+                                      console.log("Send OK ! Response = ", response);
+                                      })
+                                  }
 
         function onFail(response) {
-                                    appData.sendOK = "failed";
-                                    console.log("Send FAILED !  Upload error response:", response);
+                                      $timeout(function(){
+                                      appData.sendOK = "failed";
+                                      console.log("Send FAILED !  Upload error response:", response);
+                                    })
                                   }
         // SEND
+
         var ft = new FileTransfer();
         ft.upload(uploadData.uri, encodeURI(uploadData.server), onSucc, onFail, uploadData.options);
 

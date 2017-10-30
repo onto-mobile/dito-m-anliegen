@@ -1,7 +1,7 @@
 <ul class="list-group" id="list" ng-controller="listCtrl">
   <a href="#!detail" ng-repeat="listItem in geoJson">
     <li class="list-group-item"
-        ng-click="updateView('detail',listItem)">
+        ng-click="changeView('detail',listItem)">
       <span class="iconInList" ng-class="categoryCssClass(listItem.properties.articleLabel)"></span><span class="title">{{listItem.properties.title}}</span>
     </li>
   </a>
