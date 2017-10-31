@@ -1,6 +1,6 @@
-rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$q,DataServices,DeviceService,NetworkService,MapFactory,DataFactory) {
+rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$q,DataService,DeviceService,NetworkService,MapFactory,DataFactory) {
 // alternate:
-//	rootApp.controller('mainCtrl',['$scope','DataServices','NetworkService','MapFactory', function($scope,DataServices) {
+//	rootApp.controller('mainCtrl',['$scope','DataService','NetworkService','MapFactory', function($scope,DataService) {
 this.$onInit = function () {
 
 				console.warn("Initializing mainCtrl.");
@@ -9,7 +9,7 @@ this.$onInit = function () {
 				$scope.switchDebug = function() {$rootScope.debug = !$scope.debug;}
 
 				// We access these services and data from html:
-				$scope.DataServices = DataServices;  // report2 categories
+				$scope.DataService = DataService;  // report2 categories
 				$scope.minTitle = minTitle;
 				$scope.maxTitle = maxTitle;
 				$scope.forms = {};
@@ -51,14 +51,14 @@ $scope.changeView = function (view,item) {
 														debug && console.log("Coming from map, switching to report1 mode.")
 														view = "report1";
 														$scope.report_saved_view = view;
-														DataServices.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
+														DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
 														// We want to recall the full selector map state so we also save the zoom
 														appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
 
 											}
 			break;
 			case 'report1':
-											DataServices.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
+											DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
 											// We want to recall the full selector map state so we also save the zoom
 											appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
 			break;
@@ -85,14 +85,15 @@ $scope.changeView = function (view,item) {
 	switch (view) {
 
 		  case "home":	// actions 'HOME' and 'Cancel'
-											MapFactory.showPlacemarks();
-
-											if ($scope.view =="report1") {
-												// coming from 'cancel' => reset data and map
-												DataFactory.initAppData();
-												$rootScope.baseMap.invalidateSize();
-												MapFactory.mapControl('center', cityCenter, initialZoomLevel);
-												$rootScope.apply
+											if (lastView =="report1" || lastView =="send") {
+												//  => reset data and map
+												$timeout(function(){
+														DataFactory.initAppData();
+														$rootScope.baseMap.invalidateSize();
+														MapFactory.mapControl('center', cityCenter, initialZoomLevel);
+														$rootScope.apply
+														MapFactory.showPlacemarks();
+												})
 											}
 			break;
 			case 'map':   // SHOW PLACEMARKS
@@ -191,7 +192,7 @@ $scope.getImage = function(mode) {
 										debug && console.log("makeImageData saved to $scope:", $scope.imageData);
 
 										// log successful response
-										DataServices.updateAppData('image.text','returned device image',true)
+										DataService.updateAppData('image.text','returned device image',true)
 
 										// validate image and update appData
 										$scope.validateImage('device', { type: $scope.imageData.type, size: $scope.imageData.size } );
@@ -210,7 +211,7 @@ $scope.getImage = function(mode) {
 
 			$scope.imageData.native = status.uri;  // only for android ?
 			// log successful response:
-			DataServices.updateAppData('image.text','returned device image',true)
+			DataService.updateAppData('image.text','returned device image',true)
 
 			// Retrieve information about the image (filepath, size etc)
 			// and put them into imageData
@@ -232,7 +233,7 @@ $scope.getImage = function(mode) {
 														 },
 														function onFail(result) {
 															console.warn("Filepath conversion failed: ", result);
-															DataServices.updateAppData('image.text','failed fileptah conversion')
+															DataService.updateAppData('image.text','failed fileptah conversion')
 														}
 											 ); // End resolve Path
 					break;
@@ -247,7 +248,7 @@ $scope.getImage = function(mode) {
 // FAIL:
 			console.warn( 'Service getDeviceImage:', status.failed );
 			// log failure:
-			DataServices.updateAppData('image.text','failed device image',false)
+			DataService.updateAppData('image.text','failed device image',false)
 			$scope.imageMessage = "Das Bild konnte nicht geladen werden.";
 
 
@@ -266,7 +267,7 @@ $scope.getImage = function(mode) {
 // We need this as seperate scope function (and not purely service) because the html
 //  is based on scope update. The method will be used 2 ways:
 // (1) in the html for filereader; and (2) in makeImageData for device images
-// Basically, it calls DataServices.examineImage, updates appData, and then does some
+// Basically, it calls DataService.examineImage, updates appData, and then does some
 // user feedback.
 //
 // @param	mode:	"filreread" for browser call (via directive)
@@ -279,11 +280,11 @@ $scope.validateImage = function(mode,item)  {
 
 			$scope.debug && console.log('validateImage: Checking image input in mode:', mode);
 
-			let imgdata = DataServices.examineImage(mode,item);
+			let imgdata = DataService.examineImage(mode,item);
 
 			if (imgdata.valid == true) {
 
-						DataServices.updateAppData('image.text','valid '+mode+' image',true)
+						DataService.updateAppData('image.text','valid '+mode+' image',true)
 						// save some useful data into the imData object
 						$scope.imageData.file = item;  // the full fileentry
 						$scope.imageData.type = imgdata.type; // standardized file ending
@@ -302,7 +303,7 @@ $scope.validateImage = function(mode,item)  {
 					  break;
 					 } // End switch
 
-					DataServices.updateAppData('image.text',imgdata.text,false);
+					DataService.updateAppData('image.text',imgdata.text,false);
 
 					if (mode="fileread") $scope.imageData.base64=null;  // clear memory
 					// console.log("R:",$rootScope.$scope.imageData.base64, "S:", $scope.$scope.imageData.base64, "L:", $scope.imageData.base64);
@@ -350,8 +351,8 @@ $scope.validateInput = function(item)  {
 
 							result = (minTitle <= length && length <= maxTitle);
 
-							if ((result == false) && (appData.title.is_valid == true)) DataServices.updateMandatoryCounter("-");
-							if ((result == true) && (appData.title.is_valid == false)) DataServices.updateMandatoryCounter("+");
+							if ((result == false) && (appData.title.is_valid == true)) DataService.updateMandatoryCounter("-");
+							if ((result == true) && (appData.title.is_valid == false)) DataService.updateMandatoryCounter("+");
 							appData.title.is_valid = result;
 							// $scope.forms.titleForm.title.$setValidity('required',result);
 							$scope.increaseDirtyness('title');
@@ -363,8 +364,8 @@ $scope.validateInput = function(item)  {
 
 							result=emailRegExpr.test(appData.email.text);
 							// debug && console.log("New result:",result);
-							if ((result == false) && (appData.email.is_valid == true)) DataServices.updateMandatoryCounter("-");
-							if ((result == true) && (appData.email.is_valid == false)) DataServices.updateMandatoryCounter("+");
+							if ((result == false) && (appData.email.is_valid == true)) DataService.updateMandatoryCounter("-");
+							if ((result == true) && (appData.email.is_valid == false)) DataService.updateMandatoryCounter("+");
 							appData.email.is_valid = result;
 							// need this for correct feedback:
 							if (result == false) appData.email.dirty = 2;
@@ -406,7 +407,7 @@ $scope.validState = function(item)  {
 $scope.increaseDirtyness = function(item)  {
 
 			appData[item].dirty += 1;
-			console.log("Dirty:", appData[item].dirty);
+			// debug && console.log("Dirty:", appData[item].dirty);
 }
 
 
@@ -439,6 +440,22 @@ $scope.categoryCssClass = function (articleLabel)   {
 }
 
 
+
+$scope.closeApp = function() {
+
+
+			// Here, should be something like
+			// DeviceService.clearCameraCache();
+
+			if (navigator.app) navigator.app.exitApp();
+
+			if (navigator.device) navigator.device.exitApp();
+
+			if (!window.cordova) {
+							alert('Cannot close a browser :(');
+							this.changeView('home');
+						}
+}
 
 });  // End main controller
 

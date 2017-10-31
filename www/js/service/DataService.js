@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 
 
-rootApp.service('DataServices', function($rootScope) {
+rootApp.service('DataService', function($rootScope) {
 
 
 // -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ rootApp.service('DataServices', function($rootScope) {
 //
 this.examineImage = function(mode,item)  {
 
-				$rootScope.debug && console.log('DataServices: Validating', mode);
+				$rootScope.debug && console.log('DataService: Validating', mode);
 				// $rootScope.debug && console.log('Event:', event, 'File:', item);
 
 				let imgdata = {};

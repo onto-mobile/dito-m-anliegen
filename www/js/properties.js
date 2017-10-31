@@ -1,6 +1,6 @@
 // =============== DEBUG
 //
-var debug=true;
+var debug=false;
 var fake_send = false;
 var fake_geoloc=false;
 var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
@@ -14,14 +14,13 @@ var url_geoData = url_dito+'?action=browsermap&id=2692&geojson';
 var url_categories = url_dito+'?action=journalhelperajax&id=2692&method=getCategories';
 var url_info = url_dito+'?action=readprivacy&id=2701';
 
-var tile_server='dito';
-var url_tiles = url_dito+'?action=tiles';
-//
-// var tile_server='mapbox';
-// var mapbox_id='mapbox.streets';
-// var url_tiles = 'https://api.tiles.mapbox.com/v4/'
-// var mapbox_access_token='pk.eyJ1IjoiY29kZWpvZGxlciIsImEiOiJjajc0eXVydGUwY3B1MnBzYndnanc0dmpjIn0.jXdtsPAHawa9Xwou8CalQw'
-//
+// var tile_server='dito';
+// var url_tiles = url_dito+'?action=tiles';
+var tile_server='mapbox';
+var mapbox_id='mapbox.streets';
+var url_tiles = 'https://api.tiles.mapbox.com/v4/'
+var mapbox_access_token='pk.eyJ1IjoiY29kZWpvZGxlciIsImEiOiJjajc0eXVydGUwY3B1MnBzYndnanc0dmpjIn0.jXdtsPAHawa9Xwou8CalQw'
+
 
 // =============== MAP
 //
@@ -84,9 +83,13 @@ var pageInfo = {
 // * obj method: count self number of mandatories
 // * because navigation is async, the app needs some 'report completed' counter and flag
 // * since app starts with map view, the position-coords are always completed (counter default = +1)
+// * there is a 'dirty' flag (actually a counter) on some text input which enables the feedback
+//   to differ between 'first enter' with clear field (no barfs) and 'later cleared field'.
 //
-// Important: If you set defaults for debugging, adjust the  'report_mandatory_completed_counter'
-// and do not forget to correct if after you reverted to production use.
+//  Important:
+//  If you set preconfigured values for debugging, for mandatory properties, you must
+//  set the 'is_valid' state too and adjust the 'report_mandatory_completed_counter';
+//  and do not forget to correct things if you revert to production use!
 //
 var AppDataTemplate =  {
                   'position'  :       { coordinates:{lat:"",lng:""},is_valid:true,mandatory:true},

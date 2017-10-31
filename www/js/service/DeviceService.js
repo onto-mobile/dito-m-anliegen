@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 
 
-rootApp.service('DeviceService', function($rootScope,$q,$timeout,DataFactory,DataServices) {
+rootApp.service('DeviceService', function($rootScope,$q,$timeout,DataFactory,DataService) {
 
 
 // -----------------------------------------------------------------------------
@@ -73,18 +73,19 @@ this.getFileAsBase64 = function(path,callback){
 // --------------------------------------------------------------------------------
 
 
-this.clearCameraCache = function(source)  {
+// This is not tested and needs adjust:
+this.clearCameraCache = function()  {
 
-						navigator.camera.cleanup(onSucc,onFail);
+			navigator.camera.cleanup(onSucc,onFail);
 
-										function onSucc() {
-										   			$rootScope.debug && console.log("Camera cache cleanup: OK.")
-										}
+								function onSucc() {
+								   $rootScope.debug && console.log("Camera cache cleanup: OK.")
+								}
 
-										function onFail(message) {
-										    alert('Camera cache cleanup:', message);
-										}
+								function onFail(message) {
+								   console.warn('Camera cache cleanup:', message);
+								}
 
-	} // End cache cleanup
+} // End cache cleanup
 
 });	// End Device Service

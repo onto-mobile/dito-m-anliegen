@@ -1,11 +1,11 @@
-rootApp.controller('sendCtrl', function($scope,$rootScope,$http,$timeout,DeviceService,NetworkService,DataFactory,DataServices) {
+rootApp.controller('sendCtrl', function($scope,$rootScope,$http,$timeout,DeviceService,NetworkService,DataFactory,DataService) {
 
 debug && console.warn("Controller: sendCtrl.");
 
 // fake send for debugging the data ?
 if (!fake_send) {
 
-appData.sendOK = "sending";
+$scope.appData.sendOK = "sending";
 
 // create dito API data object from appData
 ditoData = DataFactory.makeDitoData(appData);
@@ -29,11 +29,10 @@ switch (appData.image.is_valid) {
                              'chunkedMode' : false
                           //  'headers' : ''
                               }
-        debug && console.log('Adding image file:',uploadData.options);
 
         function onSucc(response) {
                                       $timeout(function(){
-                                      appData.sendOK = "success";
+                                      $scope.appData.sendOK = "success";
                                       console.log("Send OK ! Response = ", response);
                                       })
                                   }
@@ -46,11 +45,13 @@ switch (appData.image.is_valid) {
                                   }
         // SEND
 
+        debug && console.log('Upload file:',uploadData.uri);
+        debug && console.log('Upload options:',uploadData.options);
+
         var ft = new FileTransfer();
         ft.upload(uploadData.uri, encodeURI(uploadData.server), onSucc, onFail, uploadData.options);
 
-    break;  // End imageData -> send by plugin
-
+    break;  // End HaveImage -> send by filetransfer plugin
 
 
     case false: // no image -> send by $http form
@@ -59,11 +60,11 @@ switch (appData.image.is_valid) {
         NetworkService.sendForm(ditoData,'form').then(
 
                            function (response) {
-                                        appData.sendOK = "success";
+                                        $scope.appData.sendOK = "success";
                                         debug && console.log("Controller sendForm OK response:", response);
                            },
                            function (response) {
-                                         appData.sendOK = "failed";
+                                         $scope.appData.sendOK = "failed";
                                          console.error("Controller sendForm FAILED with response:", response);
                            }
                    ) // End then
@@ -74,6 +75,7 @@ switch (appData.image.is_valid) {
 
 } else {  // fake send
   console.warn("Fake Send set in properties.js -- not sending.");
+  $scope.appData.sendOK = "success";
 }
 
 

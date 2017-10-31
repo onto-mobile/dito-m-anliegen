@@ -2,27 +2,50 @@
 
   <br><br>
 
-  <div ng-if="appData.sendOK=='sending'">
-      Bitte warten, die Daten werden übertragen...
+  <div class="pageFeedback">
+
+      <div ng-if="appData.sendOK=='sending'">
+
+          Bitte warten, die Daten werden übertragen...
+
+      </div>
+
+      <div ng-if="appData.sendOK=='success'">
+
+        Anliegen gespeichert!<br><br>
+        Vielen Dank für Ihr Anliegen.<br>
+        Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
+        Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!
+
+      </div>
+
+      <div ng-if="appData.sendOK=='failed'">
+
+        Das hat leider nicht geklappt.
+
+      </div>
+
+      <div class="buttonBox"  ng-if="appData.sendOK!='sending'">
+        <button ng-click="changeView('home')"> Zurück zum Anfang </button>
+        <br><br>
+        <button ng-click="closeApp()">App Beenden</button>
+        <br><br>
+      </div>
+
   </div>
 
-  <div ng-if="appData.sendOK=='success'">
-    Herzlichen Glückwunsch !
-  </div>
+</div>
 
-  <div ng-if="appData.sendOK=='failed'">
-    Das hat leider nicht geklappt.
-  </div>
+<div ng-if="fake_send">
+    <br><br>Fake Send set in properties.js -- not sending!
+</div>
 
-  <div ng-if="fake_send==true">
-      Fake Send set in properties.js -- not sending.
-  </div>
 
+<!--
 <pre ng-if="debug">
 appData:
 {{appData|json}}
 imageData:
 {{imageData|json}}
 </pre>
-
-</div>
+ -->

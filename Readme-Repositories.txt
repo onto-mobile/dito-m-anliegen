@@ -1,3 +1,9 @@
+Die Cordova / Phonegap Datei 'config.xml' ist für cordova anders als für phonegap. Ein Synchronisieren zwischen verschiedenen PLattformen ist daher nicht möglich.
+
+
+Falls beim Updaten mit GIT oder SVN eine der Versionen doch überschrieben wird, bietet es sich an, für jede Version noch einmal extra ein Backup zu kopieren mit aussagekräftigem Namen, zB. config-{cordova,phonegap}.xml.
+
+
 [ SVN ]
 
 SVN-Manager ist generell Eclipse 'subclipse' plugin
@@ -9,15 +15,19 @@ Ordner dito-m-anliegen -> trunk = root
 Aktivierte Ordner: 
 www
 hooks
+
 (optional also folder 'Archiv')
 
 Aktivierte Dateien:
-config-{cordova,phonegap}.xml
-   (!nicht config.xml weil diese Datei für phonegap / cordova verschieden ist)
+
+config.xml 							# Achtung, das ist die Version des jeweiligen OS, also cordova oder phonegap)
+
+config-{cordova,phonegap}.xml		# Backup
+
 package-{cordova,phonegap}.json  (just for reference, since this file is always re-created by cordova build)
 Readme-Repositories (this file)
 
-SVN will contain the cordova version, so these are also committed:
+SVN right now contains the cordova version, so these are also committed:
 config.xml    (this file is framework specific, differs between cordova and phonegap)
 package.json  (this file is always re-created by cordova build)
 

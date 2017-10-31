@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 
-rootApp.factory('DataFactory', function($rootScope,MapFactory,DataServices) {
+rootApp.factory('DataFactory', function($rootScope,MapFactory,DataService) {
 
 // -----------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ resetData : function(choice)  {
 											imageData = angular.copy(ImageDataTemplate);
 											$rootScope.imageData = imageData;
 											// need this for correct mandatory counter:
-											DataServices.updateAppData('image.text','reset',false);
+											DataService.updateAppData('image.text','reset',false);
 									break;
 							}
 }, // End resetData

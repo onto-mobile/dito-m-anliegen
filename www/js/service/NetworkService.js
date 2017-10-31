@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 
-rootApp.service('NetworkService', function($rootScope,$http,$q,DataServices) {
+rootApp.service('NetworkService', function($rootScope,$http,$q,DataService) {
 
 // -----------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ this.sendForm = function(data,format) {
 
 								case 'form': config = {
 															          method: 	'POST',
-																				url:			 url_dito + "?"+ DataServices.serializeData(data),
+																				url:			 url_dito + "?"+ DataService.serializeData(data),
 																				headers:	{'Content-Type': 'application/x-www-form-urlencoded,charset=utf-8'},
 																			}
 				 				break;
