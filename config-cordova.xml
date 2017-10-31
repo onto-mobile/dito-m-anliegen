@@ -22,6 +22,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <preference name="StatusBarOverlaysWebView" value="false" />
     <engine name="android" spec="^6.3.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Usage of this app implies attaching a photo of the reported incident." />
@@ -34,4 +35,6 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Purpose of this application is to report geolocated incidents. Enabling geolocation detection helps users find their position and speeds up the reporting process." />
     </plugin>
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
+    <plugin name="cordova-plugin-network-information" spec="^1.3.3" />
 </widget>

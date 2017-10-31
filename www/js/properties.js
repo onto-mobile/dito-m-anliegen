@@ -13,14 +13,14 @@ var url_dito = 'http://anliegen.muehlheim.ontopica.de/dito/explore';
 var url_geoData = url_dito+'?action=browsermap&id=2692&geojson';
 var url_categories = url_dito+'?action=journalhelperajax&id=2692&method=getCategories';
 var url_info = url_dito+'?action=readprivacy&id=2701';
+
+var tile_server='dito';
+var url_tiles = url_dito+'?action=tiles';
 //
-// var tile_server='dito';
-// var url_tiles = url_dito+'?action=tiles';
-//
-var tile_server='mapbox';
-var mapbox_id='mapbox.streets';
-var url_tiles = 'https://api.tiles.mapbox.com/v4/'
-var mapbox_access_token='pk.eyJ1IjoiY29kZWpvZGxlciIsImEiOiJjajc0eXVydGUwY3B1MnBzYndnanc0dmpjIn0.jXdtsPAHawa9Xwou8CalQw'
+// var tile_server='mapbox';
+// var mapbox_id='mapbox.streets';
+// var url_tiles = 'https://api.tiles.mapbox.com/v4/'
+// var mapbox_access_token='pk.eyJ1IjoiY29kZWpvZGxlciIsImEiOiJjajc0eXVydGUwY3B1MnBzYndnanc0dmpjIn0.jXdtsPAHawa9Xwou8CalQw'
 //
 
 // =============== MAP

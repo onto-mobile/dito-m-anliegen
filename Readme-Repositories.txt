@@ -13,6 +13,7 @@ hooks
 
 Aktivierte Dateien:
 config-{cordova,phonegap}.xml
+   (!nicht config.xml weil diese Datei für phonegap / cordova verschieden ist)
 package-{cordova,phonegap}.json  (just for reference, since this file is always re-created by cordova build)
 Readme-Repositories (this file)
 
@@ -33,14 +34,18 @@ Aktivierte Ordner und Dateien:
 
 www
 hooks
-config-{cordova,phonegap}.xml
-package-{cordova,phonegap}.json  (just for reference, since this file is always re-created by cordova build)
 .gitignore
 Readme-Repositories (this file)
+# Just for reference, since this file is always re-created by cordova build:
+config-{cordova,phonegap}.xml
+package-{cordova,phonegap}.json  
 
-Ignored:
+Explicitely ignored:
+
 config.xml    (this file is framework specific, differs between cordova and phonegap)
 package.json  (this file is always re-created by cordova build)
+
+
 
 
 GIT COMMANDS:
@@ -53,7 +58,7 @@ git add (liste Ordner Dateien) ............ Changes zur 'queue'(stage) hinzufüg
 
 git log	................................... GIT commit log anzeigen 
 
-git add www/\\* ............ Um einen Ordner 'www' mit allen Inhalten rekursiv zum Repo hinzuzufügen (oder in einem Unterordner: git add --all)
+git add www/\* ............ Um einen Ordner 'www' mit allen Inhalten rekursiv zum Repo hinzuzufügen (oder in einem Unterordner: git add --all)
 
 git commit -m "message"	........ commit step 1, wird lokal gespeichert
 

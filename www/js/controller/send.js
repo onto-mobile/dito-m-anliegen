@@ -29,6 +29,7 @@ switch (appData.image.is_valid) {
                              'chunkedMode' : false
                           //  'headers' : ''
                               }
+        debug && console.log('Adding image file:',uploadData.options);
 
         function onSucc(response) {
                                       $timeout(function(){
