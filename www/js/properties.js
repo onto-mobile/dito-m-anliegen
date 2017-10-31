@@ -1,7 +1,7 @@
 // =============== DEBUG
 //
 var debug=true;
-var fake_send = true;
+var fake_send = false;
 var fake_geoloc=false;
 var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
 

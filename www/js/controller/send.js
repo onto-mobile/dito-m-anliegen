@@ -1,4 +1,4 @@
-rootApp.controller('sendCtrl', function($scope,$rootScope,$http,DeviceService,NetworkService,DataFactory,DataServices) {
+rootApp.controller('sendCtrl', function($scope,$rootScope,$http,$timeout,DeviceService,NetworkService,DataFactory,DataServices) {
 
 debug && console.warn("Controller: sendCtrl.");
 
