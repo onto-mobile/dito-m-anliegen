@@ -14,6 +14,7 @@ this.$onInit = function () {
 				$scope.maxTitle = maxTitle;
 				$scope.forms = {};
 				let lastView = '';
+				$scope.fake_send = fake_send;
 
 	}	// End onInit
 
@@ -41,7 +42,7 @@ $scope.changeView = function (view,item) {
 
 		case 'map': 			// Special case:
 											// map -> report_saved = back to report1 position selection,keeping the position.
-											// because a user looking up the map amidst doing a report, usually wants to see
+											// because a user looking up the map in the middle of a report, usually wants to see
 											// the other nearby placemarks and then, most probably, re-adjust his position.
 											// (It just feels right, and anything else fells confusing)
 
@@ -88,7 +89,7 @@ $scope.changeView = function (view,item) {
 
 											if ($scope.view =="report1") {
 												// coming from 'cancel' => reset data and map
-												// DataFactory.initAppData();
+												DataFactory.initAppData();
 												$rootScope.baseMap.invalidateSize();
 												MapFactory.mapControl('center', cityCenter, initialZoomLevel);
 												$rootScope.apply
@@ -364,7 +365,9 @@ $scope.validateInput = function(item)  {
 							// debug && console.log("New result:",result);
 							if ((result == false) && (appData.email.is_valid == true)) DataServices.updateMandatoryCounter("-");
 							if ((result == true) && (appData.email.is_valid == false)) DataServices.updateMandatoryCounter("+");
-							appData.email.is_valid = result
+							appData.email.is_valid = result;
+							// need this for correct feedback:
+							if (result == false) appData.email.dirty = 2;
 							return result;
 
 		break;

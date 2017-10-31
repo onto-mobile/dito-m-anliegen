@@ -2,6 +2,9 @@ rootApp.controller('sendCtrl', function($scope,$rootScope,$http,DeviceService,Ne
 
 debug && console.warn("Controller: sendCtrl.");
 
+// fake send for debugging the data ?
+if (!fake_send) {
+
 appData.sendOK = "sending";
 
 // create dito API data object from appData
@@ -67,6 +70,10 @@ switch (appData.image.is_valid) {
     break;
 
 } // End valid image switch
+
+} else {  // fake send
+  console.warn("Fake Send set in properties.js -- not sending.");
+}
 
 
 });  // End controller
