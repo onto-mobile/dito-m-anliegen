@@ -2,18 +2,23 @@
 /*
 
 # Not ignore these folders:
-
 !www
 !hooks
 
-
-# and except these files:
 # Note that we don't want the different config.xml and package.json to be overwritten from either cordova or phonegap
+# so, explicitely ignore this file which is different for phonegap / cordova
+/config.xml
+/package.json
+
+# Not igrnore these files:
 
 !.gitignore
 !/Readme*
 !/config-cordova.xml
 !/config-phonegap.xml
+!/package.json-cordova
+!/package.json-phonegap
+
 !/.project
 !/.bithoundrc
 
