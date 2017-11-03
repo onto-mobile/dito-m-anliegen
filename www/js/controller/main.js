@@ -226,18 +226,22 @@ $scope.getImage = function(mode) {
 					case 'gallery':
 											debug && console.log("mode gallery, status",status);
 											debug && console.log("window.FilePath ",window.FilePath);
-											 // @Android: Using 'cordova filepath plugin' to resolve content:// links to file:// path
-											 window.FilePath.resolveNativePath(status.uri,
+											if(typeof window.FilePath != 'undefined') {
+												 // @Android: Using 'cordova filepath plugin' to resolve content:// links to file:// path
+												 window.FilePath.resolveNativePath(status.uri,
 
-														function onSucc(result) {
-																// $scope.imageData.filepath = result but we do this in makeImageData()
-																makeImageData(result)
-														 },
-														function onFail(result) {
-															console.warn("Filepath conversion failed: ", result);
-															DataService.updateAppData('image.text','failed fileptah conversion')
-														}
-											 ); // End resolve Path
+															function onSucc(result) {
+																	// $scope.imageData.filepath = result but we do this in makeImageData()
+																	makeImageData(result)
+															 },
+															function onFail(result) {
+																console.warn("Filepath conversion failed: ", result);
+																DataService.updateAppData('image.text','failed fileptah conversion')
+															}
+												 ); // End resolve Path
+											} else {
+												makeImageData(status.uri);
+											}
 					break;
 
 			}  // End switch
