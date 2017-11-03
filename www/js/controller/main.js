@@ -240,7 +240,11 @@ $scope.getImage = function(mode) {
 															}
 												 ); // End resolve Path
 											} else {
-												makeImageData(status.uri);
+												// ios case
+												let uri = status.uri;
+												uri=uri.replace('assets-library://','cdvfile://localhost/assets-library/');
+												debug && console.log("uri",uri);
+												makeImageData(uri);
 											}
 					break;
 
