@@ -224,6 +224,7 @@ $scope.getImage = function(mode) {
 												makeImageData(status.uri);
 					break;
 					case 'gallery':
+											debug && console.log("mode gallery, status",status);
 											 // @Android: Using 'cordova filepath plugin' to resolve content:// links to file:// path
 											 window.FilePath.resolveNativePath(status.uri,
 

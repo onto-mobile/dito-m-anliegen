@@ -78,7 +78,9 @@ thisfactory = {
           miniMap = L.map(divId, {
                                   center: [lat,lng],
                                   zoom: 16,
-                                  zoomControl : false
+                                  zoomControl : false,
+                                  dragging : false,
+                                  doubleClickZoom : false
                                   });
 
           L.layerGroup().addLayer(miniLayer).addTo(miniMap);
@@ -181,7 +183,7 @@ addPlacemarks: function(vectorArray) {
                     var icon = L.divIcon({className: cssClassMarker+' '+cssClassMarker+'map-icon leaflet-div-icon-ont marker cat-'+indexOfCat, iconSize:null , popupAnchor:  [1, -22]});
                     var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { title: feature.properties.title, alt:feature.properties.id, icon:icon}); //                    var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { title: feature.properties.title, alt:feature.properties.id}); //
 
-                    marker.bindPopup('<h3>'+feature.properties.title+'</h3>');
+                    marker.bindPopup('<p>'+feature.properties.title+'</p>');
                     // TODO: autoPan:false
                     // See http://leafletjs.com/reference-1.2.0.html#popup
                     // marker.addTo(markerLayer);

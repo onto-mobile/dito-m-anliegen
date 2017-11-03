@@ -37,7 +37,9 @@ iOS: default-src 'self' gap://ready file://*
   <meta http-equiv="Content-Security-Policy" content="img-src * blob: android-webview-video-poster: cdvphotolibrary:  'self' data: ws: wss://*; default-src * blob: 'self' gap: wss: ws: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src * http: https: ws: wss://*;">
 
   <meta charset="utf-8"/>
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+  <!-- <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/> -->
+  <meta name="viewport" content="touch-action= manipulation, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+
   <!-- <meta name="format-detection" content="telephone=no"> -->
 
   <!-- LEAFLET STYLE -->
@@ -146,6 +148,15 @@ iOS: default-src 'self' gap://ready file://*
   <!--#####################################################################################-->
 
 </body>
+
+<script type='application/javascript' src="js/extern/fastclick.js"></script>
+<script type='application/javascript'>
+if ('addEventListener' in document) {
+	document.addEventListener('DOMContentLoaded', function() {
+		FastClick.attach(document.body);
+	}, false);
+}
+</script>
 
 <!--  ANGULAR -->
 <!-- Need to load first  -->
