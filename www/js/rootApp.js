@@ -13,7 +13,7 @@ rootApp.config(function($routeProvider,$locationProvider) {
       // it's just dealt by mainCtrl which is declared on top of index.html.
       //
       debug && console.log("Angular link router initialized with view:", view);
-
+ 
   		$routeProvider
 
         .when( 'home', { templateUrl: 'html/home.html' })
