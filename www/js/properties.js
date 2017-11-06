@@ -30,6 +30,7 @@ var mapbox_access_token='pk.eyJ1IjoiY29kZWpvZGxlciIsImEiOiJjajc0eXVydGUwY3B1MnBz
 // MAP and PLACEMARK
 var mapAttribution = '<a href="http://leafletjs.com">LeafLet</a> | Data © <a href="http://openstreetmap.org">OpenStreetMap</a> <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>  | Imagery © <a href="http://mapbox.com">Mapbox</a>';
 var cityCenter = { lat:50.121, lng:8.832 };
+// here we need the bounding box
 var mapCenter = angular.copy(cityCenter);
 var minZoomLevel = 12;
 var maxZoomLevel = 19;
