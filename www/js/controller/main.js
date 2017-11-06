@@ -73,17 +73,15 @@ $scope.changeView = function (view,item) {
 			// If we are entering a new report stage (not a saved one) then log the view into appData
 			// because we want to be able to pick up that stage from anywhere else again
 			// This need to be a separate switch.
-			case 'report1':case 'report2':case 'report3':case 'report4':case 'report5':case 'report6':
-
+			case 'report1':
+			case 'report2':
+			case 'report3':
+			case 'report4':
+			case 'report5':
+			case 'report6':
 		 								debug && console.log("Saving view:", view);
 										appData.report_saved_view = view;
-			break;
-
-	}  // End switch
-
-
-	switch (view) {
-
+										break;
 		  case "home":	// actions 'HOME' and 'Cancel'
 											if (lastView =="report1" || lastView =="send") {
 												//  => reset data and map
@@ -95,7 +93,7 @@ $scope.changeView = function (view,item) {
 														MapFactory.showPlacemarks();
 												})
 											}
-			break;
+											break;
 			case 'map':   // SHOW PLACEMARKS
 											MapFactory.showPlacemarks();
 										  // Zoom out a little compared to the crosshair view
@@ -108,13 +106,13 @@ $scope.changeView = function (view,item) {
 														$rootScope.apply
 											})
 
-			break;
+											break;
 			case 'report_saved':
 											// When we enter this from any other than report views (like my,map,list,info)
 											// then the last saved report stage is recalled
 											view = appData.report_saved_view;
 											debug && console.log("Recalled report view:", view)
-			// !no-break:
+											// !no-break:
 
 			case 'report1':	// MAP POSITION SELECTOR
 											$timeout(function(){
@@ -125,13 +123,13 @@ $scope.changeView = function (view,item) {
 															$rootScope.apply
 													}
 											}) // End timeout
-			break;
+											break;
 
       default:  			$scope.debug && console.log('changeView: Nothing special here.'); break;
 
 			case 'detail':   // detail view, we need to pass the selected item
 											$rootScope.listItem = item;
-			break;
+											break;
 
 
   } // End switch
@@ -143,21 +141,20 @@ $scope.changeView = function (view,item) {
 	// SET ROUTE by routeProvider $location service
 	$location.path(view);
 
-
 	// What we do after $location has changed
 	//
 	// Set viewport view template ng-show
 	//
 	switch (view) {
 
-			case 'home':case 'map':case 'report1': $scope.map_view_active = true;
-			break;
-
-			default: $scope.map_view_active = false;
-			break;
-
+			case 'home':
+			case 'map':
+			case 'report1':
+						$scope.map_view_active = true;
+						break;
+			default:
+				$scope.map_view_active = false;
 	} // End switch
-
 
 } // END CHANGE VIEW
 

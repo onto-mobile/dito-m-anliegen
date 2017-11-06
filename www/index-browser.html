@@ -61,7 +61,7 @@
   <!-- this means we're coming from anywhere else than a "report*" view: -->
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view.indexOf('report') < 0">
     <ul class="nav navbar-nav">
-      <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="changeView('my')"><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="changeView('howTo')"><i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></li>
        <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
       <li ng-if="view == 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="changeView('report1')">MELDEN</li>
       <li ng-if="view !== 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report_saved'}" ng-click="changeView('report_saved')">MELDEN</li>
@@ -107,7 +107,8 @@
       <li class="col-xs-2" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
       <li ng-if="validState('report6')" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
       <li ng-if="!validState('report6')" class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-click="changeView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
+      <!-- <li class="col-xs-2 text-right" ng-click="changeView('info')"><i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></li> -->
+      <li class="col-xs-2 text-right disabled"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
 </div>  <!-- ng-cloak -->
@@ -161,6 +162,7 @@
 <script type="text/javascript" src="js/service/NetworkService.js"></script>
 <script type="text/javascript" src="js/controller/send.js"></script>
 <script type="text/javascript" src="js/controller/my.js"></script>
+<script type="text/javascript" src="js/controller/howTo.js"></script>
 <script type="text/javascript" src="js/controller/list.js"></script>
 <script type="text/javascript" src="js/controller/info.js"></script>
 <script type="text/javascript" src="js/controller/error.js"></script>

@@ -38,14 +38,30 @@ div.deviceMessageInner {
   left:0;
   margin: auto;
 }
+.form-catch-top-comment{
+  display: none;
+}
 
+ul.list-group{
+  margin-bottom: 50px;
+}
 
+.info .btn-group .btn {
+  width:100%;
+  margin-top: 15px;
+}
+.info .btn-group .btn.selected{
+    color: #333;
+    border-color: #171212;
+}
 /* NAV */
-
 #viewport {
   margin: 0 5px 0 5px;
 }
 
+li.disabled {
+  color:#ccc;
+}
 .nav.navbar-nav {
   width:100%;
 }
@@ -83,15 +99,15 @@ div.detail {
   margin: 5px
 }
 
-
-
-/* REPORT */
-
 .info .modal-header,
-.info .panel-default{
+.info .panel-default,
+.howTo .modal-header,
+.howTo .panel-default,
+.howTo .modal-footer{
   display: none;
 }
 
+/* REPORT */
 div.report .btn-group-vertical{
   width:100%;
 }
@@ -108,7 +124,6 @@ div.pageFeedback {
 }
 
 /* IMAGE */
-
 div.previewBox {
 	text-align:center;
 	padding: 10px 5px 0px 5px;

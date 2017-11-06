@@ -6,7 +6,7 @@ body {padding-top: 50px; }
 
 #mapid {
 	position: relative;
-	height:90vh;
+	height:calc(100vh - 100px);
 	width:100%;
 	}
 #miniMap {

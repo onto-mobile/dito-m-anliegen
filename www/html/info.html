@@ -1,3 +1,8 @@
 <div class="info" id="info" ng-controller="infoCtrl">
-  <div ng-bind-html="contentValue"></div>
+  <div class="btn-group" role="group" aria-label="links">
+      <button class="btn btn-default" ng-class="{selected: linkSelected == 'information'}" ng-click="loadContentInDiv('information')">Informationen</button>
+      <button class="btn btn-default" ng-class="{selected: linkSelected == 'privacy'}" ng-click="loadContentInDiv('privacy')">Datenschutzerklärung</button>
+      <button class="btn btn-default" ng-class="{selected: linkSelected == 'impressum'}" ng-click="loadContentInDiv('impressum')" >Impressum</button>
+  </div>
+  <div class="display-content" ng-bind-html="contentValue"></div>
 </div>

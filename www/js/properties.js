@@ -12,7 +12,10 @@ var fakeGeolocPosition = { lat:50.1247648, lng:8.82783230 };
 var url_dito = 'http://anliegen.muehlheim.ontopica.de/dito/explore';
 var url_geoData = url_dito+'?action=browsermap&id=2692&geojson';
 var url_categories = url_dito+'?action=journalhelperajax&id=2692&method=getCategories';
-var url_info = url_dito+'?action=readprivacy&id=2701';
+var url_privacy = url_dito+'?action=readprivacy&id=2701';
+var url_impressum = url_dito+'?action=readprivacy&id=2702';
+var url_info = url_dito+'?action=readprivacy&id=2696';
+var url_faq = url_dito+'?action=readprivacy&id=2700';
 
 // var tile_server='dito';
 // var url_tiles = url_dito+'?action=tiles';
