@@ -36,7 +36,7 @@ var minZoomLevel = 12;
 var maxZoomLevel = 19;
 var initialZoomLevel = 13;
 var geolocZoomLevel = 16;
-// beamed to rootScope:
+// beamed to rootScope: 
 var baseMap = {};
 var markerLayer = {};
 //
