@@ -43,8 +43,8 @@ GLOBAL_ONTO.init =  {
     '<a href:"http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>  |'+
     ' Imagery © <a href:"http://mapbox.com">Mapbox</a>',
   cityCenter : { lat:50.121, lng:8.832 },
-  boundsSouthWest : L.latLng(50.07, 8.75),
-  boundsNorthEast : L.latLng(50.14, 8.91),
+  boundsSouthWest : L.latLng(50.0, 8.55),
+  boundsNorthEast : L.latLng(50.3, 8.99),
 	bounds : function(){return L.latLngBounds(this.boundsSouthWest,
 									this.boundsNorthEast)},
   // here we need the bounding box
