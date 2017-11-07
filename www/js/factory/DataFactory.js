@@ -25,7 +25,7 @@ resetData : function(choice)  {
 											$rootScope.appData = null;
 											delete $rootScope.appData;
 											appData = angular.copy(GLOBAL_ONTO.init.appDataTemplate);
-											console.log(GLOBAL_ONTO.init.appDataTemplate);
+											appData.report_saved_select_zoom = appData.initialZoomLevel;
 											$rootScope.appData = appData;
 											$rootScope.view = appData.view;
 									break;

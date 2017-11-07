@@ -38,7 +38,7 @@ GLOBAL_ONTO.init =  {
   // ::::::::::::::: MAP
   //
   // MAP and PLACEMARK
-  mapAttribution : '<a href:"http://leafletjs.com">LeafLet</a> | Data © '+
+  mapAttribution : 'Data © '+
     '<a href:"http://openstreetmap.org">OpenStreetMap</a> '+
     '<a href:"http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>  |'+
     ' Imagery © <a href:"http://mapbox.com">Mapbox</a>',
@@ -69,7 +69,7 @@ GLOBAL_ONTO.init =  {
 
 	listOfCategoryNames : [],
   pageInfo : {
-  'app_title'  : "Dito CityApp",
+  'app_title'  : "Anliegenmanagement",
   'home'    :  "Startseite",
   'map'  : "MELDEN",
   'report1'  : "Markieren Sie den Ort",
@@ -128,18 +128,19 @@ GLOBAL_ONTO.init =  {
     'check_privacy_accepted'  :  {state:false,is_valid:false,mandatory:true},
     'report_mandatory_completed_counter'  : 1,
     'report_mandatory_is_complete'  : false,
-    mandatoryNumber : function () {
-                console.log('Mandatory items:');
-                var number = 0;
-                for (var item in this) {
-                    if (this[item].mandatory == true) {
-                         ++number;
-                         console.log(number+'.',item);
-                    }
-                }
-                console.log('Counted', number, 'mandatories.');
-                return number;
-    }, // End method
+    mandatoryNumber : 5,
+		//  function () {
+    //             console.log('Mandatory items:');
+    //             var number = 0;
+    //             for (var item in this) {
+    //                 if (this[item].mandatory == true) {
+    //                      ++number;
+    //                      console.log(number+'.',item);
+    //                 }
+    //             }
+    //             console.log('Counted', number, 'mandatories.');
+    //             return number;
+    // }, // End method
     'view'  :       'home',
     'report_saved_view' : 'report1',
     'report_saved_select_zoom' : function(){return this.initialZoomLevel},

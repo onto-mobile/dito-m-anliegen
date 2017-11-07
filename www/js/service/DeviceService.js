@@ -12,8 +12,8 @@ rootApp.service('DeviceService', function($rootScope,$q,$timeout,DataFactory,Dat
 //
 this.getDeviceImage = function (source) {
 
-		debug && console.warn('Service getDeviceImage:');
-		debug && console.log('Options for ' + source + ':', photoOptions[source]);
+		GLOBAL.init.debug && console.warn('Service getDeviceImage:');
+		GLOBAL.init.debug && console.log('Options for ' + source + ':', photoOptions[source]);
 
 		var deferred = $q.defer();
 
@@ -21,14 +21,14 @@ this.getDeviceImage = function (source) {
 
 						function onSucc(response) {
 
-						    GLOBAL_ONTO.init.debug && console.log('cordova camera plugin returns:', response);
+						    GLOBAL.init.debug && console.log('cordova camera plugin returns:', response);
 								deferred.resolve( { uri: response } );
 								// return true;
 						},
 
 						function onFail(response) {
 
-								GLOBAL_ONTO.init.debug && console.warn("cordova camera plugin: No picture loaded: " + response);
+								GLOBAL.init.debug && console.warn("cordova camera plugin: No picture loaded: " + response);
 								deferred.reject( { failed: response }  );
 								// return false;
 						},

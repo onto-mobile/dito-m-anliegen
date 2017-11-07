@@ -90,7 +90,8 @@ rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService)
             }
        ) // End then
 
-       report_mandatory_number = appData.mandatoryNumber();
+      //  report_mandatory_number = appData.mandatoryNumber();
+       report_mandatory_number = appData.mandatoryNumber;
 
        // We want to access these from all controllers and pages:
        $rootScope.appTitle = GLOBAL_ONTO.init.pageInfo.app_title;

@@ -80,7 +80,6 @@ var cordovaEvents = {
                               console.log('deviceready.js: Initializing Angular App');
                               // Angular needs to be initialized after deviceready
                               angular.bootstrap(document, ['rootApp']);
-
                          } else {
 
                               messageCreate("netMsg", text_error, "text-device-error", "fa fa-spin fa-spinner fa-2x");
@@ -140,7 +139,7 @@ var cordovaEvents = {
 
 if (window.cordova) {
 
- GLOBAL_ONTO.init.debug && console.log("Cordova detected.")
+  GLOBAL_ONTO.init.debug && console.log("Cordova detected.")
 
 cordovaEvents.initialize();
 
@@ -171,24 +170,15 @@ cordovaEvents.initialize();
                GLOBAL_ONTO.init.debug && console.log('Waiting for net connection ... ');
 
                      if (deviceOnline()) {
-
                            console.warn('Network connection found.');
                            messageDelete("netMsg");
-
                            clearInterval(onlineCheck);
+                        // wait a second for full network coming up
+                        console.log('deviceready.js: Initializing Angular App');
+                        // Angular needs to be initialized after deviceready
+                         angular.bootstrap(document, ['rootApp']);
 
-                           // wait a second for full network coming up
-
-                           setTimeout(function() {
-                               // LAUNCH APP
-                               console.log('deviceready.js: Initializing Angular App');
-
-                               // Angular needs to be initialized after deviceready
-                               angular.bootstrap(document, ['rootApp']);
-
-                             },1000);  // End timeout
-
-                         } // End if online
+                   } // End if online
 
                }, 2000 ); // End interval
 

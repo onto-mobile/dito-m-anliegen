@@ -91,7 +91,7 @@ $scope.changeView = function (view,item) {
 														MapFactory.mapControl('center',
 																									GLOBAL_ONTO.init.cityCenter,
 																									GLOBAL_ONTO.init.initialZoomLevel);
-														$rootScope.apply
+														$rootScope.apply;
 														MapFactory.showPlacemarks();
 												})
 											}
@@ -101,12 +101,13 @@ $scope.changeView = function (view,item) {
 										  // Zoom out a little compared to the crosshair view
 											// assuming we probably want to lookup nearby markers
 											let zoom = appData.report_saved_select_zoom-1;
-											if ( zoom < GLOBAL_ONTO.init.minZoomLevel )
+
+											if (isNaN(zoom) || zoom < GLOBAL_ONTO.init.minZoomLevel )
 													zoom = GLOBAL_ONTO.init.minZoomLevel;
 											//
 											$timeout(function(){
 														$rootScope.baseMap.setZoom(zoom);
-														$rootScope.apply
+														$rootScope.apply;
 											})
 
 											break;
