@@ -43,17 +43,17 @@ var cordovaEvents = {
 
                         // Update camera plugin options from template in properties.js
                         // This is because Camera methods are not yet available when properties are initialized
-                        photoOptions.camera.sourceType = Camera.PictureSourceType[photoOptions.camera.sourceType];
-                        photoOptions.camera.destinationType = Camera.DestinationType[photoOptions.camera.destinationType];
-                        photoOptions.camera.mediaType = Camera.MediaType[photoOptions.camera.mediaType];
-                        photoOptions.camera.encodingType = Camera.EncodingType[photoOptions.camera.encodingType];
+                        GLOBAL_ONTO.init.photoOptions.camera.sourceType = Camera.PictureSourceType[GLOBAL_ONTO.init.photoOptions.camera.sourceType];
+                        GLOBAL_ONTO.init.photoOptions.camera.destinationType = Camera.DestinationType[GLOBAL_ONTO.init.photoOptions.camera.destinationType];
+                        GLOBAL_ONTO.init.photoOptions.camera.mediaType = Camera.MediaType[GLOBAL_ONTO.init.photoOptions.camera.mediaType];
+                        GLOBAL_ONTO.init.photoOptions.camera.encodingType = Camera.EncodingType[GLOBAL_ONTO.init.photoOptions.camera.encodingType];
                         //
-                        photoOptions.gallery.sourceType = Camera.PictureSourceType[photoOptions.gallery.sourceType];
-                        photoOptions.gallery.destinationType = Camera.DestinationType[photoOptions.gallery.destinationType];
-                        photoOptions.gallery.mediaType = Camera.MediaType[photoOptions.gallery.mediaType];
+                        GLOBAL_ONTO.init.photoOptions.gallery.sourceType = Camera.PictureSourceType[GLOBAL_ONTO.init.photoOptions.gallery.sourceType];
+                        GLOBAL_ONTO.init.photoOptions.gallery.destinationType = Camera.DestinationType[GLOBAL_ONTO.init.photoOptions.gallery.destinationType];
+                        GLOBAL_ONTO.init.photoOptions.gallery.mediaType = Camera.MediaType[GLOBAL_ONTO.init.photoOptions.gallery.mediaType];
                         //
-                        photoOptions.cleanup.sourceType = Camera.PictureSourceType[photoOptions.cleanup.sourceType];
-                        photoOptions.cleanup.destinationType = Camera.DestinationType[photoOptions.cleanup.destinationType];
+                        GLOBAL_ONTO.init.photoOptions.cleanup.sourceType = Camera.PictureSourceType[GLOBAL_ONTO.init.photoOptions.cleanup.sourceType];
+                        GLOBAL_ONTO.init.photoOptions.cleanup.destinationType = Camera.DestinationType[GLOBAL_ONTO.init.photoOptions.cleanup.destinationType];
 
                         // =============== APP LAUNCHER ===============
 
