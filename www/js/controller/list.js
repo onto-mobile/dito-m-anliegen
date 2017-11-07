@@ -2,14 +2,14 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFac
 
   //	this.$onInit = function () { ... }
 
-  debug && console.warn("Controller: listCtrl.");
-  debug && console.log("View:", appData.view);
-  debug && console.log("View of main controller:", view);
+  GLOBAL_ONTO.init.debug && console.warn("Controller: listCtrl.");
+  GLOBAL_ONTO.init.debug && console.log("View:", appData.view);
+  GLOBAL_ONTO.init.debug && console.log("View of main controller:", GLOBAL_ONTO.init.view);
 
   $scope.geoJson = $rootScope.geoJson;
-  $scope.url_dito = url_dito;
+  $scope.url_dito = GLOBAL_ONTO.init.url_dito;
 
-  debug && console.log("List Item:" ,$scope.listItem);
+  GLOBAL_ONTO.init.debug && console.log("List Item:" ,$scope.listItem);
 
     switch (appData.view) {
       case 'detail':  // create mini-map

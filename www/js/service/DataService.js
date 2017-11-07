@@ -46,11 +46,11 @@ this.examineImage = function(mode,item)  {
 
 				imgdata.text = "";
 
-				if (imageTypesAllowed.includes(imgdata.type)) {
+				if (GLOBAL_ONTO.init.imageTypesAllowed.includes(imgdata.type)) {
 
 								// Check size
 								//$rootScope.debug && console.log('File size:',imgdata.size, "Limit:", maxImageFileSize);
-								if (imgdata.size <= maxImageFileSize) {
+								if (imgdata.size <= GLOBAL_ONTO.init.maxImageFileSize) {
 
 										 imgdata.valid = true;
 
@@ -58,7 +58,7 @@ this.examineImage = function(mode,item)  {
 
 											with (Math) {
 																	imgdata.sizeKB = floor(imgdata.size/1000);
-																	imgdata.maxKB = floor(maxImageFileSize/1000);
+																	imgdata.maxKB = floor(GLOBAL_ONTO.init.maxImageFileSize/1000);
 																	imgdata.maxMB = round(imgdata.maxKB/1000);
 															 		}
 											imgdata.valid = false;

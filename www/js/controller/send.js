@@ -1,15 +1,15 @@
 rootApp.controller('sendCtrl', function($scope,$rootScope,$http,$timeout,DeviceService,NetworkService,DataFactory,DataService) {
 
-debug && console.warn("Controller: sendCtrl.");
+GLOBAL_ONTO.init.debug && console.warn("Controller: sendCtrl.");
 
 // fake send for debugging the data ?
-if (!fake_send) {
+if (!GLOBAL_ONTO.init.fake_send) {
 
 $scope.appData.sendOK = "sending";
 
 // create dito API data object from appData
 ditoData = DataFactory.makeDitoData(appData);
-debug && console.log('Created Dito Data:',ditoData);
+GLOBAL_ONTO.init.debug && console.log('Created Dito Data:',ditoData);
 
 
 
@@ -18,11 +18,11 @@ switch (appData.image.is_valid) {
 
     case true:  // If we have an image -> send all data with cordova plugin 'file transfer'
 
-        uploadData.server = url_dito+"?";
-        uploadData.uri = imageData.cdv;
-        uploadData.options = {
+        GLOBAL_ONTO.init.uploadData.server = GLOBAL_ONTO.init.url_dito+"?";
+        GLOBAL_ONTO.init.uploadData.uri = imageData.cdv;
+        GLOBAL_ONTO.init.uploadData.options = {
                              'fileKey': 'file',
-                             'fileName': uploadData.uri.substr(uploadData.uri.lastIndexOf('/') + 1),
+                             'fileName': GLOBAL_ONTO.init.uploadData.uri.substr(GLOBAL_ONTO.init.uploadData.uri.lastIndexOf('/') + 1),
                              'httpMethod': 'POST',
                              'mimeType': imageData.type,
                              'params': ditoData,
@@ -44,12 +44,11 @@ switch (appData.image.is_valid) {
                                     })
                                   }
         // SEND
-
-        debug && console.log('Upload file:',uploadData.uri);
-        debug && console.log('Upload options:',uploadData.options);
+        GLOBAL_ONTO.init.debug && console.log('Upload file:',GLOBAL_ONTO.init.uploadData.uri);
+        GLOBAL_ONTO.init.debug && console.log('Upload options:',GLOBAL_ONTO.init.uploadData.options);
 
         var ft = new FileTransfer();
-        ft.upload(uploadData.uri, encodeURI(uploadData.server), onSucc, onFail, uploadData.options);
+        ft.upload(GLOBAL_ONTO.init.uploadData.uri, encodeURI(GLOBAL_ONTO.init.uploadData.server), onSucc, onFail, GLOBAL_ONTO.init.uploadData.options);
 
     break;  // End HaveImage -> send by filetransfer plugin
 

@@ -1,10 +1,3 @@
-
-// =============== Message CONFIG ===============
-
-// Status messages
-let text_error="Keine Verbindung ... bitte aktivieren Sie ihr Netzwerk!";
-let text_ok="OK";
-
 // Adding or removing app boot HTML messages
 // example: createElement('myID','OK!','text-ok','fa fa-check fa-2x')
 //
@@ -96,7 +89,7 @@ var cordovaEvents = {
 
                               let onlineCheck = setInterval(function(){
 
-                                debug && console.log('Waiting for net connection ... ');
+                                GLOBAL_ONTO.init.debug && console.log('Waiting for net connection ... ');
 
                                       if (deviceOnline()) {
 
@@ -147,14 +140,14 @@ var cordovaEvents = {
 
 if (window.cordova) {
 
- debug && console.log("Cordova detected.")
+ GLOBAL_ONTO.init.debug && console.log("Cordova detected.")
 
 cordovaEvents.initialize();
 
 
 } else {  // browser debugging mode
 
-       debug && console.log("Browser detected.")
+       GLOBAL_ONTO.init.debug && console.log("Browser detected.")
        // if (document.createEvent) { element.dispatchEvent('deviceready'); }
 
        function deviceOnline() { return navigator.onLine }
@@ -175,7 +168,7 @@ cordovaEvents.initialize();
 
              let onlineCheck = setInterval(function(){
 
-               debug && console.log('Waiting for net connection ... ');
+               GLOBAL_ONTO.init.debug && console.log('Waiting for net connection ... ');
 
                      if (deviceOnline()) {
 

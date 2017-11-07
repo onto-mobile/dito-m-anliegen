@@ -24,14 +24,15 @@ resetData : function(choice)  {
 									case 'app':
 											$rootScope.appData = null;
 											delete $rootScope.appData;
-											appData = angular.copy(AppDataTemplate);
+											appData = angular.copy(GLOBAL_ONTO.init.appDataTemplate);
+											console.log(GLOBAL_ONTO.init.appDataTemplate);
 											$rootScope.appData = appData;
 											$rootScope.view = appData.view;
 									break;
 									case 'image':
 											$rootScope.imageData = null;
 											delete $rootScope.imageData;
-											imageData = angular.copy(ImageDataTemplate);
+											imageData = angular.copy(GLOBAL_ONTO.init.ImageDataTemplate);
 											$rootScope.imageData = imageData;
 											// need this for correct mandatory counter:
 											DataService.updateAppData('image.text','reset',false);
@@ -42,26 +43,29 @@ resetData : function(choice)  {
 
 makeDitoData: function (appData) {
 
-        // Note that we need to turn position coords to lng - lat because dito expects that order
-        return {
-              submitRegister    :   "submit",
-              sendfromapp   :     "true",
-              action      :    "postbasearticlenotloggedin",
-              mode      :     "new",
-              parentid      :      "2692",
-              rank      :     "100",
-              published     :     "true",
-              notifycreator     :     "false",
-              gp_150_codeProposal_value   :   "",
-              gp_188_status_value     :     "gp.status.open",
-              gp_149_localizationProposal_value     :    appData.position.coordinates.lng+":"+appData.position.coordinates.lat,
-              label     :     appData.category.text,
-              title     :     appData.title.text,
-              note      :     appData.note.text + "\n",
-              email     :     appData.email.text,
-              check_privacy_accepted      :     appData.check_privacy_accepted.state
-              // file : blobData
-              }
+
+				// create a copy of the json which will be send to dito
+				let ditoFormDataStatic = angular.copy(GLOBAL_ONTO.init.ditoFormDataStatic);
+
+
+        // Note that we need to turn position coords to lng - lat
+				// because dito expects that order
+				ditoFormDataStatic.geoCoordinate= appData.position.coordinates.lng+
+																				":"+appData.position.coordinates.lat;
+				// for the time being we use this hardcoded id
+				ditoFormDataStatic.gp_149_localizationProposal_value=
+																				appData.position.coordinates.lng+
+																				":"+appData.position.coordinates.lat;
+				ditoFormDataStatic.labellabel 	= appData.category.text;
+				ditoFormDataStatic.title				= appData.title.text;
+				ditoFormDataStatic.note         = appData.note.text ;
+				ditoFormDataStatic.email				= appData.email.text;
+				ditoFormDataStatic.check_privacy_accepted =
+																					appData.check_privacy_accepted.state;
+
+
+				return ditoFormDataStatic;
+
   }, // End function
 
 
@@ -78,8 +82,8 @@ makeDitoData: function (appData) {
                var mimeString = data.split(',')[0].split(':')[1].split(';')[0];
                var array = [];
                for (var i = 0; i < binary.length; i++) {
-                                                       array.push(binary.charCodeAt(i));
-                                                       }
+                  array.push(binary.charCodeAt(i));
+               }
 
                return new Blob([new Uint8Array(array)], {
                                                          type: mimeString

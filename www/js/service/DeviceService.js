@@ -21,14 +21,14 @@ this.getDeviceImage = function (source) {
 
 						function onSucc(response) {
 
-						    debug && console.log('cordova camera plugin returns:', response);
+						    GLOBAL_ONTO.init.debug && console.log('cordova camera plugin returns:', response);
 								deferred.resolve( { uri: response } );
 								// return true;
 						},
 
 						function onFail(response) {
 
-								debug && console.warn("cordova camera plugin: No picture loaded: " + response);
+								GLOBAL_ONTO.init.debug && console.warn("cordova camera plugin: No picture loaded: " + response);
 								deferred.reject( { failed: response }  );
 								// return false;
 						},

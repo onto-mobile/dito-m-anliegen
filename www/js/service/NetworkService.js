@@ -11,7 +11,7 @@ this.getGeoJSON = function()  {
 
 		 	return $http({
 											method: 	'GET',
-											url:			url_geoData
+											url:			GLOBAL_ONTO.init.url_geoData()
 
 							}).then(
 											function onSuccess(response){
@@ -28,28 +28,12 @@ this.getGeoJSON = function()  {
 										) // End then
 	}  // End getGeoJSON
 
-	this.getRemoteContent = function(url_remote)  {
-
-				return $http({
-													method: 	'GET',
-													url:			url_remote
-
-								}).then(
-													function onSucc(response){
-																	return response.data;
-													},
-
-													function onFail(response){
-																	return response.statusText;
-													}
-												) // End then
-			}  // End getCategories
 
 this.getCategories = function()  {
 
 			return $http({
 												method: 	'GET',
-												url:			url_categories
+												url:			GLOBAL_ONTO.init.url_categories()
 
 							}).then(
 												function onSucc(response){
@@ -79,7 +63,7 @@ this.sendForm = function(data,format) {
 
 								case 'form': config = {
 															          method: 	'POST',
-																				url:			 url_dito + "?"+ DataService.serializeData(data),
+																				url:			 GLOBAL_ONTO.init.url_dito + "?"+ DataService.serializeData(data),
 																				headers:	{'Content-Type': 'application/x-www-form-urlencoded,charset=utf-8'},
 																			}
 				 				break;

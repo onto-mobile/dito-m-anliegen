@@ -12,8 +12,8 @@ rootApp.config(function($routeProvider,$locationProvider) {
       // Also note that when there is no controller specified, then
       // it's just dealt by mainCtrl which is declared on top of index.html.
       //
-      debug && console.log("Angular link router initialized with view:", view);
- 
+      GLOBAL_ONTO.init.debug && console.log("Angular link router initialized with view:", GLOBAL_ONTO.init.view);
+
   		$routeProvider
 
         .when( 'home', { templateUrl: 'html/home.html' })
@@ -31,21 +31,21 @@ rootApp.config(function($routeProvider,$locationProvider) {
 //
 rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService) {
 
-      debug && console.log("rootApp.run init");
+      GLOBAL_ONTO.init.debug && console.log("rootApp.run init");
 
       // Keep these things accessible through all controller instances
       // (We use rootscope, to avoid making things complicated and hard to debug)
- 			$rootScope.debug=debug;
+ 			$rootScope.debug=GLOBAL_ONTO.init.debug;
       //
 			// DEVICE ENVIRONMENT
       //
-      debug && console.log("Checking Cordova plugins:");
+      GLOBAL_ONTO.init.debug && console.log("Checking Cordova plugins:");
       $rootScope.device_has_geoloc = (typeof navigator.geolocation !== "undefined" ) ? true:false;
-      debug && console.log("Geolocation:",$rootScope.device_has_geoloc);
+      GLOBAL_ONTO.init.debug && console.log("Geolocation:",$rootScope.device_has_geoloc);
 			$rootScope.device_has_cam = (typeof navigator.camera !== "undefined" ) ? true:false;
-			debug && console.log("Camera and Gallery:",$rootScope.device_has_cam);
+			GLOBAL_ONTO.init.debug && console.log("Camera and Gallery:",$rootScope.device_has_cam);
       $rootScope.device_has_filetransfer = (typeof FileTransfer !== "undefined" ) ? true:false;
-      debug && console.log("http file transfer:", $rootScope.device_has_filetransfer);
+      GLOBAL_ONTO.init.debug && console.log("http file transfer:", $rootScope.device_has_filetransfer);
       //
       $rootScope.device_has_filereader =  ( window.FileReader !== "undefined" ) ? true:false;
       !$rootScope.device_has_filereader && console.log("Broswer does not support native html file-reader.");
@@ -57,22 +57,22 @@ rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService)
       // Initial view
       //
       view=appData.view;
-      debug && console.log("App initialized view:", view);
-      $rootScope.map_view_active = map_view_active;
+      GLOBAL_ONTO.init.debug && console.log("App initialized view:", view);
+      $rootScope.map_view_active = GLOBAL_ONTO.init.map_view_active;
       //
       // MAP INIT
       //
-      $rootScope.fake_geoloc=fake_geoloc;
-      fake_geoloc && console.warn("Debug option: Fake Geolocation");
+      $rootScope.fake_geoloc=GLOBAL_ONTO.init.fake_geoloc;
+      GLOBAL_ONTO.init.fake_geoloc && console.warn("Debug option: Fake Geolocation");
       //
 			// CREATE LEAFLET MAP as singleton in rootscope
       $rootScope.geoJson = [];
-      $rootScope.markerLayer = markerLayer;
+      $rootScope.markerLayer = GLOBAL_ONTO.init.markerLayer;
       $rootScope.baseMap = MapFactory.createBaseMap();
       // Add placemarks layer:
 			MapFactory.mapControl('load_placemarks');
       // Set initial map view at city center:
-      MapFactory.mapControl('center', cityCenter);
+      MapFactory.mapControl('center', GLOBAL_ONTO.init.cityCenter);
       // Try to set view by cordova plugin geolocation:
       // MapFactory.mapControl('get_cordova_geoloc');
       // However, the geolocation is done by leaflet plugin now:
@@ -93,7 +93,7 @@ rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService)
        report_mandatory_number = appData.mandatoryNumber();
 
        // We want to access these from all controllers and pages:
-       $rootScope.appTitle = pageInfo.app_title;
-       $rootScope.imageTypesAllowed = imageTypesAllowed;
-       $rootScope.photoOptions = photoOptions;
+       $rootScope.appTitle = GLOBAL_ONTO.init.pageInfo.app_title;
+       $rootScope.imageTypesAllowed = GLOBAL_ONTO.init.imageTypesAllowed;
+       $rootScope.photoOptions = GLOBAL_ONTO.init.photoOptions;
 	});  // End rootApp run

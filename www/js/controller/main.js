@@ -10,11 +10,11 @@ this.$onInit = function () {
 
 				// We access these services and data from html:
 				$scope.DataService = DataService;  // report2 categories
-				$scope.minTitle = minTitle;
-				$scope.maxTitle = maxTitle;
+				$scope.minTitle = GLOBAL_ONTO.init.minTitle;
+				$scope.maxTitle = GLOBAL_ONTO.init.maxTitle;
 				$scope.forms = {};
 				let lastView = '';
-				$scope.fake_send = fake_send;
+				$scope.fake_send = GLOBAL_ONTO.init.fake_send;
 
 	}	// End onInit
 
@@ -48,7 +48,7 @@ $scope.changeView = function (view,item) {
 
 											if (view=="report_saved") {
 
-														debug && console.log("Coming from map, switching to report1 mode.")
+														GLOBAL_ONTO.init.debug && console.log("Coming from map, switching to report1 mode.")
 														view = "report1";
 														$scope.report_saved_view = view;
 														DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
@@ -79,7 +79,7 @@ $scope.changeView = function (view,item) {
 			case 'report4':
 			case 'report5':
 			case 'report6':
-		 								debug && console.log("Saving view:", view);
+		 								GLOBAL_ONTO.init.debug && console.log("Saving view:", view);
 										appData.report_saved_view = view;
 										break;
 		  case "home":	// actions 'HOME' and 'Cancel'
@@ -88,7 +88,9 @@ $scope.changeView = function (view,item) {
 												$timeout(function(){
 														DataFactory.initAppData();
 														$rootScope.baseMap.invalidateSize();
-														MapFactory.mapControl('center', cityCenter, initialZoomLevel);
+														MapFactory.mapControl('center',
+																									GLOBAL_ONTO.init.cityCenter,
+																									GLOBAL_ONTO.init.initialZoomLevel);
 														$rootScope.apply
 														MapFactory.showPlacemarks();
 												})
@@ -99,7 +101,8 @@ $scope.changeView = function (view,item) {
 										  // Zoom out a little compared to the crosshair view
 											// assuming we probably want to lookup nearby markers
 											let zoom = appData.report_saved_select_zoom-1;
-											if ( zoom < minZoomLevel ) zoom = minZoomLevel;
+											if ( zoom < GLOBAL_ONTO.init.minZoomLevel )
+													zoom = GLOBAL_ONTO.init.minZoomLevel;
 											//
 											$timeout(function(){
 														$rootScope.baseMap.setZoom(zoom);
@@ -111,7 +114,7 @@ $scope.changeView = function (view,item) {
 											// When we enter this from any other than report views (like my,map,list,info)
 											// then the last saved report stage is recalled
 											view = appData.report_saved_view;
-											debug && console.log("Recalled report view:", view)
+											GLOBAL_ONTO.init.debug && console.log("Recalled report view:", view)
 											// !no-break:
 
 			case 'report1':	// MAP POSITION SELECTOR
@@ -136,7 +139,10 @@ $scope.changeView = function (view,item) {
 
 	appData.view = view;
 	$scope.view = view;
-	$scope.hintMessage=pageInfo[view];
+	GLOBAL_ONTO.init.view = view;
+	$scope.hintMessage=GLOBAL_ONTO.init.pageInfo[view];
+
+console.warn('view ',view);
 
 	// SET ROUTE by routeProvider $location service
 	$location.path(view);
@@ -146,7 +152,6 @@ $scope.changeView = function (view,item) {
 	// Set viewport view template ng-show
 	//
 	switch (view) {
-
 			case 'home':
 			case 'map':
 			case 'report1':
@@ -221,8 +226,8 @@ $scope.getImage = function(mode) {
 												makeImageData(status.uri);
 					break;
 					case 'gallery':
-											debug && console.log("mode gallery, status",status);
-											debug && console.log("window.FilePath ",window.FilePath);
+											GLOBAL_ONTO.init.debug && console.log("mode gallery, status",status);
+											GLOBAL_ONTO.init.debug && console.log("window.FilePath ",window.FilePath);
 											if(typeof window.FilePath != 'undefined') {
 												 // @Android: Using 'cordova filepath plugin' to resolve content:// links to file:// path
 												 window.FilePath.resolveNativePath(status.uri,
@@ -240,7 +245,7 @@ $scope.getImage = function(mode) {
 												// ios case
 												let uri = status.uri;
 												uri=uri.replace('assets-library://','cdvfile://localhost/assets-library/');
-												debug && console.log("uri",uri);
+												GLOBAL_ONTO.init.debug && console.log("uri",uri);
 												makeImageData(uri);
 											}
 					break;
@@ -263,7 +268,7 @@ $scope.getImage = function(mode) {
 
 
 	 } else  {  // No camera device, probably a browser platform:
-						debug && console.log('Camera plugin not suppoerted by this device.')
+						GLOBAL_ONTO.init.debug && console.log('Camera plugin not suppoerted by this device.')
 						alert("Die Kamera/Galerie-Funktion wird von diesem Gerät nicht unterstützt.");
 		 		  	}
 
@@ -306,7 +311,7 @@ $scope.validateImage = function(mode,item)  {
 						$scope.imageMessage = "Das Bild ist " + imgdata.sizeKB + " Kilobyte groß.\nSie können nur Dateien bis maximal " + imgdata.maxKB + " Kilobyte anhängen.";
 						break;
 						case 'unsupported format':
-				  	$scope.imageMessage = 'Der Dateityp "' + imgdata.type + '" wird nicht unterstützt.\nSie können nur die Bildformate ' + imageTypesAllowed + ' anhängen.';
+				  	$scope.imageMessage = 'Der Dateityp "' + imgdata.type + '" wird nicht unterstützt.\nSie können nur die Bildformate ' + GLOBAL_ONTO.init.imageTypesAllowed + ' anhängen.';
 					  break;
 					 } // End switch
 
@@ -351,12 +356,12 @@ $scope.validateInput = function(item)  {
 	switch(item) {
 
 		case 'title':
-							debug && console.log("Validating: title");
+							GLOBAL_ONTO.init.debug && console.log("Validating: title");
 
 							if (typeof (appData.title.text.length) == 'undefined') appData.title.text.length=0;
 							let length = appData.title.text.length;
 
-							result = (minTitle <= length && length <= maxTitle);
+							result = (GLOBAL_ONTO.init.minTitle <= length && length <= GLOBAL_ONTO.init.maxTitle);
 
 							if ((result == false) && (appData.title.is_valid == true)) DataService.updateMandatoryCounter("-");
 							if ((result == true) && (appData.title.is_valid == false)) DataService.updateMandatoryCounter("+");
@@ -367,9 +372,9 @@ $scope.validateInput = function(item)  {
 
 		case 'email':
 
-							debug && console.log("Validating: email");
+							GLOBAL_ONTO.init.debug && console.log("Validating: email");
 
-							result=emailRegExpr.test(appData.email.text);
+							result=GLOBAL_ONTO.init.emailRegExpr.test(appData.email.text);
 							// debug && console.log("New result:",result);
 							if ((result == false) && (appData.email.is_valid == true)) DataService.updateMandatoryCounter("-");
 							if ((result == true) && (appData.email.is_valid == false)) DataService.updateMandatoryCounter("+");
@@ -391,16 +396,16 @@ $scope.validState = function(item)  {
 	switch (item) {
 
 		case 'title': 	// for the navbar switch, we need to catch the case when minlength is exceeded, to activate the nav again
-						 				result = ((appData.title.text.length) >= minTitle && (appData.title.text.length <= maxTitle))
+						 				result = ((appData.title.text.length) >= GLOBAL_ONTO.init.minTitle && (appData.title.text.length <= GLOBAL_ONTO.init.maxTitle))
 		break;
 		case 'email':		// This switches the status indicator of email input field (fa icon)
-										result=emailRegExpr.test(appData.email.text);
+										result=GLOBAL_ONTO.init.emailRegExpr.test(appData.email.text);
 										// debug && console.log("Email valid:", result);
 		break;
 		case 'report6':	// This is about when showing the "ABSENDEN" button on report6, which is special
 										// because the email input will be validatet onBlur, maybe not yet.
 										// So we can't just poll appData here. We need to show the button just-in-time.
-										result=(emailRegExpr.test(appData.email.text)) && (appData.check_privacy_accepted.is_valid);
+										result=(GLOBAL_ONTO.init.emailRegExpr.test(appData.email.text)) && (appData.check_privacy_accepted.is_valid);
 		break;
 
 	} // End switch

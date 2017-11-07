@@ -7,73 +7,57 @@ rootApp.factory('MapFactory', function($rootScope,NetworkService) {
 thisfactory = {
 
   createBaseMap: function() {
-
-        switch (tile_server) {
-
-                case 'dito':
-                baseLayer = L.tileLayer(url_tiles + '&z={z}&x={x}&y={y}&r=mapnik',
-                                            {
-                                              attribution: mapAttribution,
-                                                  maxZoom: maxZoomLevel,
-                                                  minZoom: minZoomLevel
-                                            });
-                break;
-
-                case 'mapbox':
-                baseLayer = L.tileLayer(url_tiles + mapbox_id + '/{z}/{x}/{y}.png?access_token=' + mapbox_access_token,
-                                            {
-                                              accessToken: mapbox_access_token,
-                                              attribution: mapAttribution,
-                                                  maxZoom: maxZoomLevel,
-                                                  minZoom: minZoomLevel
-                                            });
-                break;
-
-        }  // End switch
-
         baseMap = L.map('mapid',{
-                                  center  : [mapCenter.lat, mapCenter.lng],
-                                  zoom    : initialZoomLevel,
+                                  center  : GLOBAL_ONTO.init.mapCenter(),
+                                  zoom    : GLOBAL_ONTO.init.initialZoomLevel,
                                   zoomControl : false
                                  });
 
           // var baseMap = L.map('mapid').setView([mapCenter.lat, mapCenter.lng], initialZoomLevel);
           // var baseMap = L.map('mapid').locate({setView: true; maxzoom: 16});
 
-          L.layerGroup().addLayer(baseLayer).addTo(baseMap);
-
-          debug && console.warn('MapFactory: baseMap created');
+          L.layerGroup().addLayer(this.createTileLayer()).addTo(baseMap);
+          baseMap.setMaxBounds(GLOBAL_ONTO.init.bounds());
+          GLOBAL_ONTO.init.debug && console.warn('MapFactory: baseMap created');
 
       		return baseMap;
 
   },  // End createBaseMap
 
+  /**
+   * @access private
+   * @var {Function} create the leaflet tile layer object accordingly what is
+   * set in the properties file
+   * @constructor
+   */
+createTileLayer : function() {
+  var miniLayer;
+  switch (GLOBAL_ONTO.init.tile_server) {
+
+      case 'mapbox':
+        miniLayer = L.tileLayer(GLOBAL_ONTO.init.url_tiles + GLOBAL_ONTO.init.mapbox_id + '/{z}/{x}/{y}.png?access_token=' + GLOBAL_ONTO.init.mapbox_access_token,
+                    {
+                          accessToken: GLOBAL_ONTO.init.mapbox_access_token,
+                          maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
+                          minZoom: GLOBAL_ONTO.init.minZoomLevel,
+                          attribution: GLOBAL_ONTO.init.mapAttribution,
+                     });
+      break;
+      case 'dito':
+      default:
+        miniLayer = L.tileLayer( GLOBAL_ONTO.init.url_ditoTiles() + '&z={z}&x={x}&y={y}&r=mapnik',
+                    {
+                          maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
+                          minZoom: GLOBAL_ONTO.init.minZoomLevel,
+                          attribution: GLOBAL_ONTO.init.mapAttribution,
+                     });
+      break;
+  } // End switch
+  return miniLayer;
+}, // End createTileLayer
+
 
   createMiniMap: function(divId,lat,lng) {
-          // debug && console.log('MiniMap:',divId, coords );
-          // debug && console.warn('tiles_url ', url_tiles);
-          switch (tile_server) {
-
-              case 'dito':
-                miniLayer = L.tileLayer( url_tiles + '&z={z}&x={x}&y={y}&r=mapnik',
-                            {
-                                  maxZoom: maxZoomLevel,
-                                  minZoom: minZoomLevel
-                                  // attribution: mapAttribution,
-                             });
-              break;
-
-              case 'mapbox':
-                miniLayer = L.tileLayer(url_tiles + mapbox_id + '/{z}/{x}/{y}.png?access_token=' + mapbox_access_token,
-                            {
-                                  accessToken: mapbox_access_token,
-                                  maxZoom: maxZoomLevel,
-                                  minZoom: minZoomLevel
-                                  // attribution: mapAttribution,
-                             });
-              break;
-
-          } // End switch
 
           miniMap = L.map(divId, {
                                   center: [lat,lng],
@@ -83,11 +67,12 @@ thisfactory = {
                                   doubleClickZoom : false
                                   });
 
-          L.layerGroup().addLayer(miniLayer).addTo(miniMap);
+          L.layerGroup().addLayer(this.createTileLayer()).addTo(miniMap);
+
 
           L.marker([lat,lng]).addTo(miniMap);
 
-          debug && console.warn('MapFactory: miniMap created');
+          GLOBAL_ONTO.init.debug && console.warn('MapFactory: miniMap created');
 
       		return miniMap;
 
@@ -101,21 +86,21 @@ addControl: function(mode) {
 
     case 'geoloc':  // GEOLOC
 
-            console.log('Leaflet GeoControl init with options:',geolocateOptions);
+            console.log('Leaflet GeoControl init with options:',GLOBAL_ONTO.geolocateOptions);
             // create control and add to map
-            LOC = L.control.locate(geolocateOptions).addTo($rootScope.baseMap);
+            LOC = L.control.locate(GLOBAL_ONTO.geolocateOptions).addTo($rootScope.baseMap);
 
             // SUCCESS
             function onLocationFound(e) {
 
-                      debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
+                      GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
 
                       mapCenter = e.latlng;
 
-                      if (fake_geoloc) {
-                                       mapCenter = fakeGeolocPosition;
-                                       console.warn("Using fake coords:", fakeGeolocPosition);
-                                        }
+                      if (GLOBAL_ONTO.init.fake_geoloc) {
+                           mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition;
+                           console.warn("Using fake coords:", GLOBAL_ONTO.init.fakeGeolocPosition);
+                      }
 
                        thisfactory.mapControl('set_geoloc',mapCenter);
 
@@ -131,7 +116,7 @@ addControl: function(mode) {
                        geolocMarker = new L.circleMarker([mapCenter.lat,mapCenter.lng],geolocateOptions.markerStyle);
                        geolocMarker.addTo($rootScope.baseMap);
 
-                       debug && console.log("Leaflet GeoControl: Done.");
+                       GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: Done.");
 
                       }
 
@@ -139,16 +124,13 @@ addControl: function(mode) {
 
              // FAIL
              function onLocationError(e) {
+                  GLOBAL_ONTO.init.debug && console.log("Leaflet Geo-Control: Failed attempt to get localisation.");
+                  // e.marker.closePopup()
 
-                            debug && console.log("Leaflet Geo-Control: Failed attempt to get localisation.");
-                            // e.marker.closePopup()
-
-                            // request location update?
-                            // LOC.start;
-                      }
-
+                  // request location update?
+                  // LOC.start;
+              }
               $rootScope.baseMap.on('locationerror', onLocationError);
-
     break;
 
   } // End switch
@@ -163,7 +145,7 @@ addControl: function(mode) {
 //
 addPlacemarks: function(vectorArray) {
 
-            markerArray.length = 0;  // clear array
+            GLOBAL_ONTO.init.markerArray.length = 0;  // clear array
 
             var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name)
             for (var i = 0; i < vectorArray.length; i++) {
@@ -187,14 +169,14 @@ addPlacemarks: function(vectorArray) {
                     // TODO: autoPan:false
                     // See http://leafletjs.com/reference-1.2.0.html#popup
                     // marker.addTo(markerLayer);
-                    markerArray.push(marker);
+                    GLOBAL_ONTO.init.markerArray.push(marker);
 
                   } // End if
 
             }  // End for
 
             // add placemark layer
-            $rootScope.markerLayer = L.layerGroup(markerArray);
+            $rootScope.markerLayer = L.layerGroup(GLOBAL_ONTO.init.markerArray);
             L.layerGroup().addLayer($rootScope.markerLayer).addTo($rootScope.baseMap);
 
             // add layer controls
@@ -211,20 +193,20 @@ addPlacemarks: function(vectorArray) {
 //
 mapControl: function(mode,coords,zoom)  {
 
-        debug && console.log('MapFactory mapControl:', mode, 'Options:', coords, zoom);
+        GLOBAL_ONTO.init.debug && console.log('MapFactory mapControl:', mode, 'Options:', coords, zoom);
 
         switch (mode) {
 
               case 'load_placemarks':
-                            // RELOAD PLACEMARKS
-                            // json by http service:
-                            NetworkService.getGeoJSON().then(
-                                          function (geoData) {
-                                              $rootScope.geoJson = geoData.features;
-                                              $rootScope.baseMap.removeLayer(markerLayer);
-                                              markerArray = thisfactory.addPlacemarks(geoData.features);
-                                            }  // End function
-                                          ) // End then
+                  // RELOAD PLACEMARKS
+                  // json by http service:
+                  NetworkService.getGeoJSON().then(
+                      function (geoData) {
+                          $rootScope.geoJson = geoData.features;
+                          $rootScope.baseMap.removeLayer(GLOBAL_ONTO.init.markerLayer);
+                          markerArray = thisfactory.addPlacemarks(geoData.features);
+                        }  // End function
+                  ); // End then
               break;
 
               case 'center':      // center map to parameters
@@ -235,7 +217,7 @@ mapControl: function(mode,coords,zoom)  {
                                   // mapCenter.lat = options.lat;
                                   // mapCenter.lng = options.lng;
                                   $rootScope.mapCenter = coords;
-                                  baseMap.setView([coords.lat, coords.lng],geolocZoomLevel,{animation:geolocateOptions.flyTo});
+                                  baseMap.setView([coords.lat, coords.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:geolocateOptions.flyTo});
               break;
 
               case 'rebuild_map':
@@ -247,21 +229,21 @@ mapControl: function(mode,coords,zoom)  {
 
                               if ($rootScope.device_has_geoloc) {
                                   navigator.geolocation.getCurrentPosition(function(pos) {
-                                                  debug && console.warn('MapFactory: Retrieving geoloc position:', pos);
-                                                  mapCenter.lat = pos.coords.latitude;
-                                                  mapCenter.lng = pos.coords.longitude;
-                                                  fake_geoloc && (mapCenter = fakeGeolocPosition);
-                                                  baseMap.setView([mapCenter.lat, mapCenter.lng],geolocZoomLevel,{animation:true});
+                                                  GLOBAL_ONTO.init.debug && console.warn('MapFactory: Retrieving geoloc position:', pos);
+                                                  GLOBAL_ONTO.init.mapCenter.lat = pos.coords.latitude;
+                                                  GLOBAL_ONTO.init.mapCenter.lng = pos.coords.longitude;
+                                                  GLOBAL_ONTO.init.fake_geoloc && (GLOBAL_ONTO.init.mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition);
+                                                  baseMap.setView([mapCenter.lat, mapCenter.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:true});
                                                 },
                                                   function(err) {
-                                                  debug && console.warn('MapFactory: Cordova geoloc failed, using defaults');
-                                                  debug && console.warn('Error message was:', err);
-                                                  fake_geoloc && (mapCenter = fakeGeolocPosition);
-                                                  baseMap.setView([mapCenter.lat, mapCenter.lng],initialZoomLevel,{animation:true});
+                                                  GLOBAL_ONTO.init.debug && console.warn('MapFactory: Cordova geoloc failed, using defaults');
+                                                  GLOBAL_ONTO.init.debug && console.warn('Error message was:', err);
+                                                  GLOBAL_ONTO.init.fake_geoloc && (GLOBAL_ONTO.init.mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition);
+                                                  baseMap.setView([mapCenter.lat, mapCenter.lng],GLOBAL_ONTO.init.initialZoomLevel,{animation:true});
                                               });
                                 } else {
-                                  debug && console.warn('MapFactory: No geoloc available, using defaults.');
-                                  baseMap.setView([mapCenter.lat, mapCenter.lng],initialZoomLevel,{animation:true});
+                                  GLOBAL_ONTO.init.debug && console.warn('MapFactory: No geoloc available, using defaults.');
+                                  baseMap.setView([GLOBAL_ONTO.init.mapCenter.lat, GLOBAL_ONTO.init.mapCenter.lng],GLOBAL_ONTO.init.initialZoomLevel,{animation:true});
                                 }
 
               break;

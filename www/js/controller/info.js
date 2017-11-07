@@ -6,19 +6,19 @@ rootApp.controller('infoCtrl', function($scope,$rootScope, $http) {
     var urlToLoad = '';
     switch(what) {
       case 'privacy':
-        urlToLoad = url_privacy;
+        urlToLoad = GLOBAL_ONTO.init.url_privacy();
         $scope.linkSelected = 'privacy';
         break;
       case 'information' :
-          urlToLoad = url_info;
+          urlToLoad = GLOBAL_ONTO.init.url_info();
           $scope.linkSelected = 'information';
         break;
       case 'impressum' :
-          urlToLoad = url_impressum;
+          urlToLoad = GLOBAL_ONTO.init.url_impressum();
           $scope.linkSelected = 'impressum';
         break;
       default :
-        urlToLoad = url_info;
+        urlToLoad = GLOBAL_ONTO.init.url_info();
     }
     $http({
         method: 	'GET',
