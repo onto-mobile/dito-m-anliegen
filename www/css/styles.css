@@ -58,7 +58,10 @@ ul.list-group{
 #viewport {
   margin: 0 5px 0 5px;
 }
-
+.report {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 li.disabled {
   color:#ccc;
 }

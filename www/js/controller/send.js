@@ -11,7 +11,7 @@ $scope.appData.sendOK = "sending";
 ditoData = DataFactory.makeDitoData(appData);
 GLOBAL_ONTO.init.debug && console.log('Created Dito Data:',ditoData);
 
-
+$scope.appData.messageOfSubmit ='';
 
 switch (appData.image.is_valid) {
 
@@ -32,14 +32,22 @@ switch (appData.image.is_valid) {
 
         function onSucc(response) {
                                       $timeout(function(){
-                                      $scope.appData.sendOK = "success";
+
+                                      if(response.success == 'true'){
+                                          $scope.appData.sendOK = "success";
+                                      } else {
+                                          $scope.appData.sendOK = "failed";
+                                          $scope.appData.messageOfSubmit = response.errors[0]
+                                      }
                                       console.log("Send OK ! Response = ", response);
                                       })
                                   }
 
         function onFail(response) {
                                       $timeout(function(){
-                                      appData.sendOK = "failed";
+                                      $scope.appData.sendOK = "failed";
+                                      $scope.appData.messageOfSubmit = "Das hat leider nicht geklappt."
+
                                       console.log("Send FAILED !  Upload error response:", response);
                                     })
                                   }
@@ -59,7 +67,12 @@ switch (appData.image.is_valid) {
         NetworkService.sendForm(ditoData,'form').then(
 
                            function (response) {
-                                        $scope.appData.sendOK = "success";
+                                        if(response.success == 'true'){
+                                            $scope.appData.sendOK = "success";
+                                        } else {
+                                            $scope.appData.sendOK = "failed";
+                                            $scope.appData.messageOfSubmit = response.errors[0]
+                                        }
                                         GLOBAL_ONTO.init.debug && console.log("Controller sendForm OK response:", response);
                            },
                            function (response) {

@@ -222,7 +222,7 @@ $scope.getImage = function(mode) {
 										$scope.imageData.type = fileObj.type;
 										$scope.imageData.size = fileObj.size;
 										$scope.imageData.fileEntry = fileEntry;
-										debug && console.log("makeImageData saved to $scope:", $scope.imageData);
+										GLOBAL_ONTO.init.debug && console.log("makeImageData saved to $scope:", $scope.imageData);
 
 										// log successful response
 										DataService.updateAppData('image.text','returned device image',true)

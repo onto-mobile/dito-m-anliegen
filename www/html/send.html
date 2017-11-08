@@ -1,4 +1,4 @@
-<div id="send" ng-controller="sendCtrl">
+<div class="report" id="send" ng-controller="sendCtrl">
 
   <br><br>
 
@@ -10,19 +10,14 @@
 
       </div>
 
-      <div ng-if="appData.sendOK=='success'">
-
-        Anliegen gespeichert!<br><br>
-        Vielen Dank für Ihr Anliegen.<br>
-        Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
-        Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!
-
-      </div>
-
-      <div ng-if="appData.sendOK=='failed'">
-
-        Das hat leider nicht geklappt.
-
+      <div ng-if="appData.sendOK!='sending'" ng-class="text-success : appData.sendOK=='success', bg-danger: appData.sendOK ='failed'">
+        {{appData.messageOfSubmit}}
+        <p ng-if="appData.sendOK=='success'">
+                Anliegen gespeichert!<br><br>
+                Vielen Dank für Ihr Anliegen.<br>
+                Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
+                Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!
+        </p>
       </div>
 
       <div class="buttonBox"  ng-if="appData.sendOK!='sending'">
