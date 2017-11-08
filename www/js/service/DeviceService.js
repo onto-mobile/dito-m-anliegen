@@ -13,7 +13,7 @@ rootApp.service('DeviceService', function($rootScope,$q,$timeout,DataFactory,Dat
 this.getDeviceImage = function (source) {
 
 		GLOBAL_ONTO.init.debug && console.warn('Service getDeviceImage:');
-		GLOBAL_ONTO.init.debug && console.log('Options for ' + source + ':', photoOptions[source]);
+		GLOBAL_ONTO.init.debug && console.log('Options for ' + source + ':', GLOBAL_ONTO.init.photoOptions[source]);
 
 		var deferred = $q.defer();
 
@@ -32,7 +32,7 @@ this.getDeviceImage = function (source) {
 								deferred.reject( { failed: response }  );
 								// return false;
 						},
-						photoOptions[source])
+						GLOBAL_ONTO.init.photoOptions[source])
 
 		return deferred.promise;
 
