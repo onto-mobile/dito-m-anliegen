@@ -2,7 +2,7 @@
 
     <form name="forms.emailForm" novalidate>
 
-      <label>Bitte geben Sie für die Rückmeldung der Stadt eine Email-Addresse an:</label>
+      <label>Bitte geben Sie Ihre E-Mail-Adresse an:</label>
       <div class="input-group">
         <input id="email"
                name="Email"
@@ -16,17 +16,19 @@
          <span class="input-group-addon" ng-if="!validState('email')" ng-click="appData.email.dirty=2"><i class="fa fa-question not-ok" aria-hidden="true"></i></span>
          <span class="input-group-addon" ng-if="validState('email')"><i class="fa fa-check ok" aria-hidden="true"></i></span>
       </div>
-      <span  class="text-danger clearfix" ng-show="(appData.email.dirty > 1) && (!validState('email'))">Bitte geben Sie eine gültige Email-Addresse ein.</span>
-
+      <span  class="text-danger clearfix" ng-show="(appData.email.dirty > 1) && (!validState('email'))">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+      <span class="text">{{pageInfo.sendhint}} {{appData.email.text}}</span>
       <div class="checkbox">
         <label>
           <input
               type="checkbox"
               ng-model="appData.check_privacy_accepted.is_valid"
-              ng-click="DataService.updateAppData('check_privacy_accepted.state','toggle')"/> Ich akzeptiere die AGB und Datenschutzbestimmungen
+              ng-click="DataService.updateAppData('check_privacy_accepted.state','toggle')"/> Ich akzeptiere die
         </label>
+          <a ng-click="changeView('info')">Datenschutzbestimmungen</a>.
       </div>
-      <button ng-if="validState('report6')" class="btn btn-primary" ng-click="changeView('send')">ABSENDEN</button>
+
+      <button ng-if="validState('report6')" class="center-btn btn btn-primary" ng-click="changeView('send')">ABSENDEN</button>
   </form>
 </div>
 <!--

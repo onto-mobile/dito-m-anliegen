@@ -107,31 +107,39 @@ $scope.changeView = function (view,item) {
 											}
 											break;
 			case 'map':   // SHOW PLACEMARKS
-											MapFactory.showPlacemarks();
-										  // Zoom out a little compared to the crosshair view
-											// assuming we probably want to lookup nearby markers
-											let zoom = appData.report_saved_select_zoom-1;
+					MapFactory.showPlacemarks();
+				  // Zoom out a little compared to the crosshair view
+					// assuming we probably want to lookup nearby markers
+					let zoom = appData.report_saved_select_zoom-1;
 
-											if (isNaN(zoom) || zoom < GLOBAL_ONTO.init.minZoomLevel )
-													zoom = GLOBAL_ONTO.init.minZoomLevel;
-											//
-											$timeout(function(){
-														$rootScope.baseMap.setZoom(zoom);
-														if(typeof appData.markerCurrentReport != "undefined" ) {
-																appData.markerCurrentReport.remove();
-														}
-														if (appData.position.coordinates.lat !== "") {
-																var crosshairs = L.divIcon({className: 'fa fa-crosshairs fa-2x currentPossition'});
-																appData.markerCurrentReport = L.marker(appData.position.coordinates,{icon:crosshairs,zIndexOffset:1000}).addTo($rootScope.baseMap);
-														}
-														$rootScope.apply;
-											})
+					if (isNaN(zoom) || zoom < GLOBAL_ONTO.init.minZoomLevel )
+							zoom = GLOBAL_ONTO.init.minZoomLevel;
+					//
+					$timeout(function(){
+								$rootScope.baseMap.setZoom(zoom);
+								if(typeof appData.markerCurrentReport != "undefined" ) {
+										appData.markerCurrentReport.remove();
+								}
+								if (appData.position.coordinates.lat !== "") {
+										var crosshairs = L.divIcon({className:
+											'fa fa-crosshairs fa-2x currentPossition'});
+										appData.markerCurrentReport = L.marker(
+													appData.position.coordinates,
+													{icon:crosshairs,zIndexOffset:1000})
+											.bindPopup('Ihr nach Ort')
+											.addTo($rootScope.baseMap).togglePopup();
 
-											break;
+								}
+								$rootScope.apply;
+					})
+
+					break;
 			case 'report_saved':											// When we enter this from any other than report views (like my,map,list,info)
 											// then the last saved report stage is recalled
 											view = appData.report_saved_view;
 											GLOBAL_ONTO.init.debug && console.log("Recalled report view:", view)
+											if(view != 'report1')
+												break;
 											// !no-break:
 
 			case 'report1':	// MAP POSITION SELECTOR
@@ -163,6 +171,7 @@ $scope.changeView = function (view,item) {
 	$scope.view = view;
 	GLOBAL_ONTO.init.view = view;
 	$scope.hintMessage=GLOBAL_ONTO.init.pageInfo[view];
+	$scope.pageInfo = GLOBAL_ONTO.init.pageInfo;
 
 console.warn('view ',view);
 
@@ -465,15 +474,20 @@ $scope.typeCssClass = function (type)   {
 		}
 }
 
-$scope.categoryCssClass = function (articleLabel)   {
+$scope.getNumberOfCategory = function (articleLabel){
 	var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
 	listOfCategoryNames.reverse(); // to align the color with the server
 	var indexOfCat = listOfCategoryNames.indexOf(articleLabel);
-	indexOfCat++;
-	return 'cat-'+indexOfCat;
+	return ++indexOfCat;
 }
 
+$scope.categoryCssClass = function (articleLabel)   {
+	return 'cat-'+this.getNumberOfCategory(articleLabel);
+}
 
+$scope.categoryCssClassColor = function (articleLabel)   {
+	return 'color-'+this.getNumberOfCategory(articleLabel);
+}
 
 $scope.closeApp = function() {
 

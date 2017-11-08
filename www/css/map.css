@@ -49,8 +49,15 @@ div.leaflet-div-icon-ont.defaultmap-icon,
 	left: -11px;
 	zoom:1;
 }
-
+.center-btn {
+  position: absolute; /* postulat */
+  top: 50%; left: 50%; /* to 50%/50% of the parent */
+  transform: translate(-50%, -50%); /* move to 50% of (own)element size */
+}
 div.fa.currentPossition{
+	position: absolute;
+	top: -8px;
+	left: -4px;
 	color:red;
 }
 .iconInList {
@@ -63,7 +70,39 @@ div.fa.currentPossition{
 		min-height: 31px;
 		float: left;
 }
-
+.color-0{
+	color:#303030;
+}
+.color-1{
+	color:#d33d2a;
+}
+.color-2{
+	color:#f69730;
+}
+.color-3{
+	color:#72b026;
+}
+.color-4{
+	color:#38a9dc;
+}
+.color-5{
+	color:#d252b9;
+}
+.color-6{
+	color:#a23336;
+}
+.color-7{
+	color:#0067a3;
+}
+.color-8{
+	color:#728224;
+}
+.color-9{
+	color:#5b396b;
+}
+.color-10{
+	color:#436978;
+}
 /* default icon, if no other */
 div.defaultmap-icon, .cat-0 {
 	background: url('cssImg/markers-soft-480.png') no-repeat -456px 0; /* dark gray marker as default if no other */

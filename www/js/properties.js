@@ -72,12 +72,13 @@ GLOBAL_ONTO.init =  {
   'app_title'  : "Anliegenmanagement",
   'home'    :  "Startseite",
   'map'  : "MELDEN",
-	'report1'  : "Wo? (1/5)", // Markieren Sie den Ort
+	'report1'  : "Ort markieren (1/5)", // Markieren Sie den Ort
   'report2'  : "Kategorie wählen (2/5)",
   'report3'  : "Bereits gemeldet? ",
   'report4'  : "Foto hinzufügen (3/5)",
   'report5'  : "Beschreibung (4/5)",
   'report6'  : "Rückmeldung (5/5)",
+	'sendhint'  : "Nach dem Absenden erhalten Sie einen Bestätigungslink per E-Mail an:",
   'send'  : "Senden",
   'info'  : "Info zur App",
   'my'  : "Meine Meldungen",
@@ -128,6 +129,7 @@ GLOBAL_ONTO.init =  {
     'check_privacy_accepted'  :  {state:false,is_valid:false,mandatory:true},
     'report_mandatory_completed_counter'  : 1,
     'report_mandatory_is_complete'  : false,
+		'currentReportStep' : 0,
     mandatoryNumber : 5,
 		//  function () {
     //             console.log('Mandatory items:');

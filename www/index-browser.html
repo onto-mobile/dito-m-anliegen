@@ -63,16 +63,15 @@
     <ul class="nav navbar-nav">
       <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="changeView('howTo')"><i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></li>
        <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
-      <li ng-if="view == 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="changeView('report1')">MELDEN</li>
-      <li ng-if="view !== 'home'" class="col-xs-8 text-center" ng-class="{'active': view == 'report_saved'}" ng-click="changeView('report_saved')">MELDEN ({{appData.currentReportStep}}/5)</li>
+      <li ng-if="appData.currentReportStep == '0'" class="col-xs-8 text-center" ng-class="{'active': view == 'report1'}" ng-click="changeView('report1')">MELDEN</li>
+      <li ng-if="appData.currentReportStep != '0'" class="col-xs-8 text-center" ng-class="{'active': view == 'report_saved'}" ng-click="changeView('report_saved')">MELDEN ({{appData.currentReportStep}}/5)</li>
       <li class="col-xs-2 text-right" ng-class="{'active': view == 'info'}" ng-click="changeView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report1'">
     <ul class="nav navbar-nav ">
       <li class="col-xs-2" ng-class="{'active': view == 'home'}" ng-click="changeView('home')"><i class="fa fa-lg fa-times" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+      <li class="col-xs-8 active text-center">{{hintMessage}}</li>
       <li class="col-xs-2 text-right" ng-class="{'active': view == 'report2'}" ng-click="changeView('report2')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
@@ -80,8 +79,7 @@
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report2'">
     <ul class="nav navbar-nav ">
       <li class="col-xs-2" ng-click="changeView('report1')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+      <li class="col-xs-8 active text-center">{{hintMessage}}</li>
       <li class="col-xs-2 text-right disabled" ng-show="!appData.category.is_valid"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
       <li class="col-xs-2 text-right" ng-show="appData.category.is_valid" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
@@ -90,16 +88,14 @@
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report4'">
     <ul class="nav navbar-nav ">
       <li class="col-xs-2" ng-click="changeView('report2')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+      <li class="col-xs-8 active text-center">{{hintMessage}}</li>
       <li class="col-xs-2 text-right" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report5'">
     <ul class="nav navbar-nav ">
       <li class="col-xs-2" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="appData.report_mandatory_is_complete" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
-      <li ng-if="!appData.report_mandatory_is_complete" class="col-xs-8 active text-center">{{hintMessage}}</li>
+      <li class="col-xs-8 active text-center">{{hintMessage}}</li>
       <li class="col-xs-2 text-right disabled" ng-show="!((appData.title.dirty) && (validState('title')))"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
       <li class="col-xs-2 text-right" ng-show="(appData.title.dirty) && (validState('title'))" ng-click="changeView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
@@ -107,10 +103,10 @@
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report6'">
     <ul class="nav navbar-nav ">
       <li class="col-xs-2" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
-      <li ng-if="validState('report6')" class="col-xs-8 text-center" ng-click="changeView('send')">ABSENDEN</li>
-      <li ng-if="!validState('report6')" class="col-xs-8 active text-center">{{hintMessage}}</li>
+      <li class="col-xs-8 active text-center">{{hintMessage}}</li>
       <!-- <li class="col-xs-2 text-right" ng-click="changeView('info')"><i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></li> -->
-      <li class="col-xs-2 text-right disabled"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-if="validState('report6')" ng-click="changeView('send')"><i class="fa fa-lg fa fa-share-square-o" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right disabled" ng-if="!validState('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
 </div>  <!-- ng-cloak -->
