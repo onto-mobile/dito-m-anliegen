@@ -60,7 +60,7 @@ switch (appData.image.is_valid) {
 
                            function (response) {
                                         $scope.appData.sendOK = "success";
-                                        debug && console.log("Controller sendForm OK response:", response);
+                                        GLOBAL_ONTO.init.debug && console.log("Controller sendForm OK response:", response);
                            },
                            function (response) {
                                          $scope.appData.sendOK = "failed";

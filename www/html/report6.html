@@ -26,6 +26,7 @@
               ng-click="DataService.updateAppData('check_privacy_accepted.state','toggle')"/> Ich akzeptiere die AGB und Datenschutzbestimmungen
         </label>
       </div>
+      <button ng-if="validState('report6')" class="btn btn-primary" ng-click="changeView('send')">ABSENDEN</button>
   </form>
 </div>
 <!--

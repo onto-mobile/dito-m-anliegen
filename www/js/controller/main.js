@@ -46,16 +46,16 @@ $scope.changeView = function (view,item) {
 											// the other nearby placemarks and then, most probably, re-adjust his position.
 											// (It just feels right, and anything else fells confusing)
 
-											if (view=="report_saved") {
-
-														GLOBAL_ONTO.init.debug && console.log("Coming from map, switching to report1 mode.")
-														view = "report1";
-														$scope.report_saved_view = view;
-														DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
-														// We want to recall the full selector map state so we also save the zoom
-														appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
-
-											}
+											// if (view=="report_saved") {
+											//
+											// 			GLOBAL_ONTO.init.debug && console.log("Coming from map, switching to report1 mode.")
+											// 			view = "report1";
+											// 			$scope.report_saved_view = view;
+											// 			DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
+											// 			// We want to recall the full selector map state so we also save the zoom
+											// 			appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
+											//
+											// }
 			break;
 			case 'report1':
 											DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
@@ -73,15 +73,25 @@ $scope.changeView = function (view,item) {
 			// If we are entering a new report stage (not a saved one) then log the view into appData
 			// because we want to be able to pick up that stage from anywhere else again
 			// This need to be a separate switch.
-			case 'report1':
 			case 'report2':
 			case 'report3':
 			case 'report4':
 			case 'report5':
 			case 'report6':
-		 								GLOBAL_ONTO.init.debug && console.log("Saving view:", view);
-										appData.report_saved_view = view;
-										break;
+				// for the time being the step 3 is skiped
+						if(view == "report2")
+								appData.currentReportStep = 2;
+						else if (view == "report3")
+								appData.currentReportStep = 3;
+						else if (view == "report4")
+								appData.currentReportStep = 3;
+						else if (view == "report5")
+								appData.currentReportStep = 4;
+						else if (view == "report6")
+								appData.currentReportStep = 5;
+						GLOBAL_ONTO.init.debug && console.log("Saving view:", view);
+						appData.report_saved_view = view;
+						break;
 		  case "home":	// actions 'HOME' and 'Cancel'
 											if (lastView =="report1" || lastView =="send") {
 												//  => reset data and map
@@ -107,20 +117,31 @@ $scope.changeView = function (view,item) {
 											//
 											$timeout(function(){
 														$rootScope.baseMap.setZoom(zoom);
+														if(typeof appData.markerCurrentReport != "undefined" ) {
+																appData.markerCurrentReport.remove();
+														}
+														if (appData.position.coordinates.lat !== "") {
+																var crosshairs = L.divIcon({className: 'fa fa-crosshairs fa-2x currentPossition'});
+																appData.markerCurrentReport = L.marker(appData.position.coordinates,{icon:crosshairs,zIndexOffset:1000}).addTo($rootScope.baseMap);
+														}
 														$rootScope.apply;
 											})
 
 											break;
-			case 'report_saved':
-											// When we enter this from any other than report views (like my,map,list,info)
+			case 'report_saved':											// When we enter this from any other than report views (like my,map,list,info)
 											// then the last saved report stage is recalled
 											view = appData.report_saved_view;
 											GLOBAL_ONTO.init.debug && console.log("Recalled report view:", view)
 											// !no-break:
 
 			case 'report1':	// MAP POSITION SELECTOR
+											appData.currentReportStep = 1;
+											appData.report_saved_view = view;
 											$timeout(function(){
 													MapFactory.hidePlacemarks();
+													if(typeof appData.markerCurrentReport != "undefined" ) {
+															appData.markerCurrentReport.remove();
+													}
 													// If there is already a selected position then recall it:
 													if (appData.position.coordinates.lat !== "") {
 															MapFactory.mapControl('center',appData.position.coordinates,appData.report_saved_select_zoom);
