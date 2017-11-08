@@ -24,11 +24,14 @@
                  ng-model="appData.note.text"
                  ngTrim = "true"
                  rows = "5"
-                 spellcheck="false">
+                 spellcheck="false"
+                 ng-click="increaseDirtyness('note')"
+                 ng-blur="validateInput('note')">
       </textarea>
       <!-- ng-pattern="/^[0-9a-z\s]{0,1500}$/" -->
       <span class="char-left">{{appData.note.text.length}} / 1500</span>
-      <span class="text-danger clearfix" ng-show="appData.note.text.length >= 1500">Der Text kann maximal 1500 Zeichen lang sein, darüber hinaus wird er abgeschnitten.</span>
+      <span class="text-danger clearfix" ng-show="appData.note.text.length >= maxNote">Der Text kann maximal {{maxNote}} Zeichen lang sein, darüber hinaus wird er abgeschnitten.</span>
+      <span class="text-danger clearfix" ng-show="(appData.note.dirty > 1) && (!validState('note'))">Bitte mindestens {{minNote}} und maximal {{maxNote}} Zeichen.</span>
     </div>
     </form>
 

@@ -12,6 +12,8 @@ this.$onInit = function () {
 				$scope.DataService = DataService;  // report2 categories
 				$scope.minTitle = GLOBAL_ONTO.init.minTitle;
 				$scope.maxTitle = GLOBAL_ONTO.init.maxTitle;
+				$scope.minNote = GLOBAL_ONTO.init.minNote;
+				$scope.maxNote = GLOBAL_ONTO.init.maxNote;
 				$scope.forms = {};
 				let lastView = '';
 				$scope.fake_send = GLOBAL_ONTO.init.fake_send;
@@ -390,8 +392,7 @@ $scope.validateInput = function(item)  {
 							GLOBAL_ONTO.init.debug && console.log("Validating: title");
 
 							if (typeof (appData.title.text.length) == 'undefined') appData.title.text.length=0;
-							let length = appData.title.text.length;
-
+							var length = appData.title.text.length;
 							result = (GLOBAL_ONTO.init.minTitle <= length && length <= GLOBAL_ONTO.init.maxTitle);
 
 							if ((result == false) && (appData.title.is_valid == true)) DataService.updateMandatoryCounter("-");
@@ -399,6 +400,21 @@ $scope.validateInput = function(item)  {
 							appData.title.is_valid = result;
 							// $scope.forms.titleForm.title.$setValidity('required',result);
 							$scope.increaseDirtyness('title');
+		break;
+
+		case 'note':
+							GLOBAL_ONTO.init.debug && console.log("Validating: note");
+
+							if (typeof (appData.note.text.length) == 'undefined') appData.note.text.length=0;
+							var length = appData.note.text.length;
+
+							result = (GLOBAL_ONTO.init.minNote <= length && length <= GLOBAL_ONTO.init.maxNote);
+
+							if ((result == false) && (appData.note.is_valid == true)) DataService.updateMandatoryCounter("-");
+							if ((result == true) && (appData.note.is_valid == false)) DataService.updateMandatoryCounter("+");
+							appData.note.is_valid = result;
+							// $scope.forms.titleForm.title.$setValidity('required',result);
+							$scope.increaseDirtyness('note');
 		break;
 
 		case 'email':
@@ -428,6 +444,9 @@ $scope.validState = function(item)  {
 
 		case 'title': 	// for the navbar switch, we need to catch the case when minlength is exceeded, to activate the nav again
 						 				result = ((appData.title.text.length) >= GLOBAL_ONTO.init.minTitle && (appData.title.text.length <= GLOBAL_ONTO.init.maxTitle))
+		break;
+		case 'note': 	// for the navbar switch, we need to catch the case when minlength is exceeded, to activate the nav again
+						 				result = ((appData.note.text.length) >= GLOBAL_ONTO.init.minNote && (appData.note.text.length <= GLOBAL_ONTO.init.maxNote))
 		break;
 		case 'email':		// This switches the status indicator of email input field (fa icon)
 										result=GLOBAL_ONTO.init.emailRegExpr.test(appData.email.text);

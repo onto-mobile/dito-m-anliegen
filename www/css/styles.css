@@ -62,6 +62,9 @@ ul.list-group{
     margin-left: 10px;
     margin-right: 10px;
 }
+.report .text{
+    margin-top: 10px;
+}
 li.disabled {
   color:#ccc;
 }
@@ -176,7 +179,6 @@ i.not-ok {
 #send .pageFeedback {
   top:1vh;
   padding:0 20px 0 20px;
-  color:green;
   background-color:inherit;
   font-size: 1em;
 }

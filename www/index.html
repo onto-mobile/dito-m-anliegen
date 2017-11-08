@@ -110,8 +110,8 @@ iOS: default-src 'self' gap://ready file://*
       <ul class="nav navbar-nav ">
         <li class="col-xs-2" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
         <li class="col-xs-8 active text-center">{{hintMessage}}</li>
-        <li class="col-xs-2 text-right disabled" ng-show="!((appData.title.dirty) && (validState('title')))"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
-        <li class="col-xs-2 text-right" ng-show="(appData.title.dirty) && (validState('title'))" ng-click="changeView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+        <li class="col-xs-2 text-right disabled" ng-show="!(appData.title.dirty && validState('title')  && appData.note.dirty && validState('note'))"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+        <li class="col-xs-2 text-right" ng-show="(appData.title.dirty) && validState('title') && appData.note.dirty && validState('note')" ng-click="changeView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
       </ul>
     </nav>
     <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report6'">

@@ -124,13 +124,13 @@ GLOBAL_ONTO.init =  {
     'category' : { text:"undefined",is_valid:false,mandatory:true},
     'image'    : { text:"undefined",is_valid:false,mandatory:false},
     'title'    : { text:"",is_valid:false,mandatory:true,dirty:false},
-    'note'     : { text:"",is_valid:true,mandatory:false},
+    'note'     : { text:"",is_valid:false,mandatory:true,dirty:false},
     'email'    :       { text:"",is_valid:false,mandatory:true,dirty:false},
     'check_privacy_accepted'  :  {state:false,is_valid:false,mandatory:true},
     'report_mandatory_completed_counter'  : 1,
     'report_mandatory_is_complete'  : false,
 		'currentReportStep' : 0,
-    mandatoryNumber : 5,
+    mandatoryNumber : 6,
 		//  function () {
     //             console.log('Mandatory items:');
     //             var number = 0;
@@ -152,6 +152,8 @@ GLOBAL_ONTO.init =  {
   // appData.title.text range
    minTitle:5,
    maxTitle:150,
+	 minNote:5,
+	 maxNote:1500,
 
 	 ditoFormDataStatic : {
 				submitRegister    :   "submit",
