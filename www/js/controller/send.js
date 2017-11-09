@@ -30,18 +30,19 @@ switch (appData.image.is_valid) {
                           //  'headers' : ''
                               }
 
-        function onSucc(response) {
-                                      $timeout(function(){
+      function onSucc(response) {
+            GLOBAL_ONTO.init.debug && console.log('response', response);
+              $timeout(function(){
 
-                                      if(typeof response.response.data.success != 'undefined'){
-                                          $scope.appData.sendOK = "success";
-                                      } else {
-                                          $scope.appData.sendOK = "failed";
-                                          $scope.appData.messageOfSubmit = response.response.data.errors[0]
-                                      }
-                                      console.log("Send OK ! Response = ", response);
-                                      })
-                                  }
+              if(typeof response.data.success != 'undefined'){
+                  $scope.appData.sendOK = "success";
+              } else {
+                  $scope.appData.sendOK = "failed";
+                  $scope.appData.messageOfSubmit = response.data.errors[0]
+              }
+              console.log("Send OK ! Response = ", response);
+              })
+        }
 
         function onFail(response) {
                                       $timeout(function(){
