@@ -36,6 +36,10 @@ rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService)
       // Keep these things accessible through all controller instances
       // (We use rootscope, to avoid making things complicated and hard to debug)
  			$rootScope.debug=GLOBAL_ONTO.init.debug;
+
+      $rootScope.alerts = [
+        { type: 'success', msg: 'Well done! You successfully start the app.' }
+      ];
       //
 			// DEVICE ENVIRONMENT
       //

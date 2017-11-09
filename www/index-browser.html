@@ -110,7 +110,8 @@
     </ul>
   </nav>
 </div>  <!-- ng-cloak -->
-
+<!-- Alert -->
+<div class="alert-message" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" ng-click="closeAlert($index)">{{alert.msg}}</div>
 <!--#####################################################################################-->
 
 <div id="viewport">

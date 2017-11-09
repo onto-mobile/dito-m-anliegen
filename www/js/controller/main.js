@@ -509,8 +509,6 @@ $scope.categoryCssClassColor = function (articleLabel)   {
 }
 
 $scope.closeApp = function() {
-
-
 			// Here, should be something like
 			// DeviceService.clearCameraCache();
 
@@ -523,6 +521,14 @@ $scope.closeApp = function() {
 							this.changeView('home');
 						}
 }
+
+/**
+ * Alert
+ */
+  // $scope.alerts = $rootScope.alerts;
+	$scope.closeAlert = function(index) {
+		 $rootScope.alerts.splice(index, 1);
+ 	};
 
 });  // End main controller
 

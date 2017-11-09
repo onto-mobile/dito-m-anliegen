@@ -124,7 +124,8 @@ iOS: default-src 'self' gap://ready file://*
       </ul>
     </nav>
   </div>  <!-- ng-cloak -->
-
+  <!-- Alert -->
+  <div class="alert-message" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" ng-click="closeAlert($index)">{{alert.msg}}</div>
   <!--#####################################################################################-->
 
   <div id="viewport">
@@ -172,7 +173,6 @@ if ('addEventListener' in document) {
 <!--    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" -->
 <!--    crossorigin=""></script> -->
 <script type="text/javascript" src="js/extern/L.Control.Locate.js"></script>
-
 <!--  custom JS -->
 <script type="text/javascript" src="js/rootApp.js"></script>
 <script type="text/javascript" src="js/controller/main.js"></script>

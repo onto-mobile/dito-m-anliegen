@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 
-rootApp.factory('MapFactory', function($rootScope,NetworkService) {
+rootApp.factory('MapFactory', function($rootScope,$timeout,NetworkService) {
 
 // -----------------------------------------------------------------------------
 
@@ -93,33 +93,37 @@ addControl: function(mode) {
 
             // SUCCESS
             function onLocationFound(e) {
+                GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
+                if(!GLOBAL_ONTO.init.bounds().contains(e.latlng)){
+                  $timeout(function(){
+                    $rootScope.alerts.push({msg:'User is outside of the bounding box.'});
+                  });
+                    GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
+                    return ;
+                }
+                mapCenter = e.latlng;
 
-                      GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
+                if (GLOBAL_ONTO.init.fake_geoloc) {
+                     mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition;
+                     console.warn("Using fake coords:", GLOBAL_ONTO.init.fakeGeolocPosition);
+                }
+                thisfactory.mapControl('set_geoloc',mapCenter);
+                LOC.stop(); // setTimeout(function(){ LOC.stop(); }, 1000);
+                // unforttly stopping the Control, the marker disappears,
+                // so we need to manage this manually:
+                if (typeof geolocMarker !== "undefined") {
+                      $rootScope.baseMap.removeLayer(geolocMarker);
+                      // destroy instance refs -> garbage collector
+                      geolocMarker = null;
+                      delete geolocMarker;
+                }
 
-                      mapCenter = e.latlng;
+                geolocMarker = new L.circleMarker([mapCenter.lat,mapCenter.lng],GLOBAL_ONTO.init.geolocateOptions.markerStyle);
+                geolocMarker.addTo($rootScope.baseMap);
+                GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is in the bounding box.");
 
-                      if (GLOBAL_ONTO.init.fake_geoloc) {
-                           mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition;
-                           console.warn("Using fake coords:", GLOBAL_ONTO.init.fakeGeolocPosition);
-                      }
-
-                       thisfactory.mapControl('set_geoloc',mapCenter);
-
-                       LOC.stop(); // setTimeout(function(){ LOC.stop(); }, 1000);
-                       // unforttly stopping the Control disappears the marker too, so we need to manage this manually:
-                       if (typeof geolocMarker !== "undefined") {
-                              $rootScope.baseMap.removeLayer(geolocMarker);
-                              // destroy instance refs -> garbage collector
-                              geolocMarker = null;
-                              delete geolocMarker;
-                            }
-
-                       geolocMarker = new L.circleMarker([mapCenter.lat,mapCenter.lng],geolocateOptions.markerStyle);
-                       geolocMarker.addTo($rootScope.baseMap);
-
-                       GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: Done.");
-
-                      }
+                GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: Done.");
+            }
 
              $rootScope.baseMap.on('locationfound', onLocationFound);
 
@@ -127,7 +131,6 @@ addControl: function(mode) {
              function onLocationError(e) {
                   GLOBAL_ONTO.init.debug && console.log("Leaflet Geo-Control: Failed attempt to get localisation.");
                   // e.marker.closePopup()
-
                   // request location update?
                   // LOC.start;
               }
@@ -218,7 +221,7 @@ mapControl: function(mode,coords,zoom)  {
                                   // mapCenter.lat = options.lat;
                                   // mapCenter.lng = options.lng;
                                   $rootScope.mapCenter = coords;
-                                  baseMap.setView([coords.lat, coords.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:geolocateOptions.flyTo});
+                                  baseMap.setView([coords.lat, coords.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:GLOBAL_ONTO.init.geolocateOptions.flyTo});
               break;
 
               case 'rebuild_map':
