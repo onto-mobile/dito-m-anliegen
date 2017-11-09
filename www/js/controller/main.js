@@ -2,23 +2,21 @@ rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$q,
 // alternate:
 //	rootApp.controller('mainCtrl',['$scope','DataService','NetworkService','MapFactory', function($scope,DataService) {
 this.$onInit = function () {
+		console.warn("Initializing mainCtrl.");
 
-				console.warn("Initializing mainCtrl.");
+		// Enable html debug switch button
+		$scope.switchDebug = function() {$rootScope.debug = !$scope.debug;}
 
-				// Enable html debug switch button
-				$scope.switchDebug = function() {$rootScope.debug = !$scope.debug;}
-
-				// We access these services and data from html:
-				$scope.DataService = DataService;  // report2 categories
-				$scope.minTitle = GLOBAL_ONTO.init.minTitle;
-				$scope.maxTitle = GLOBAL_ONTO.init.maxTitle;
-				$scope.minNote = GLOBAL_ONTO.init.minNote;
-				$scope.maxNote = GLOBAL_ONTO.init.maxNote;
-				$scope.forms = {};
-				let lastView = '';
-				$scope.fake_send = GLOBAL_ONTO.init.fake_send;
-
-	}	// End onInit
+		// We access these services and data from html:
+		$scope.DataService = DataService;  // report2 categories
+		$scope.minTitle = GLOBAL_ONTO.init.minTitle;
+		$scope.maxTitle = GLOBAL_ONTO.init.maxTitle;
+		$scope.minNote = GLOBAL_ONTO.init.minNote;
+		$scope.maxNote = GLOBAL_ONTO.init.maxNote;
+		$scope.forms = {};
+		let lastView = '';
+		$scope.fake_send = GLOBAL_ONTO.init.fake_send;
+	};	// End onInit
 
 $scope.debug && console.warn("Controller: mainCtrl.");
 
@@ -32,13 +30,12 @@ $scope.changeView = function (view,item) {
 
 	$scope.debug && console.log('--------------------------------------------------------\nView:', view);
 
-
 	// Where we came from:
 	//
 	// At this point, view value is still not updated in $scope, and we make use of it.
 	// We want to update the position coordinates everytime we are leaving the crosshair selection
 	// which is report1, and we alse store the zoom, to be able to switch back to the select view anytime.
-	lastView = $scope.view
+	lastView = $scope.view;
 
 	switch (lastView) {
 
@@ -296,16 +293,17 @@ $scope.getImage = function(mode) {
 			DataService.updateAppData('image.text','failed device image',false)
 			$scope.imageMessage = "Das Bild konnte nicht geladen werden.";
 
-
 	 }) // End DeviceService.getDeviceImage(mode).then
 
 
 	 } else  {  // No camera device, probably a browser platform:
-						GLOBAL_ONTO.init.debug && console.log('Camera plugin not suppoerted by this device.')
-						alert("Die Kamera/Galerie-Funktion wird von diesem Gerät nicht unterstützt.");
-		 		  	}
+						GLOBAL_ONTO.init.debug && console.log('Camera plugin not suppoerted by this device.');
+						$timeout(function(){
+							$rootScope.alerts.push({type: 'danger', msg:'Die Kamera/Galerie-Funktion wird von diesem Gerät nicht unterstützt.'});
+						});
+	}
 
-} // End getImage
+}; // End getImage
 
 
 // Validate image
@@ -357,7 +355,7 @@ $scope.validateImage = function(mode,item)  {
 
 return imgdata.valid;
 
-}  // End validateImage
+};  // End validateImage
 
 
 
@@ -433,7 +431,7 @@ $scope.validateInput = function(item)  {
 		break;
 
 	} // End switch
-} // End validateInput
+}; // End validateInput
 
 
 // helper for blending in / out HTML navigation depending on validation state
@@ -462,16 +460,12 @@ $scope.validState = function(item)  {
 
 	return result;
 
-} // End validState
-
-
+}; // End validState
 
 $scope.increaseDirtyness = function(item)  {
-
 			appData[item].dirty += 1;
 			// debug && console.log("Dirty:", appData[item].dirty);
-}
-
+};
 
 $scope.typeCssClass = function (type)   {
 	//$scope.debug && console.log(type);
@@ -491,22 +485,22 @@ $scope.typeCssClass = function (type)   {
 				default :
 				return 'label-default';
 		}
-}
+};
 
 $scope.getNumberOfCategory = function (articleLabel){
 	var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
 	listOfCategoryNames.reverse(); // to align the color with the server
 	var indexOfCat = listOfCategoryNames.indexOf(articleLabel);
 	return ++indexOfCat;
-}
+};
 
 $scope.categoryCssClass = function (articleLabel)   {
 	return 'cat-'+this.getNumberOfCategory(articleLabel);
-}
+};
 
 $scope.categoryCssClassColor = function (articleLabel)   {
 	return 'color-'+this.getNumberOfCategory(articleLabel);
-}
+};
 
 $scope.closeApp = function() {
 			// Here, should be something like
@@ -519,8 +513,8 @@ $scope.closeApp = function() {
 			if (!window.cordova) {
 							alert('Cannot close a browser :(');
 							this.changeView('home');
-						}
-}
+			}
+};
 
 /**
  * Alert
