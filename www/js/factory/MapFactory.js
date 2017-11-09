@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 
-rootApp.factory('MapFactory', function($rootScope,$timeout,NetworkService) {
+rootApp.factory('MapFactory', function($rootScope,$timeout,$compile,NetworkService) {
 
 // -----------------------------------------------------------------------------
 
@@ -19,6 +19,8 @@ thisfactory = {
           L.layerGroup().addLayer(this.createTileLayer()).addTo(baseMap);
           baseMap.setMaxBounds(GLOBAL_ONTO.init.bounds());
           GLOBAL_ONTO.init.debug && console.warn('MapFactory: baseMap created');
+          $rootScope.baseMap = baseMap;
+          this.addOnClickEventToMap();
 
       		return baseMap;
 
@@ -78,8 +80,22 @@ createTileLayer : function() {
       		return miniMap;
 
 },  // End createMiniMap
+onMapClick : function(e){
+  var html = '<span ng-click="changeView(\'report1\')">MELDEN here</span>',
+    linkFunction = $compile(angular.element(html));
 
+  L.popup()
+    .setLatLng(e.latlng)
+    .setContent(linkFunction($rootScope)[0])
+    .openOn($rootScope.baseMap);
+},
+addOnClickEventToMap : function() {
+    $rootScope.baseMap.on('click', this.onMapClick);
+},
 
+removeOnClickEventToMap : function() {
+    $rootScope.baseMap.off('click', this.onMapClick);
+},
 
 addControl: function(mode) {
 
@@ -95,11 +111,9 @@ addControl: function(mode) {
             function onLocationFound(e) {
                 GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
                 if(!GLOBAL_ONTO.init.bounds().contains(e.latlng)){
-                  $timeout(function(){
-                    $rootScope.alerts.push({msg:'User is outside of the bounding box.'});
-                  });
-                    GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
-                    return ;
+                  $rootScope.pushAlert({msg:'User is outside of the bounding box.'});
+                  GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
+                  return ;
                 }
                 mapCenter = e.latlng;
 
@@ -130,9 +144,8 @@ addControl: function(mode) {
              // FAIL
              function onLocationError(e) {
                   GLOBAL_ONTO.init.debug && console.log("Leaflet Geo-Control: Failed attempt to get localisation.");
-                  $timeout(function(){
-                    $rootScope.alerts.push({type: 'danger', msg:'Please turn on the geolocation on your device.'});
-                  });
+                  $rootScope.pushAlert({type: 'danger', msg:'Please turn on the geolocation on your device.'});
+
                   // e.marker.closePopup()
                   // request location update?
                   // LOC.start;
@@ -170,9 +183,12 @@ addPlacemarks: function(vectorArray) {
                      indexOfCat = 0;
                    }
                     var icon = L.divIcon({className: cssClassMarker+' '+cssClassMarker+'map-icon leaflet-div-icon-ont marker cat-'+indexOfCat, iconSize:null , popupAnchor:  [1, -22]});
-                    var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { label:feature.properties.articleLabel,title: feature.properties.title, alt:feature.properties.id, icon:icon}); //                    var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { title: feature.properties.title, alt:feature.properties.id}); //
-
-                    marker.bindPopup('<small class="color-'+indexOfCat+'">'+feature.properties.articleLabel+'</small><br/>'+feature.properties.title+'');
+                    var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { label:feature.properties.articleLabel,title: feature.properties.title, alt:feature.properties.id, icon:icon});
+                    var html = '<span ng-click="changeView(\'detail\',feature)"><small class="color-'+indexOfCat+'">'+feature.properties.articleLabel+'</small><br/>'+feature.properties.title+'</span>',
+                      linkFunction = $compile(angular.element(html)),
+                      newScope = $rootScope.$new();
+                    newScope.feature = feature;
+                    marker.bindPopup(linkFunction(newScope)[0]);
                     // TODO: autoPan:false
                     // See http://leafletjs.com/reference-1.2.0.html#popup
                     // marker.addTo(markerLayer);

@@ -71,14 +71,21 @@ li.disabled {
 .nav.navbar-nav {
   width:100%;
 }
-
 .nav li  {
     padding-top: 15px;
     padding-bottom: 11px;
     /*border:2px red solid;*/
 }
-
-
+/*#report4 button.pull-right{
+  margin-top: 5px;
+}*/
+.report button.pull-right,
+#report1 button.float-on-map {
+  position: fixed;
+  bottom: 90px;
+  right: 10px;
+  z-index: 1000;
+}
 /* nav center buttons */
 
 li.text-center {

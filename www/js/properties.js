@@ -154,6 +154,7 @@ GLOBAL_ONTO.init =  {
    maxTitle:150,
 	 minNote:5,
 	 maxNote:1500,
+	 messageDelayInMS : 5000,
 
 	 ditoFormDataStatic : {
 				submitRegister    :   "submit",

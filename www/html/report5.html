@@ -2,8 +2,8 @@
 
     <form name="forms.titleForm" novalidate>
 
-    <label for="title">Bitte fassen Sie ihr Anliegen in einer Überschrift zusammen:</label>
 
+    <label class="col-sm-12" for="title">Bitte fassen Sie ihr Anliegen in einer Überschrift zusammen:</label>
     <div class="input-group">
         <input name="title" class="form-control report" type="text"
                value="appData.title.text"
@@ -14,11 +14,12 @@
        <span class="input-group-addon" ng-if="!validState('title')" ng-click="appData.title.dirty=2"><i class="fa fa-question not-ok" aria-hidden="true"></i></span>
        <span class="input-group-addon" ng-if="validState('title')"><i class="fa fa-check ok" aria-hidden="true"></i></span>
     </div>
-    <span class="char-left">{{appData.title.text.length}} / {{maxTitle}}</span>
-    <span class="text-danger clearfix" ng-show="(appData.title.dirty > 1) && (!validState('title'))">Bitte mindestens {{minTitle}} und maximal {{maxTitle}} Zeichen.</span>
-
+    <div class="col-sm-12">
+      <span class="char-left">{{appData.title.text.length}} / {{maxTitle}}</span>
+      <span class="text-danger clearfix" ng-show="(appData.title.dirty > 1) && (!validState('title'))">Bitte mindestens {{minTitle}} und maximal {{maxTitle}} Zeichen.</span>
+    </div>
+    <label class="col-sm-12" for="note">Wenn Sie möchten, können Sie ihr Anliegen hier genauer beschreiben:</label>
     <div class="input-group">
-  		<label for="note">Wenn Sie möchten, können Sie ihr Anliegen hier genauer beschreiben:</label>
       <textarea  name="note" class="report form-control"
                  value="appData.note.text"
                  ng-model="appData.note.text"
@@ -29,12 +30,18 @@
                  ng-blur="validateInput('note')">
       </textarea>
       <!-- ng-pattern="/^[0-9a-z\s]{0,1500}$/" -->
+      </div>
+    <div class="col-sm-12">
       <span class="char-left">{{appData.note.text.length}} / 1500</span>
       <span class="text-danger clearfix" ng-show="appData.note.text.length >= maxNote">Der Text kann maximal {{maxNote}} Zeichen lang sein, darüber hinaus wird er abgeschnitten.</span>
       <span class="text-danger clearfix" ng-show="(appData.note.dirty > 1) && (!validState('note'))">Bitte mindestens {{minNote}} und maximal {{maxNote}} Zeichen.</span>
     </div>
     </form>
-
+    <button ng-show="(appData.title.dirty) && validState('title') && appData.note.dirty && validState('note')"
+      class="btn btn-primary pull-right" ng-click="changeView('report6')">
+      Weiter
+      <i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i>
+    </button>
   </div>
   <!--
   <pre ng-if = "debug">

@@ -1,4 +1,4 @@
-rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$q,DataService,DeviceService,NetworkService,MapFactory,DataFactory) {
+rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$q,$compile,DataService,DeviceService,NetworkService,MapFactory,DataFactory) {
 // alternate:
 //	rootApp.controller('mainCtrl',['$scope','DataService','NetworkService','MapFactory', function($scope,DataService) {
 this.$onInit = function () {
@@ -107,6 +107,7 @@ $scope.changeView = function (view,item) {
 											break;
 			case 'map':   // SHOW PLACEMARKS
 					MapFactory.showPlacemarks();
+					MapFactory.addOnClickEventToMap();
 				  // Zoom out a little compared to the crosshair view
 					// assuming we probably want to lookup nearby markers
 					let zoom = appData.report_saved_select_zoom-1;
@@ -122,12 +123,14 @@ $scope.changeView = function (view,item) {
 								if (appData.position.coordinates.lat !== "") {
 										var crosshairs = L.divIcon({className:
 											'fa fa-crosshairs fa-2x currentPossition'});
+										var html = '<span ng-click="changeView(\'report1\')"> Ihr markierter Ort. Click me to edit position</span>',
+    							linkFunction = $compile(angular.element(html));
+
 										appData.markerCurrentReport = L.marker(
 													appData.position.coordinates,
 													{icon:crosshairs,zIndexOffset:1000})
-											.bindPopup('Ihr nach Ort')
+											.bindPopup(linkFunction($scope)[0])
 											.addTo($rootScope.baseMap).togglePopup();
-
 								}
 								$rootScope.apply;
 					})
@@ -142,6 +145,7 @@ $scope.changeView = function (view,item) {
 											// !no-break:
 
 			case 'report1':	// MAP POSITION SELECTOR
+					MapFactory.removeOnClickEventToMap();
 											appData.currentReportStep = 1;
 											appData.report_saved_view = view;
 											$timeout(function(){
@@ -298,9 +302,8 @@ $scope.getImage = function(mode) {
 
 	 } else  {  // No camera device, probably a browser platform:
 						GLOBAL_ONTO.init.debug && console.log('Camera plugin not suppoerted by this device.');
-						$timeout(function(){
-							$rootScope.alerts.push({type: 'danger', msg:'Die Kamera/Galerie-Funktion wird von diesem Gerät nicht unterstützt.'});
-						});
+						$rootScope.pushAlert({type: 'danger', msg:'Die Kamera/Galerie-Funktion wird von diesem Gerät nicht unterstützt.'});
+
 	}
 
 }; // End getImage
@@ -515,14 +518,6 @@ $scope.closeApp = function() {
 							this.changeView('home');
 			}
 };
-
-/**
- * Alert
- */
-  // $scope.alerts = $rootScope.alerts;
-	$scope.closeAlert = function(index) {
-		 $rootScope.alerts.splice(index, 1);
- 	};
 
 });  // End main controller
 

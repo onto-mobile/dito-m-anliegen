@@ -29,7 +29,7 @@ rootApp.config(function($routeProvider,$locationProvider) {
 //
 //   APP INIT
 //
-rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService) {
+rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,NetworkService) {
 
       GLOBAL_ONTO.init.debug && console.log("rootApp.run init");
 
@@ -37,9 +37,28 @@ rootApp.run(function($rootScope,$location,MapFactory,DataFactory,NetworkService)
       // (We use rootscope, to avoid making things complicated and hard to debug)
  			$rootScope.debug=GLOBAL_ONTO.init.debug;
 
-      $rootScope.alerts = [
-        { type: 'success', msg: 'Well done! You successfully start the app.' }
-      ];
+      /**
+       * Alert
+       */
+      $rootScope.alerts = [];
+      // $scope.alerts = $rootScope.alerts;
+    	$rootScope.closeAlert = function(index) {
+    		 $rootScope.alerts.splice(index, 1);
+     	};
+
+      $rootScope.pushAlert = function( item ){
+        $timeout(function(){
+              $rootScope.alerts.push(item);
+              $timeout(function(){
+                    $rootScope.closeAlert($rootScope.alerts.indexOf(item));
+              }, GLOBAL_ONTO.init.messageDelayInMS);
+        });
+
+
+      };
+      $rootScope.pushAlert(  { type: 'success', msg: 'Well done! You have successfully started the app.' });
+
+
       //
 			// DEVICE ENVIRONMENT
       //

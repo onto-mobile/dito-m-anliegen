@@ -10,7 +10,13 @@
                 </li>
            </ul>
       </div>
+      <button class="btn btn-primary pull-right"
+        ng-show="appData.category.is_valid"
+        ng-click="changeView('report4')">
+          Weiter <i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i>
+      </button>
  </div>
+
 <!--
 <pre ng-if = "debug">
  Category: {{appData.category|json}}

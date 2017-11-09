@@ -16,11 +16,15 @@
 
  <div class="pageFeedback">{{imageMessage}}</div>
 
- <div class="previewBox" ng-if="appData.image.is_valid">
+ <div class="previewBox clearfix" ng-if="appData.image.is_valid">
      <img id="imgAttchPreview" ng-src="{{imageData.filepath}}" ng-if="device_has_cam"/>
      <img id="imgAttchPreview" ng-src="{{imageData.base64}}" ng-if="!device_has_cam"/>
  </div>
 
+ <button class="btn btn-primary pull-right" ng-click="changeView('report5')">
+   Weiter
+   <i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i>
+ </button>
 </div>
 <!--
   <pre ng-if="debug">
