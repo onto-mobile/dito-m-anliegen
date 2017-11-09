@@ -34,11 +34,11 @@ switch (appData.image.is_valid) {
             GLOBAL_ONTO.init.debug && console.log('response', response);
               $timeout(function(){
 
-              if(typeof response.data.success != 'undefined'){
+              if(typeof response.response.success != 'undefined'){
                   $scope.appData.sendOK = "success";
               } else {
                   $scope.appData.sendOK = "failed";
-                  $scope.appData.messageOfSubmit = response.data.errors[0]
+                  $scope.appData.messageOfSubmit = response.response.errors[0]
               }
               console.log("Send OK ! Response = ", response);
               })
