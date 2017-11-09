@@ -130,6 +130,9 @@ addControl: function(mode) {
              // FAIL
              function onLocationError(e) {
                   GLOBAL_ONTO.init.debug && console.log("Leaflet Geo-Control: Failed attempt to get localisation.");
+                  $timeout(function(){
+                    $rootScope.alerts.push({type: 'danger', msg:'Please turn on the geolocation on your device.'});
+                  });
                   // e.marker.closePopup()
                   // request location update?
                   // LOC.start;
