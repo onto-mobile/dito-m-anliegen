@@ -76,6 +76,11 @@ li.disabled {
     padding-bottom: 11px;
     /*border:2px red solid;*/
 }
+.btn.add-report{
+  color:#fff;
+  background-color: #c40046;
+  border-color: #c40046;
+}
 /*#report4 button.pull-right{
   margin-top: 5px;
 }*/

@@ -26,8 +26,7 @@ $scope.debug && console.warn("Controller: mainCtrl.");
 //
 //
 // This is the main navigation logic which implements what to do at which view
-$scope.changeView = function (view,item) {
-
+$rootScope.changeView = function (view,item) {
 	$scope.debug && console.log('--------------------------------------------------------\nView:', view);
 
 	// Where we came from:
@@ -57,9 +56,9 @@ $scope.changeView = function (view,item) {
 											// }
 			break;
 			case 'report1':
-											DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
-											// We want to recall the full selector map state so we also save the zoom
-											appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
+					DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
+					// We want to recall the full selector map state so we also save the zoom
+					appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
 			break;
 
 
@@ -78,33 +77,34 @@ $scope.changeView = function (view,item) {
 			case 'report5':
 			case 'report6':
 				// for the time being the step 3 is skiped
-						if(view == "report2")
-								appData.currentReportStep = 2;
-						else if (view == "report3")
-								appData.currentReportStep = 3;
-						else if (view == "report4")
-								appData.currentReportStep = 3;
-						else if (view == "report5")
-								appData.currentReportStep = 4;
-						else if (view == "report6")
-								appData.currentReportStep = 5;
-						GLOBAL_ONTO.init.debug && console.log("Saving view:", view);
-						appData.report_saved_view = view;
-						break;
+				if(view == "report2")
+						appData.currentReportStep = 2;
+				else if (view == "report3")
+						appData.currentReportStep = 3;
+				else if (view == "report4")
+						appData.currentReportStep = 3;
+				else if (view == "report5")
+						appData.currentReportStep = 4;
+				else if (view == "report6")
+						appData.currentReportStep = 5;
+				GLOBAL_ONTO.init.debug && console.log("Saving view:", view);
+				appData.report_saved_view = view;
+				break;
 		  case "home":	// actions 'HOME' and 'Cancel'
-											if (lastView =="report1" || lastView =="send") {
-												//  => reset data and map
-												$timeout(function(){
-														DataFactory.initAppData();
-														$rootScope.baseMap.invalidateSize();
-														MapFactory.mapControl('center',
-																									GLOBAL_ONTO.init.cityCenter,
-																									GLOBAL_ONTO.init.initialZoomLevel);
-														$rootScope.apply;
-														MapFactory.showPlacemarks();
-												})
-											}
-											break;
+					if (lastView =="report1" || lastView =="send") {
+						//  => reset data and map
+						$timeout(function(){
+								DataFactory.initAppData();
+								$rootScope.baseMap.invalidateSize();
+								MapFactory.mapControl('center',
+																			GLOBAL_ONTO.init.cityCenter,
+																			GLOBAL_ONTO.init.initialZoomLevel);
+								$rootScope.apply;
+								MapFactory.showPlacemarks();
+								MapFactory.addOnClickEventToMap();
+						})
+					}
+					break;
 			case 'map':   // SHOW PLACEMARKS
 					MapFactory.showPlacemarks();
 					MapFactory.addOnClickEventToMap();
@@ -123,7 +123,8 @@ $scope.changeView = function (view,item) {
 								if (appData.position.coordinates.lat !== "") {
 										var crosshairs = L.divIcon({className:
 											'fa fa-crosshairs fa-2x currentPossition'});
-										var html = '<span ng-click="changeView(\'report1\')"> Ihr markierter Ort. Click me to edit position</span>',
+										var html = '<div ng-click="changeView(\'report1\')">'+
+										' Ihr markierter Ort. Click me to edit position</div>',
     							linkFunction = $compile(angular.element(html));
 
 										appData.markerCurrentReport = L.marker(
@@ -137,12 +138,12 @@ $scope.changeView = function (view,item) {
 
 					break;
 			case 'report_saved':											// When we enter this from any other than report views (like my,map,list,info)
-											// then the last saved report stage is recalled
-											view = appData.report_saved_view;
-											GLOBAL_ONTO.init.debug && console.log("Recalled report view:", view)
-											if(view != 'report1')
-												break;
-											// !no-break:
+					// then the last saved report stage is recalled
+					view = appData.report_saved_view;
+					GLOBAL_ONTO.init.debug && console.log("Recalled report view:", view)
+					if(view != 'report1')
+						break;
+					// !no-break:
 
 			case 'report1':	// MAP POSITION SELECTOR
 					MapFactory.removeOnClickEventToMap();
@@ -153,6 +154,11 @@ $scope.changeView = function (view,item) {
 													if(typeof appData.markerCurrentReport != "undefined" ) {
 															appData.markerCurrentReport.remove();
 													}
+													GLOBAL_ONTO.init.debug && console.log(item);
+													if(typeof item != "undefined"){
+															MapFactory.mapControl('center',item,appData.report_saved_select_zoom);
+															$rootScope.apply
+													} else
 													// If there is already a selected position then recall it:
 													if (appData.position.coordinates.lat !== "") {
 															MapFactory.mapControl('center',appData.position.coordinates,appData.report_saved_select_zoom);

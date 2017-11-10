@@ -81,12 +81,15 @@ createTileLayer : function() {
 
 },  // End createMiniMap
 onMapClick : function(e){
-  var html = '<span ng-click="changeView(\'report1\')">MELDEN here</span>',
+  var html = '<button class="btn add-report" '+
+    'ng-click="changeView(\'report1\', coordinates)">'+
+    'Anliegen eingeben</button>',
     linkFunction = $compile(angular.element(html));
-
-  L.popup()
+  newScope = $rootScope.$new();
+  newScope.coordinates = e.latlng;
+  $rootScope.popup = L.popup()
     .setLatLng(e.latlng)
-    .setContent(linkFunction($rootScope)[0])
+    .setContent(linkFunction(newScope)[0])
     .openOn($rootScope.baseMap);
 },
 addOnClickEventToMap : function() {
@@ -233,41 +236,41 @@ mapControl: function(mode,coords,zoom)  {
               break;
 
               case 'center':      // center map to parameters
-                                  baseMap.setView([coords.lat, coords.lng],zoom,{animation:true});
-              break;
+                  baseMap.setView([coords.lat, coords.lng],zoom,{animation:true});
+                  break;
 
               case 'set_geoloc':  // center map on geolocation with specific options
-                                  // mapCenter.lat = options.lat;
-                                  // mapCenter.lng = options.lng;
-                                  $rootScope.mapCenter = coords;
-                                  baseMap.setView([coords.lat, coords.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:GLOBAL_ONTO.init.geolocateOptions.flyTo});
-              break;
+                  // mapCenter.lat = options.lat;
+                  // mapCenter.lng = options.lng;
+                  $rootScope.mapCenter = coords;
+                  baseMap.setView([coords.lat, coords.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:GLOBAL_ONTO.init.geolocateOptions.flyTo});
+                  break;
 
               case 'rebuild_map':
-                                // What can we do about blocked tiles ?
-                                // $rootScope.baseMap.invalidateSize();
-              break;
+                  // What can we do about blocked tiles ?
+                  // $rootScope.baseMap.invalidateSize();
+                  break;
 
               case 'get_cordova_geoloc':  // this was used for custom geocontrol, unused by now
 
-                              if ($rootScope.device_has_geoloc) {
-                                  navigator.geolocation.getCurrentPosition(function(pos) {
-                                                  GLOBAL_ONTO.init.debug && console.warn('MapFactory: Retrieving geoloc position:', pos);
-                                                  GLOBAL_ONTO.init.mapCenter.lat = pos.coords.latitude;
-                                                  GLOBAL_ONTO.init.mapCenter.lng = pos.coords.longitude;
-                                                  GLOBAL_ONTO.init.fake_geoloc && (GLOBAL_ONTO.init.mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition);
-                                                  baseMap.setView([mapCenter.lat, mapCenter.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:true});
-                                                },
-                                                  function(err) {
-                                                  GLOBAL_ONTO.init.debug && console.warn('MapFactory: Cordova geoloc failed, using defaults');
-                                                  GLOBAL_ONTO.init.debug && console.warn('Error message was:', err);
-                                                  GLOBAL_ONTO.init.fake_geoloc && (GLOBAL_ONTO.init.mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition);
-                                                  baseMap.setView([mapCenter.lat, mapCenter.lng],GLOBAL_ONTO.init.initialZoomLevel,{animation:true});
-                                              });
-                                } else {
-                                  GLOBAL_ONTO.init.debug && console.warn('MapFactory: No geoloc available, using defaults.');
-                                  baseMap.setView([GLOBAL_ONTO.init.mapCenter.lat, GLOBAL_ONTO.init.mapCenter.lng],GLOBAL_ONTO.init.initialZoomLevel,{animation:true});
-                                }
+                    if ($rootScope.device_has_geoloc) {
+                        navigator.geolocation.getCurrentPosition(function(pos) {
+                                        GLOBAL_ONTO.init.debug && console.warn('MapFactory: Retrieving geoloc position:', pos);
+                                        GLOBAL_ONTO.init.mapCenter.lat = pos.coords.latitude;
+                                        GLOBAL_ONTO.init.mapCenter.lng = pos.coords.longitude;
+                                        GLOBAL_ONTO.init.fake_geoloc && (GLOBAL_ONTO.init.mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition);
+                                        baseMap.setView([mapCenter.lat, mapCenter.lng],GLOBAL_ONTO.init.geolocZoomLevel,{animation:true});
+                                      },
+                                        function(err) {
+                                        GLOBAL_ONTO.init.debug && console.warn('MapFactory: Cordova geoloc failed, using defaults');
+                                        GLOBAL_ONTO.init.debug && console.warn('Error message was:', err);
+                                        GLOBAL_ONTO.init.fake_geoloc && (GLOBAL_ONTO.init.mapCenter = GLOBAL_ONTO.init.fakeGeolocPosition);
+                                        baseMap.setView([mapCenter.lat, mapCenter.lng],GLOBAL_ONTO.init.initialZoomLevel,{animation:true});
+                                    });
+                      } else {
+                        GLOBAL_ONTO.init.debug && console.warn('MapFactory: No geoloc available, using defaults.');
+                        baseMap.setView([GLOBAL_ONTO.init.mapCenter.lat, GLOBAL_ONTO.init.mapCenter.lng],GLOBAL_ONTO.init.initialZoomLevel,{animation:true});
+                      }
 
               break;
 
@@ -282,8 +285,9 @@ showPlacemarks: function(mode)  {
 },
 
 hidePlacemarks: function(mode)  {
-
-      $rootScope.baseMap.removeLayer($rootScope.markerLayer);
+  if(typeof $rootScope.popup != "undefined")
+      $rootScope.baseMap.removeLayer($rootScope.popup);
+  $rootScope.baseMap.removeLayer($rootScope.markerLayer);
 
 }
 

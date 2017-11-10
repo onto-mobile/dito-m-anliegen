@@ -56,7 +56,7 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
 
 
       };
-      $rootScope.pushAlert(  { type: 'success', msg: 'Well done! You have successfully started the app.' });
+      // $rootScope.pushAlert(  { type: 'success', msg: 'Well done! You have successfully started the app.' });
 
 
       //
