@@ -27,7 +27,7 @@
         <icon density="xhdpi"  platform="android" src="www/img/icon/android/xhdpi.png" />
         <icon density="xxxhdpi" platform="android" src="www/img/icon/android/xxxhdpi.png" />
 
-        <!-- <splash density="land-ldpi" platform="android" src="www/img/screen/android/res-long-land-ldpi/default.png" />
+        <splash density="land-ldpi" platform="android" src="www/img/screen/android/res-long-land-ldpi/default.png" />
         <splash density="land-mdpi" platform="android" src="www/img/screen/android/res-long-land-mdpi/default.png" />
         <splash density="land-hdpi" platform="android" src="www/img/screen/android/res-long-land-hdpi/default.png" />
         <splash density="land-xhdpi" platform="android" src="www/img/screen/android/res-long-land-xhdpi/default.png" />
@@ -38,7 +38,7 @@
         <splash density="port-hdpi" platform="android" src="www/img/screen/android/res-long-port-hdpi/default.png" />
         <splash density="port-xhdpi" platform="android" src="www/img/screen/android/res-long-port-xhdpi/default.png" />
         <splash density="port-xxhdpi" platform="android" src="www/img/screen/android/res-long-port-xxhdpi/default.png" />
-        <splash density="port-xxxhdpi" platform="android" src="www/img/screen/android/res-long-port-xxxhdpi/default.png" /> -->
+        <splash density="port-xxxhdpi" platform="android" src="www/img/screen/android/res-long-port-xxxhdpi/default.png" />
     </platform>
     <platform name="ios">
         <icon height="57" platform="ios" src="www/img/icon/ios/icon.png" width="57" />
@@ -58,7 +58,7 @@
         <icon height="58" platform="ios" src="www/img/icon/ios/icon-small@2x.png" width="58" />
         <icon height="87" platform="ios" src="www/img/icon/ios/icon-small@3x.png" width="87" />
 
-        <!-- <splash height="1136" platform="ios" src="www/img/screen/ios/Default-568h@2x~iphone.png" width="640" />
+        <splash height="1136" platform="ios" src="www/img/screen/ios/Default-568h@2x~iphone.png" width="640" />
         <splash height="1334" platform="ios" src="www/img/screen/ios/Default-667h@2x~iphone.png" width="750" />
         <splash height="2208" platform="ios" src="www/img/screen/ios/Default-736h@3x.png" width="1242" />
         <splash height="1242" platform="ios" src="www/img/screen/ios/Default-Landscape-736h@3x.png" width="2208" />
@@ -67,7 +67,7 @@
         <splash height="2048" platform="ios" src="www/img/screen/ios/Default-Portrait@2x~ipad.png" width="1536" />
         <splash height="1024" platform="ios" src="www/img/screen/ios/Default-Portrait~ipad.png" width="768" />
         <splash height="960" platform="ios" src="www/img/screen/ios/Default@2x~iphone.png" width="640" />
-        <splash height="480" platform="ios" src="www/img/screen/ios/Default~iphone.png" width="320" /> -->
+        <splash height="480" platform="ios" src="www/img/screen/ios/Default~iphone.png" width="320" />
     </platform>
     <platform name="wp8">
         <icon height="99" platform="wp8" src="www/res/icon/wp8/ApplicationIcon.png" width="99" />
