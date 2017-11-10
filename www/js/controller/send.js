@@ -32,26 +32,26 @@ switch (appData.image.is_valid) {
 
       function onSucc(response) {
             GLOBAL_ONTO.init.debug && console.log('response', response);
-              $timeout(function(){
-  GLOBAL_ONTO.init.debug && console.log('response.response.success', response.response.success);
-              if(typeof response.success != 'undefined'){
+            $timeout(function(){
+              GLOBAL_ONTO.init.debug && console.log('response.response', response.response);
+              if(typeof response.response != 'undefined'){
                   $scope.appData.sendOK = "success";
               } else {
                   $scope.appData.sendOK = "failed";
                   $scope.appData.messageOfSubmit = response.response.errors[0]
               }
-              console.log("Send OK ! Response = ", response);
-              })
+              GLOBAL_ONTO.init.debug && console.log("Send OK ! Response = ", response);
+            });
         }
 
         function onFail(response) {
-                                      $timeout(function(){
-                                      $scope.appData.sendOK = "failed";
-                                      $scope.appData.messageOfSubmit = "Das hat leider nicht geklappt."
+            $timeout(function(){
+              $scope.appData.sendOK = "failed";
+              $scope.appData.messageOfSubmit = "Das hat leider nicht geklappt."
 
-                                      console.log("Send FAILED !  Upload error response:", response);
-                                    })
-                                  }
+              console.log("Send FAILED !  Upload error response:", response);
+            });
+        }
         // SEND
         GLOBAL_ONTO.init.debug && console.log('Upload file:',GLOBAL_ONTO.init.uploadData.uri);
         GLOBAL_ONTO.init.debug && console.log('Upload options:',GLOBAL_ONTO.init.uploadData.options);
