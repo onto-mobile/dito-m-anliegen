@@ -56,7 +56,7 @@ makeDitoData: function (appData) {
 				ditoFormDataStatic.gp_149_localizationProposal_value=
 																				appData.position.coordinates.lng+
 																				":"+appData.position.coordinates.lat;
-				ditoFormDataStatic.labellabel 	= appData.category.text;
+				ditoFormDataStatic.label			 	= appData.category.text;
 				ditoFormDataStatic.title				= appData.title.text;
 				ditoFormDataStatic.note         = appData.note.text ;
 				ditoFormDataStatic.email				= appData.email.text;
