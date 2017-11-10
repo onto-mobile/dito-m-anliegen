@@ -17,24 +17,24 @@
     <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Purpose of this application is to report geolocated incidents. Enabling geolocation detection helps users find their position and speeds up the reporting process." />
     <platform name="android">
         <!-- <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" /> -->
-        <icon density="mdpi" src="www/img/icon/android/mdpi.png" />
-        <icon density="hdpi" src="www/img/icon/android/hdpi.png" />
-        <icon density="xhdpi" src="www/img/icon/android/xhdpi.png" />
-        <icon density="xxhdpi" src="www/img/icon/android/xxhdpi.png" />
-        <icon density="xxxhdpi" src="www/img/icon/android/xxxhdpi.png" />
+        <icon density="mdpi" platform="android" src="www/img/icon/android/mdpi.png" />
+        <icon density="hdpi" platform="android" src="www/img/icon/android/hdpi.png" />
+        <icon density="xxhdpi" platform="android" src="www/img/icon/android/xxhdpi.png" />
+        <icon density="xhdpi"  platform="android" src="www/img/icon/android/xhdpi.png" />
+        <icon density="xxxhdpi" platform="android" src="www/img/icon/android/xxxhdpi.png" />
 
-        <splash density="land-ldpi" src="www/img/screen/android/res-long-land-ldpi/default.png" />
-        <splash density="land-mdpi" src="www/img/screen/android/res-long-land-mdpi/default.png" />
-        <splash density="land-hdpi" src="www/img/screen/android/res-long-land-hdpi/default.png" />
-        <splash density="land-xhdpi" src="www/img/screen/android/res-long-land-xhdpi/default.png" />
-        <splash density="land-xxhdpi" src="www/img/screen/android/res-long-land-xxhdpi/default.png" />
-        <splash density="land-xxxhdpi" src="www/img/screen/android/res-long-land-xxxhdpi/default.png" />
-        <splash density="port-ldpi" src="www/img/screen/android/res-long-port-ldpi/default.png" />
-        <splash density="port-mdpi" src="www/img/screen/android/res-long-port-mdpi/default.png" />
-        <splash density="port-hdpi" src="www/img/screen/android/res-long-port-hdpi/default.png" />
-        <splash density="port-xhdpi" src="www/img/screen/android/res-long-port-xhdpi/default.png" />
-        <splash density="port-xxhdpi" src="www/img/screen/android/res-long-port-xxhdpi/default.png" />
-        <splash density="port-xxxhdpi" src="www/img/screen/android/res-long-port-xxxhdpi/default.png" />
+        <splash density="land-ldpi" platform="android" src="www/img/screen/android/res-long-land-ldpi/default.png" />
+        <splash density="land-mdpi" platform="android" src="www/img/screen/android/res-long-land-mdpi/default.png" />
+        <splash density="land-hdpi" platform="android" src="www/img/screen/android/res-long-land-hdpi/default.png" />
+        <splash density="land-xhdpi" platform="android" src="www/img/screen/android/res-long-land-xhdpi/default.png" />
+        <splash density="land-xxhdpi" platform="android" src="www/img/screen/android/res-long-land-xxhdpi/default.png" />
+        <splash density="land-xxxhdpi" platform="android" src="www/img/screen/android/res-long-land-xxxhdpi/default.png" />
+        <splash density="port-ldpi" platform="android" src="www/img/screen/android/res-long-port-ldpi/default.png" />
+        <splash density="port-mdpi" platform="android" src="www/img/screen/android/res-long-port-mdpi/default.png" />
+        <splash density="port-hdpi" platform="android" src="www/img/screen/android/res-long-port-hdpi/default.png" />
+        <splash density="port-xhdpi" platform="android" src="www/img/screen/android/res-long-port-xhdpi/default.png" />
+        <splash density="port-xxhdpi" platform="android" src="www/img/screen/android/res-long-port-xxhdpi/default.png" />
+        <splash density="port-xxxhdpi" platform="android" src="www/img/screen/android/res-long-port-xxxhdpi/default.png" />
     </platform>
     <platform name="ios">
         <icon height="57" platform="ios" src="www/img/icon/ios/icon.png" width="57" />
