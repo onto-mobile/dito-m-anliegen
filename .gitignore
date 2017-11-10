@@ -7,11 +7,11 @@
 
 # Note that we don't want the different config.xml and package.json to be overwritten from either cordova or phonegap
 # so, explicitely ignore this file which is different for phonegap / cordova
-/config.xml
 /package.json
 
 # Not igrnore these files:
-
+!/config.xml
+!/splash.png
 !.gitignore
 !/Readme*
 !/config-cordova.xml
@@ -25,4 +25,3 @@
 
 # Ignore anything in res folder which for phonegap is in www folder (put this at the end):
 /www/res/*
-
