@@ -1,4 +1,4 @@
-rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$q,$compile,DataService,DeviceService,NetworkService,MapFactory,DataFactory) {
+rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$anchorScroll,$q,$compile,DataService,DeviceService,NetworkService,MapFactory,DataFactory) {
 // alternate:
 //	rootApp.controller('mainCtrl',['$scope','DataService','NetworkService','MapFactory', function($scope,DataService) {
 this.$onInit = function () {
@@ -26,7 +26,7 @@ $scope.debug && console.warn("Controller: mainCtrl.");
 //
 //
 // This is the main navigation logic which implements what to do at which view
-$rootScope.changeView = function (view,item) {
+$rootScope.changeView = function (view, item, from) {
 	$scope.debug && console.log('--------------------------------------------------------\nView:', view);
 
 	// Where we came from:
@@ -102,7 +102,7 @@ $rootScope.changeView = function (view,item) {
 								$rootScope.apply;
 								MapFactory.showPlacemarks();
 								MapFactory.addOnClickEventToMap();
-						})
+						});
 					}
 					break;
 			case 'map':   // SHOW PLACEMARKS
@@ -137,6 +137,18 @@ $rootScope.changeView = function (view,item) {
 					})
 
 					break;
+			case 'list':
+				if (typeof from != "undefined"){
+					$location.hash('list-item-'+item.properties.id);
+					// call $anchorScroll()
+					$anchorScroll.yOffset = 50; 
+      		$anchorScroll();
+				}
+				break;
+			case 'detail':   // detail view, we need to pass the selected item
+				$rootScope.listItem = item;
+				$scope.fromWhichView = from;
+				break;
 			case 'report_saved':											// When we enter this from any other than report views (like my,map,list,info)
 					// then the last saved report stage is recalled
 					view = appData.report_saved_view;
@@ -144,35 +156,30 @@ $rootScope.changeView = function (view,item) {
 					if(view != 'report1')
 						break;
 					// !no-break:
-
 			case 'report1':	// MAP POSITION SELECTOR
-					MapFactory.removeOnClickEventToMap();
-											appData.currentReportStep = 1;
-											appData.report_saved_view = view;
-											$timeout(function(){
-													MapFactory.hidePlacemarks();
-													if(typeof appData.markerCurrentReport != "undefined" ) {
-															appData.markerCurrentReport.remove();
-													}
-													GLOBAL_ONTO.init.debug && console.log(item);
-													if(typeof item != "undefined"){
-															MapFactory.mapControl('center',item,appData.report_saved_select_zoom);
-															$rootScope.apply
-													} else
-													// If there is already a selected position then recall it:
-													if (appData.position.coordinates.lat !== "") {
-															MapFactory.mapControl('center',appData.position.coordinates,appData.report_saved_select_zoom);
-															$rootScope.apply
-													}
-											}) // End timeout
-											break;
-
-      default:  			$scope.debug && console.log('changeView: Nothing special here.'); break;
-
-			case 'detail':   // detail view, we need to pass the selected item
-											$rootScope.listItem = item;
-											break;
-
+				MapFactory.removeOnClickEventToMap();
+				appData.currentReportStep = 1;
+				appData.report_saved_view = view;
+				$timeout(function(){
+						MapFactory.hidePlacemarks();
+						if(typeof appData.markerCurrentReport != "undefined" ) {
+								appData.markerCurrentReport.remove();
+						}
+						GLOBAL_ONTO.init.debug && console.log(item);
+						if(typeof item != "undefined"){
+								MapFactory.mapControl('center',item,appData.report_saved_select_zoom);
+								$rootScope.apply
+						} else
+						// If there is already a selected position then recall it:
+						if (appData.position.coordinates.lat !== "") {
+								MapFactory.mapControl('center',appData.position.coordinates,appData.report_saved_select_zoom);
+								$rootScope.apply
+						}
+				}) // End timeout
+				break;
+      default:
+				$scope.debug && console.log('changeView: Nothing special here.');
+				break;
 
   } // End switch
 
@@ -495,7 +502,43 @@ $scope.typeCssClass = function (type)   {
 				return 'label-default';
 		}
 };
+$scope.typeCssClass = function (type)   {
+	//$scope.debug && console.log(type);
+	switch (type) {
+				case 'gp.status.open':
+				return 'label-danger';
 
+				case 'gp.status.processing':
+				return 'label-info';
+
+				case 'gp.status.done':
+				return 'label-success';
+
+				case 'gp.notInOurCompetence':
+				return 'label-warning';
+
+				default :
+				return 'label-default';
+		}
+};$scope.translateStatus = function (type)   {
+	//$scope.debug && console.log(type);
+	switch (type) {
+				case 'gp.status.open':
+				return 'ist neu';
+
+				case 'gp.status.processing':
+				return 'in Bearbeitung';
+
+				case 'gp.status.done':
+				return 'erledigt';
+
+				case 'gp.notInOurCompetence':
+				return 'nicht zuständig';
+
+				default :
+				return '';
+		}
+};
 $scope.getNumberOfCategory = function (articleLabel){
 	var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
 	listOfCategoryNames.reverse(); // to align the color with the server

@@ -6,13 +6,18 @@
 
       <small ng-class="categoryCssClassColor(listItem.properties.articleLabel)">{{listItem.properties.articleLabel}}</small>
       <small class="">{{listItem.properties.date}}</small>
-      <small class="label " ng-class="typeCssClass(listItem.properties.type)">{{listItem.properties.type}}</small>
+      <small class="label " ng-class="typeCssClass(listItem.properties.type)">{{translateStatus(listItem.properties.type)}}</small>
 <hr/>
       <p ng-bind-html="listItem.properties.note" class="note"></p>
       <!-- Image attachment -->
-      <img class="img-responsive img-rounded"
-        ng-src="{{url_dito}}?action=openattachment&&amp;id={{listItem.properties.id}}&amp;attachmentid={{listItem.properties.attachmentId}}"
-        />
+<div class="photo-map">
+      <div class="col1">
+        <img class="img-responsive img-rounded"
+          ng-src="{{linkForImg}}"
+          />
+
+      </div><div class="col2">
       <!-- Mini Map -->
       <div id="miniMap" class="img-rounded"></div>
+    </div></div>
 </div>

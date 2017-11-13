@@ -26,7 +26,6 @@
   * The whitelist plugin enables http://cordova.apache.org in config.xml, adding dito server seems to be not necessary with the follwoing CSP:
 -->
   <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; media-src *; img-src * data: cdv:;">
-
   <meta charset="utf-8"/>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
   <!-- <meta name="format-detection" content="telephone=no"> -->
@@ -42,12 +41,14 @@
   <link rel="stylesheet" type="text/css" href="css/libs/bootstrap-theme.min.css" />
   <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome/css/font-awesome.min.css">
 
-  <!-- CUSTOM -->
+  <!-- generic css-->
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
-  <link rel="stylesheet" type="text/css" href="css/map.css" />
+	<link rel="stylesheet" type="text/css" href="css/map.css" />
 
+  <!-- CUSTOM -->
+  <link rel="stylesheet" type="text/css" href="css/muehlheim.css" />
 
-<title>{{appTitle}}</title>
+ <title>{{appTitle}}</title>
 
 </head>
 
@@ -59,7 +60,7 @@
 <div ng-cloak>
 
   <!-- this means we're coming from anywhere else than a "report*" view: -->
-  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view.indexOf('report') < 0">
+  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view.indexOf('report') < 0 && view != 'detail'">
     <ul class="nav navbar-nav">
       <li class="col-xs-2" ng-class="{'active': view == 'my'}" ng-click="changeView('howTo')"><i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></li>
        <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
@@ -68,45 +69,53 @@
       <li class="col-xs-2 text-right" ng-class="{'active': view == 'info'}" ng-click="changeView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li>
     </ul>
   </nav>
+  <nav class="navbar navbar-default navbar-fixed-top" ng-if="view == 'detail'">
+    <ul class="nav navbar-nav">
+      <li class="col-xs-2" ng-click="changeView(fromWhichView, listItem, 'detail')"><i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i></li>
+       <!-- There is a problem with doing an initial report when route is updated before scope and this is a silly workaround: -->
+      <li ng-if="appData.currentReportStep == '0'" class="col-xs-10 text-center " >Detail</li>
+      <!-- <li class="col-xs-2 text-right" ng-class="{'active': view == 'info'}" ng-click="changeView('info')"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i></li> -->
+    </ul>
+  </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report1'">
     <ul class="nav navbar-nav ">
       <li class="col-xs-2" ng-class="{'active': view == 'home'}" ng-click="changeView('home')"><i class="fa fa-lg fa-times" aria-hidden="true"></i></li>
       <li class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-class="{'active': view == 'report2'}" ng-click="changeView('report2')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-class="{'active': view == 'report2'}" ng-click="changeView('report2')"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <!-- The report moves from report2 to report4 because we will have report3 some day (showing the nearby reports) -->
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report2'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="changeView('report1')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-click="changeView('report1')"><i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i></li>
       <li class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right disabled" ng-show="!appData.category.is_valid"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
-      <li class="col-xs-2 text-right" ng-show="appData.category.is_valid" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right disabled" ng-show="!appData.category.is_valid"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-show="appData.category.is_valid" ng-click="changeView('report4')"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <!-- not implemented: report3: Show list of nearby reports -->
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report4'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="changeView('report2')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-click="changeView('report2')"><i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i></li>
       <li class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-click="changeView('report5')"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report5'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="changeView('report4')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-click="changeView('report4')"><i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i></li>
       <li class="col-xs-8 active text-center">{{hintMessage}}</li>
-      <li class="col-xs-2 text-right disabled" ng-show="!(appData.title.dirty && validState('title')  && appData.note.dirty && validState('note'))"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
-      <li class="col-xs-2 text-right" ng-show="(appData.title.dirty) && validState('title') && appData.note.dirty && validState('note')" ng-click="changeView('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right disabled" ng-show="!(appData.title.dirty && validState('title')  && appData.note.dirty && validState('note'))"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-show="(appData.title.dirty) && validState('title') && appData.note.dirty && validState('note')" ng-click="changeView('report6')"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
   <nav class="navbar navbar-default navbar-fixed-top" ng-if="view=='report6'">
     <ul class="nav navbar-nav ">
-      <li class="col-xs-2" ng-click="changeView('report5')"><i class="fa fa-lg fa-arrow-left" aria-hidden="true"></i></li>
+      <li class="col-xs-2" ng-click="changeView('report5')"><i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i></li>
       <li class="col-xs-8 active text-center">{{hintMessage}}</li>
       <!-- <li class="col-xs-2 text-right" ng-click="changeView('info')"><i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></li> -->
       <li class="col-xs-2 text-right" ng-if="validState('report6')" ng-click="changeView('send')"><i class="fa fa-lg fa fa-share-square-o" aria-hidden="true"></i></li>
-      <li class="col-xs-2 text-right disabled" ng-if="!validState('report6')"><i class="fa fa-lg fa-arrow-right" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right disabled" ng-if="!validState('report6')"><i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i></li>
     </ul>
   </nav>
 </div>  <!-- ng-cloak -->
@@ -123,7 +132,7 @@
 <!--#####################################################################################-->
 
 <div ng-cloak>
-  <nav class="navbar navbar-default navbar-fixed-bottom" id="navBottom" ng-if="true">
+  <nav class="navbar navbar-default navbar-fixed-bottom" id="navBottom" ng-if="view != 'detail'">
     <ul class="nav navbar-nav">
       <li class="col-xs-2" ng-class="{'active': view == 'list'}" ng-click="changeView('list')"><i class="fa fa-lg fa-list" aria-hidden="true"></i></li>
       <li class="col-xs-8 text-center">{{appTitle}}</li>

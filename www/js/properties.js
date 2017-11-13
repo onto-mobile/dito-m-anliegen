@@ -39,9 +39,8 @@ GLOBAL_ONTO.init =  {
   //
   // MAP and PLACEMARK
   mapAttribution : 'Data © '+
-    '<a href:"http://openstreetmap.org">OpenStreetMap</a> '+
-    '<a href:"http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>  |'+
-    ' Imagery © <a href:"http://mapbox.com">Mapbox</a>',
+    '<a href="https://openstreetmap.org">OpenStreetMap</a> '+
+    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
   cityCenter : { lat:50.121, lng:8.832 },
   boundsSouthWest : L.latLng(50.0, 8.55),
   boundsNorthEast : L.latLng(50.3, 8.99),
@@ -77,7 +76,7 @@ GLOBAL_ONTO.init =  {
   'report3'  : "Bereits gemeldet? ",
   'report4'  : "Foto hinzufügen (3/5)",
   'report5'  : "Beschreibung (4/5)",
-  'report6'  : "Rückmeldung (5/5)",
+  'report6'  : "Ihr Kontakt (5/5)",
 	'sendhint'  : "Nach dem Absenden erhalten Sie einen Bestätigungslink per E-Mail an:",
   'send'  : "Senden",
   'info'  : "Info zur App",

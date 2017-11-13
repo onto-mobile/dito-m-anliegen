@@ -1,0 +1,9 @@
+.report .btn-personalized,
+.btn.add-report{
+  color:#fff;
+  background-color: #c40046;
+  border-color: #fff;
+}
+.navbar-fixed-bottom li.text-center {
+  color:#c40046;
+}

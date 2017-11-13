@@ -1,5 +1,4 @@
 /* bootup messages */
-
 div.text-device-error {
   background-color: #fe9585;
 }
@@ -21,7 +20,15 @@ div.deviceMessage {
   border-radius: 10px;
   border-style: groove;
 }
-
+.btn.add-report{
+  color:#fff;
+  background-color: #80c7db;
+  border-color: #fff;
+}
+.navbar-fixed-bottom li.text-center{
+  font-size:16px;
+  color: #adce35;
+}
 div.deviceMessageInner {
   font-family: sans;
   font-size: 16px;
@@ -76,20 +83,21 @@ li.disabled {
     padding-bottom: 11px;
     /*border:2px red solid;*/
 }
-.btn.add-report{
-  color:#fff;
-  background-color: #c40046;
-  border-color: #fff;
-}
 /*#report4 button.pull-right{
   margin-top: 5px;
 }*/
+
 .report button.pull-right,
 #report1 button.float-on-map {
   position: fixed;
   bottom: 90px;
   right: 10px;
   z-index: 1000;
+}
+#report5 button.pull-right {
+  position:unset;
+  bottom: unset;
+  right: unset;
 }
 /* nav center buttons */
 
@@ -104,15 +112,17 @@ li.text-center {
   font-size:16px;
 }
 
-/* bottom center = app title */
-.navbar-fixed-bottom li.text-center {
-  font-size:16px;
-  color:#c40046;
-}
-
-
 /* DETAIL */
-
+.photo-map .col1,
+.photo-map .col2 {
+  width:49%;
+}
+.photo-map .col1 {
+  margin-right: 1%;
+}
+.photo-map{
+  display: flex;
+}
 div.detail {
   margin: 5px
 }

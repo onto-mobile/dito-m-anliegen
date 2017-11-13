@@ -28,7 +28,7 @@ switch (appData.image.is_valid) {
                              'params': ditoData,
                              'chunkedMode' : false
                           //  'headers' : ''
-                              }
+                        };
 
       function onSucc(response) {
             GLOBAL_ONTO.init.debug && console.log('response', response);
@@ -36,9 +36,14 @@ switch (appData.image.is_valid) {
               GLOBAL_ONTO.init.debug && console.log('response.response', response.response);
               if(typeof response.response != 'undefined'){
                   $scope.appData.sendOK = "success";
+                  $timeout(function(){
+                      DataFactory.initAppData();
+                      $rootScope.baseMap.invalidateSize();
+                      $rootScope.apply;
+                  });
               } else {
                   $scope.appData.sendOK = "failed";
-                  $scope.appData.messageOfSubmit = response.response.errors[0]
+                  $scope.appData.messageOfSubmit = response.response.errors[0];
               }
               GLOBAL_ONTO.init.debug && console.log("Send OK ! Response = ", response);
             });
@@ -47,7 +52,7 @@ switch (appData.image.is_valid) {
         function onFail(response) {
             $timeout(function(){
               $scope.appData.sendOK = "failed";
-              $scope.appData.messageOfSubmit = "Das hat leider nicht geklappt."
+              $scope.appData.messageOfSubmit = "Das hat leider nicht geklappt.";
 
               console.log("Send FAILED !  Upload error response:", response);
             });
@@ -70,6 +75,11 @@ switch (appData.image.is_valid) {
                            function (response) {
                                         if(typeof response.response.data.success != 'undefined'){
                                             $scope.appData.sendOK = "success";
+                                            $timeout(function(){
+                                								DataFactory.initAppData();
+                                								$rootScope.baseMap.invalidateSize();
+                                								$rootScope.apply;
+                                						});
                                         } else {
                                             $scope.appData.sendOK = "failed";
                                             $scope.appData.messageOfSubmit = response.response.data.errors[0]
