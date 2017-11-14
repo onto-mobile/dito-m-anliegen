@@ -33,7 +33,7 @@ body, .leaflet-container {
   border: none;
 }
 
-.report .btn-personalized, .btn.add-report-popup {
+.report .btn-personalized, .btn.add-report-popup, .btn-default {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #b0003f;
@@ -50,22 +50,23 @@ body, .leaflet-container {
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
-/*
-.btn.add-report:hover,
-.btn.add-report:focus,
-.btn.add-report:active,
-.btn.add-report.active,
-.btn.add-report.disabled,
-.btn.add-report[disabled] {
+
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.btn-default.disabled,
+.btn-default[disabled] {
   color: #ffffff;
   background-color: #910034;
   *background-color: #78002b;
 }
-.btn.add-report:active,
-.btn.add-report.active {
+.btn-default:active,
+.btn-default.active {
   background-color: #5e0022 ;
 }
-*/
+
 
 
 .navbar.navbar-fixed-top .nav li.btn { 
@@ -83,3 +84,5 @@ mapSelect:after,
 mapSelect:before {
   border-color: #a3003c;
 }
+
+
