@@ -187,7 +187,7 @@ addPlacemarks: function(vectorArray) {
                    }
                     var icon = L.divIcon({className: cssClassMarker+' '+cssClassMarker+'map-icon leaflet-div-icon-ont marker cat-'+indexOfCat, iconSize:null , popupAnchor:  [1, -22]});
                     var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { label:feature.properties.articleLabel,title: feature.properties.title, alt:feature.properties.id, icon:icon});
-                    var html = '<div ng-click="changeView(\'detail\',feature, \'map\')"><small class="color-'+indexOfCat+'">'+feature.properties.articleLabel+'</small><br/>'+feature.properties.title+' <i class="fa fa-chevron-right" aria-hidden="true"></i></div>',
+                    var html = '<div ng-click="changeView(\'detail\',feature, \'map\')"><small class="color-'+indexOfCat+'">'+feature.properties.articleLabel+'</small><br/>'+feature.properties.title+' <i class="fa fa-chevron-right ti-angle-right" aria-hidden="true"></i></div>',
                       linkFunction = $compile(angular.element(html)),
                       newScope = $rootScope.$new();
                     newScope.feature = feature;
