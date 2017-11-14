@@ -261,8 +261,8 @@ GLOBAL_ONTO.init =  {
                                     opacity: 1,
                                     fillOpacity: 0.8
                                   },
-                    icon  : 'fa fa-map-marker',
-                    iconLoading : 'fa fa-spinner fa-spin',
+                    icon  : 'fa fa-map-marker ti-location-pin',
+                    iconLoading : 'fa fa-spinner fa-spin ti-reload',
                     strings: {
                                 title : "Standort automatisch erkennen und Karte anpassen",
                                 popup : "Geolokalisierung aktiviert."
