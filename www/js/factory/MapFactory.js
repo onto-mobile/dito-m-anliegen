@@ -81,7 +81,7 @@ createTileLayer : function() {
 
 },  // End createMiniMap
 onMapClick : function(e){
-  var html = '<button class="btn add-report" '+
+  var html = '<button class="btn add-report-popup" '+
     'ng-click="changeView(\'report1\', coordinates)">'+
     'Anliegen eingeben</button>',
     linkFunction = $compile(angular.element(html));
