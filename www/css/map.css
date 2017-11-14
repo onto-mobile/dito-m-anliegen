@@ -1,11 +1,12 @@
+/*body {padding-top: 40px; }*/
 body {padding-top: 50px; }
-
 /*********************************************/
 /***************     map      ****************/
 /*********************************************/
 
 #mapid {
 	position: relative;
+	/*height:calc(100vh - 90px);/*-90px correspond to the topbar 40 + bottom bar 50*/
 	height:calc(100vh - 100px);
 	width:100%;
 	}

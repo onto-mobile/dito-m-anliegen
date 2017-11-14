@@ -1,3 +1,12 @@
+/*nav bar */
+/*.navbar-fixed-top .navbar-nav{
+    max-height: 40px;
+    height: 40px;
+}
+.report .btn-personalized,
+.btn.add-report{
+  height: 40px;
+}*/
 /* bootup messages */
 div.text-device-error {
   background-color: #fe9585;

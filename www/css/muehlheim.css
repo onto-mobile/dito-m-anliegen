@@ -1,9 +1,21 @@
 .report .btn-personalized,
 .btn.add-report{
-  color:#fff;
-  background-color: #c40046;
-  border-color: #fff;
+  border: none;
+  background: #a3003c;
+ background-image: -webkit-linear-gradient(top, #a3003c, #fa0a62);
+ background-image: -moz-linear-gradient(top, #a3003c, #fa0a62);
+ background-image: -ms-linear-gradient(top, #a3003c, #fa0a62);
+ background-image: -o-linear-gradient(top, #a3003c, #fa0a62);
+ background-image: linear-gradient(to bottom, #a3003c, #fa0a62);
+ -webkit-border-radius: 12;
+ -moz-border-radius: 12;
+ border-radius: 12px;
+ text-decoration: none;
 }
 .navbar-fixed-bottom li.text-center {
   color:#c40046;
+}
+.navbar-fixed-top .navbar-nav{
+  background-color: #c40046;
+  color:#fff;
 }
