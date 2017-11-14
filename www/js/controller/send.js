@@ -6,7 +6,7 @@ GLOBAL_ONTO.init.debug && console.warn("Controller: sendCtrl.");
 if (!GLOBAL_ONTO.init.fake_send) {
 
 $scope.appData.sendOK = "sending";
-
+$scope.sendOK = "sending";
 // create dito API data object from appData
 ditoData = DataFactory.makeDitoData(appData);
 GLOBAL_ONTO.init.debug && console.log('Created Dito Data:',ditoData);
@@ -35,13 +35,14 @@ switch (appData.image.is_valid) {
             $timeout(function(){
               GLOBAL_ONTO.init.debug && console.log('response.response', response.response);
               if(typeof response.response != 'undefined'){
-                  $scope.appData.sendOK = "success";
+                  $scope.sendOK = "success";
                   $timeout(function(){
                       DataFactory.initAppData();
                       $rootScope.baseMap.invalidateSize();
                       $rootScope.apply;
                   });
               } else {
+                  $scope.sendOK = "failed";
                   $scope.appData.sendOK = "failed";
                   $scope.appData.messageOfSubmit = response.response.errors[0];
               }
@@ -74,23 +75,25 @@ switch (appData.image.is_valid) {
 
                            function (response) {
                                         if(typeof response.response.data.success != 'undefined'){
-                                            $scope.appData.sendOK = "success";
+                                            $scope.sendOK = "success";
                                             $timeout(function(){
                                 								DataFactory.initAppData();
                                 								$rootScope.baseMap.invalidateSize();
                                 								$rootScope.apply;
                                 						});
                                         } else {
+                                            $scope.sendOK = "failed";
                                             $scope.appData.sendOK = "failed";
                                             $scope.appData.messageOfSubmit = response.response.data.errors[0]
                                         }
                                         GLOBAL_ONTO.init.debug && console.log("Controller sendForm OK response:", response);
                            },
                            function (response) {
-                                         $scope.appData.sendOK = "failed";
-                                         console.error("Controller sendForm FAILED with response:", response);
+                             $scope.sendOK = "failed";
+                             $scope.appData.sendOK = "failed";
+                             console.error("Controller sendForm FAILED with response:", response);
                            }
-                   ) // End then
+                   ); // End then
 
     break;
 

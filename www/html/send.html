@@ -4,28 +4,28 @@
 
   <div class="pageFeedback">
 
-      <div ng-if="appData.sendOK=='sending'">
+      <div ng-if="sendOK=='sending'">
 
           Bitte warten, die Daten werden übertragen...
 
       </div>
 
-      <div ng-if="appData.sendOK!='sending'" ng-class="{'text-success' : appData.sendOK=='success', 'text-danger': appData.sendOK =='failed'}">
+      <div ng-if="sendOK!='sending'" ng-class="{'text-success' : sendOK=='success', 'text-danger': sendOK =='failed'}">
         {{appData.messageOfSubmit}}
-        <p ng-if="appData.sendOK=='success'">
+        <p ng-if="sendOK=='success'">
                 Anliegen gespeichert!<br><br>
                 Vielen Dank für Ihr Anliegen.<br>
                 Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
                 Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!
         </p>
       </div>
-      <div class=""  ng-if="appData.sendOK=='failed'">
+      <div class=""  ng-if="sendOK=='failed'">
         <button class="btn btn-personalized" ng-click="changeView('report_saved')"> Zurück zum form</button>
         <br><br>
         <button class="btn btn-personalized" ng-click="closeApp()">App Beenden</button>
         <br><br>
       </div>
-      <div class=""  ng-if="appData.sendOK=='success'">
+      <div class=""  ng-if="sendOK=='success'">
         <button class="btn btn-personalized" ng-click="changeView('home')"> Zurück zum Anfang</button>
         <br><br>
         <button class="btn btn-personalized" ng-click="closeApp()">App Beenden</button>

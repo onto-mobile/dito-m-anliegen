@@ -22,3 +22,7 @@
   background-color: #c40046;
   color:#fff;
 }
+mapSelect:after,
+mapSelect:before {
+  border-color: #a3003c;
+}
