@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   src: local('Open Sans'), local('OpenSans'), url(fonts/Open_Sans/opensans.woff2) format('woff2');
 }
 
@@ -9,6 +9,15 @@ body, .leaflet-container {
   font-family: 'Open Sans', Verdana, sans-serif;
   color: #333;
 }
+
+a {
+  color: #C40046;
+  line-height: inherit;
+  text-decoration: none; 
+}
+
+a:hover, a:focus {color: #a6033d; text-decoration: none;}
+a:focus {background: none;}
 
 /* customize icon set font-size */
 [class^="ti-"], [class*=" ti-"] {
