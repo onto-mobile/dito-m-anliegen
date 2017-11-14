@@ -14,7 +14,12 @@ body, .leaflet-container {
 [class^="ti-"], [class*=" ti-"] {
   font-size: 1.3em;
 }
-.navbar.navbar-fixed-top .nav li.btn [class^="ti-"], .navbar.navbar-fixed-top .nav li.btn [class*=" ti-"] {
+.navbar.navbar-fixed-top .nav li.btn [class^="ti-"],
+.navbar.navbar-fixed-top .nav li.btn [class*=" ti-"],
+.leaflet-popup-content [class^="ti-"], 
+.leaflet-popup-content [class*=" ti-"],
+.btn-personalized [class^="ti-"],
+.btn-personalized [class*=" ti-"] {
  font-size: 1.0em;
 }
 
@@ -43,7 +48,6 @@ body, .leaflet-container {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   *background-color: #910034;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 /*
