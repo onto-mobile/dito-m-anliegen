@@ -7,18 +7,18 @@
 
 body, .leaflet-container {
   font-family: 'Open Sans', Verdana, sans-serif;
+  color: #333;
 }
-
 
 /* customize icon set font-size */
 [class^="ti-"], [class*=" ti-"] {
   font-size: 1.3em;
 }
-.navbar.navbar-fixed-top .nav li.btn [class^="ti-"], [class*=" ti-"] {
+.navbar.navbar-fixed-top .nav li.btn [class^="ti-"], .navbar.navbar-fixed-top .nav li.btn [class*=" ti-"] {
  font-size: 1.0em;
 }
 
-.navbar.navbar-fixed-bottom [class^="ti-"], [class*=" ti-"] {
+.navbar.navbar-fixed-bottom [class^="ti-"], .navbar.navbar-fixed-bottom [class*=" ti-"] {
  font-size: 1.4em;
  color: #666666;
 }
@@ -58,8 +58,7 @@ body, .leaflet-container {
 }
 
 
-.navbar.navbar-fixed-top .nav li.btn {
-    
+.navbar.navbar-fixed-top .nav li.btn { 
     padding-left: 0px;
 }
 
@@ -68,9 +67,11 @@ body, .leaflet-container {
 }
 .navbar-fixed-top .navbar-nav{
   background-color: #c40046;
-  color:#fff;
+  color: #ffffff;
 }
 mapSelect:after,
 mapSelect:before {
   border-color: #a3003c;
 }
+
+
