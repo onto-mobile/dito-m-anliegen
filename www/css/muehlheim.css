@@ -1,4 +1,7 @@
-.report .btn-personalized,
+.report .btn-personalized{
+  background-color: #c40046;
+  color:#fff;
+}
 .btn.add-report{
   border: none;
   background: #a3003c;
