@@ -16,7 +16,7 @@
 
     <preference name="SplashScreen" value="screen" />
     <splash src="splash.png" />
-    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="SplashScreenDelay" value="2500" />
     <preference name="FadeSplashScreenDuration" value="750"/>
 
     <variable name="CAMERA_USAGE_DESCRIPTION" value="Usage of this app implies attaching a photo of the reported incident." />
