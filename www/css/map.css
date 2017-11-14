@@ -22,18 +22,18 @@ body {padding-top: 50px; }
   position: absolute;
   top: 40%;
   bottom: 40%;
-  left: 40%;
-  right: 40%;
+  left: 35%;
+  right: 35%;
   z-index: 999;
   pointer-events: none;
 }
 .mapSelect:before {
   bottom: 50%;
-  border-bottom: 2px #e03020 solid;
+  border-bottom: 3px #e03020 solid;
 }
 .mapSelect:after {
   right: 50%;
-  border-right: 2px #e03020 solid;
+  border-right: 3px #e03020 solid;
 }
 
 /*********************************************/
