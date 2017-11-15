@@ -70,6 +70,10 @@
         <splash src="img/screens/ios/Default@3x~iphone~comany.png" />
         <splash src="img/screens/ios/Default@2x~ipad~comany.png" />
         <splash src="img/screens/ios/Default@2x~ipad~anyany.png" />
+        
+        <!-- Default splash screen -->
+        <splash src="splash.png" />
+        
         <!-- <splash platform="ios" src="/www/img/screens/ios/Default~iphone.png" width="320" height="480"/>
         <splash platform="ios" src="/www/img/screens/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
         <splash platform="ios" src="/www/img/screens/ios/Default@2x~iphone.png" width="640" height="960"/>
