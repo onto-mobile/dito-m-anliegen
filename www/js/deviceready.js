@@ -23,8 +23,8 @@ var cordovaEvents = {
       document.addEventListener('deviceready', this.onDeviceReady, false);
       document.addEventListener("resume", this.onResume, false);
       document.addEventListener("backbutton", this.onBackKeyDown, false);
-      // window.addEventListener('online',  doMyStuff());
-      // window.addEventListener('offline',  doMyStuff());
+      document.addEventListener("offline", this.onOffline, false);
+      document.addEventListener("online", this.onOnline, false);
   },
 
   // deviceready
@@ -128,6 +128,12 @@ var cordovaEvents = {
                       {
                           console.log("devready: BACK-BUTTON");
                       },
+  onOffline : function() {
+      alert('you are offline');
+  },
+  onOnline : function() {
+      alert('Great! you are back online');
+  },
 
 };  // End var cordova
 
@@ -140,8 +146,7 @@ var cordovaEvents = {
 if (window.cordova) {
 
   GLOBAL_ONTO.init.debug && console.log("Cordova detected.")
-
-cordovaEvents.initialize();
+  cordovaEvents.initialize();
 
 
 } else {  // browser debugging mode
@@ -149,40 +154,40 @@ cordovaEvents.initialize();
        GLOBAL_ONTO.init.debug && console.log("Browser detected.")
        // if (document.createEvent) { element.dispatchEvent('deviceready'); }
 
-       function deviceOnline() { return navigator.onLine }
+      //  function deviceOnline() { return navigator.onLine }
 
-       console.warn("Online:", deviceOnline());
+       console.warn("Online:", navigator.onLine);
 
-       if (deviceOnline()) {
+      //  if (deviceOnline()) {
              // LAUNCH APP
              console.log('deviceready.js: Initializing Angular App');
              // Angular needs to be initialized after deviceready
              angular.bootstrap(document, ['rootApp']);
 
-        } else {  // device offline
-
-             messageCreate("netMsg", text_error, "text-device-error", "fa fa-spin fa-spinner fa-2x");
-
-             // INTERVAL CHECK LOOP
-
-             let onlineCheck = setInterval(function(){
-
-               GLOBAL_ONTO.init.debug && console.log('Waiting for net connection ... ');
-
-                     if (deviceOnline()) {
-                           console.warn('Network connection found.');
-                           messageDelete("netMsg");
-                           clearInterval(onlineCheck);
-                        // wait a second for full network coming up
-                        console.log('deviceready.js: Initializing Angular App');
-                        // Angular needs to be initialized after deviceready
-                         angular.bootstrap(document, ['rootApp']);
-
-                   } // End if online
-
-               }, 2000 ); // End interval
-
-       }  // End device offline
+      //   } else {  // device offline
+       //
+      //        messageCreate("netMsg", text_error, "text-device-error", "fa fa-spin fa-spinner fa-2x");
+       //
+      //        // INTERVAL CHECK LOOP
+       //
+      //        let onlineCheck = setInterval(function(){
+       //
+      //          GLOBAL_ONTO.init.debug && console.log('Waiting for net connection ... ');
+       //
+      //                if (deviceOnline()) {
+      //                      console.warn('Network connection found.');
+      //                      messageDelete("netMsg");
+      //                      clearInterval(onlineCheck);
+      //                   // wait a second for full network coming up
+      //                   console.log('deviceready.js: Initializing Angular App');
+      //                   // Angular needs to be initialized after deviceready
+      //                    angular.bootstrap(document, ['rootApp']);
+       //
+      //              } // End if online
+       //
+      //          }, 2000 ); // End interval
+       //
+      //  }  // End device offline
 
 }  // End browser debug mode
 
