@@ -55,7 +55,7 @@ this.getCategories = function()  {
 //    "json": 		data = {key:value} pairs
 // This method only works for form data w/o image
 //
-this.sendForm = function(data,format) {
+this.sendForm = function(data,format, configSpecial) {
 
 					let config="";
 
@@ -74,7 +74,10 @@ this.sendForm = function(data,format) {
 								break;
 
 					} // End config switch
-
+					if(typeof configSpecial != "undefined"){
+						config=configSpecial;
+						$rootScope.debug && console.log("use configSpecial");
+					}
 
 					return $http(config).then(
 

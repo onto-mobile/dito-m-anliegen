@@ -63,6 +63,19 @@ switch (appData.image.is_valid) {
         GLOBAL_ONTO.init.debug && console.log('Upload options:',GLOBAL_ONTO.init.uploadData.options);
 
         var ft = new FileTransfer();
+        $scope.progress = 0;
+        $scope.progressVisible = false;
+        ft.onprogress = function(progressEvent) {
+            if (progressEvent.lengthComputable) {
+              $scope.progressVisible = true;
+              var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+              GLOBAL_ONTO.init.debug && console.log(perc);
+              $scope.progress = perc;
+            } else {
+                $scope.progressVisible = false;
+                $scope.progress = 0;
+            }
+        };
         ft.upload(GLOBAL_ONTO.init.uploadData.uri, encodeURI(GLOBAL_ONTO.init.uploadData.server), onSucc, onFail, GLOBAL_ONTO.init.uploadData.options);
 
     break;  // End HaveImage -> send by filetransfer plugin
@@ -70,8 +83,22 @@ switch (appData.image.is_valid) {
 
     case false: // no image -> send by $http form
 
+      var configSpecial = {
+            method: 	'POST',
+            url:			 GLOBAL_ONTO.init.url_dito + "?"+ DataService.serializeData(ditoData),
+            headers:	{'Content-Type': 'application/x-www-form-urlencoded,charset=utf-8'},
+            uploadEventHandlers: {
+                progress: function (e) {
+                          if (e.lengthComputable) {
+                             $scope.progress = (e.loaded / e.total) * 100;
+                             $scope.progressVisible = true;
+                             GLOBAL_ONTO.init.debug && console.log($scope.progress);
+                          }
+                }
+            }
+          };
         // we send as form so the service will serialize dito data into key = value pairs
-        NetworkService.sendForm(ditoData,'form').then(
+        NetworkService.sendForm(ditoData,'form',configSpecial).then(
 
                            function (response) {
                                         if(typeof response.response.data.success != 'undefined'){

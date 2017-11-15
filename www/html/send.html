@@ -7,6 +7,8 @@
       <div ng-if="sendOK=='sending'">
 
           Bitte warten, die Daten werden übertragen...
+          <progress max="100"  value="{{progress}}"></progress>
+          <!--ng-if="{{progressVisible}}"  -->
 
       </div>
 

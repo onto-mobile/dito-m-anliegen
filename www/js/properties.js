@@ -169,7 +169,7 @@ GLOBAL_ONTO.init =  {
 		},
 
   // Email validation regular expression
-   emailRegExpr : /^[0-9a-z]+([.]?[0-9a-z]+)+@[0-9a-z]+\.[0-9a-z]{2,5}$/i,
+   emailRegExpr : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 
   // dito data converts the report data to dito API
   // For now this is hardcoded in the makeDitoData factory
