@@ -122,7 +122,7 @@ $rootScope.changeView = function (view, item, from) {
 								}
 								if (appData.position.coordinates.lat !== "") {
 										var crosshairs = L.divIcon({className:
-											'fa fa-crosshairs fa-2x currentPossition'});
+											'fa fa-crosshairs fa-2x ti-flag-alt currentPossition'});
 										var html = '<div ng-click="changeView(\'report1\')">'+
 										' Ihr markierter Ort. Click me to edit position</div>',
     							linkFunction = $compile(angular.element(html));
@@ -130,7 +130,7 @@ $rootScope.changeView = function (view, item, from) {
 										appData.markerCurrentReport = L.marker(
 													appData.position.coordinates,
 													{icon:crosshairs,zIndexOffset:1000})
-											.bindPopup(linkFunction($scope)[0])
+											.bindPopup(linkFunction($scope)[0], {offset:[3,-20]})
 											.addTo($rootScope.baseMap).togglePopup();
 								}
 								$rootScope.apply;
@@ -141,7 +141,7 @@ $rootScope.changeView = function (view, item, from) {
 				if (typeof from != "undefined"){
 					$location.hash('list-item-'+item.properties.id);
 					// call $anchorScroll()
-					$anchorScroll.yOffset = 50; 
+					$anchorScroll.yOffset = 50;
       		$anchorScroll();
 				}
 				break;

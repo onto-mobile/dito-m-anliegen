@@ -7,21 +7,23 @@
     <div class="input-group">
         <input name="title" class="form-control report" type="text"
                value="appData.title.text"
+               placeholder="Pflichtfeld."
                ng-model="appData.title.text"
                spellcheck="false"
                ng-click="increaseDirtyness('title')"
                ng-blur="validateInput('title')"/>
-       <span class="input-group-addon" ng-if="!validState('title')" ng-click="appData.title.dirty=2"><i class="fa fa-question not-ok" aria-hidden="true"></i></span>
-       <span class="input-group-addon" ng-if="validState('title')"><i class="fa fa-check ok" aria-hidden="true"></i></span>
+       <span class="input-group-addon" ng-if="!validState('title')" ng-click="appData.title.dirty=2"><i class="fa fa-question ti-check not-ok" aria-hidden="true"></i></span>
+       <span class="input-group-addon" ng-if="validState('title')"><i class="fa fa-check ti-check ok" aria-hidden="true"></i></span>
     </div>
     <div class="col-sm-12">
       <span class="char-left">{{appData.title.text.length}} / {{maxTitle}}</span>
       <span class="text-danger clearfix" ng-show="(appData.title.dirty > 1) && (!validState('title'))">Bitte mindestens {{minTitle}} und maximal {{maxTitle}} Zeichen.</span>
     </div>
-    <label class="col-sm-12" for="note">Wenn Sie möchten, können Sie ihr Anliegen hier genauer beschreiben:</label>
-    <div class="input-group">
-      <textarea  name="note" class="report form-control"
+    <label class="col-sm-12" for="note">Bitte beschreiben Sie ihr Anliegen hier genauer:</label>
+    <div class="row">
+      <textarea  name="note" class="col-sm-12 report-note"
                  value="appData.note.text"
+                 placeholder="Pflichtfeld. Bitte mindestens {{minNote}} und maximal {{maxNote}} Zeichen."
                  ng-model="appData.note.text"
                  ngTrim = "true"
                  rows = "5"

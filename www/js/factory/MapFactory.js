@@ -106,9 +106,9 @@ addControl: function(mode) {
 
     case 'geoloc':  // GEOLOC
 
-            console.log('Leaflet GeoControl init with options:',GLOBAL_ONTO.geolocateOptions);
+            console.log('Leaflet GeoControl init with options:',GLOBAL_ONTO.init.geolocateOptions);
             // create control and add to map
-            LOC = L.control.locate(GLOBAL_ONTO.geolocateOptions).addTo($rootScope.baseMap);
+            LOC = L.control.locate(GLOBAL_ONTO.init.geolocateOptions).addTo($rootScope.baseMap);
 
             // SUCCESS
             function onLocationFound(e) {
@@ -152,6 +152,7 @@ addControl: function(mode) {
                   // e.marker.closePopup()
                   // request location update?
                   // LOC.start;
+                  return false;
               }
               $rootScope.baseMap.on('locationerror', onLocationError);
     break;

@@ -56,11 +56,14 @@ div.leaflet-div-icon-ont.defaultmap-icon,
   transform: translate(-50%, -50%); /* move to 50% of (own)element size */
 }
 div.fa.currentPossition{
+	font-size: 2.5em;
+	font-weight: bolder;
 	position: absolute;
-	top: -8px;
-	left: -4px;
-	color:red;
+	top: -22px;
+	left: -18px;
+	color:green;
 }
+
 .iconInList {
     background: url('cssImg/markers-soft-480.png') no-repeat -456px 0; /* dark grey marker as default if no other */
 		display: block ;

@@ -95,7 +95,10 @@ li.disabled {
 /*#report4 button.pull-right{
   margin-top: 5px;
 }*/
-
+.report .report-note {
+  margin-left: 25px;
+  width: calc(100vw - 50px); /*50px 2 time the margin*/
+}
 .report button.pull-right,
 #report1 button.float-on-map {
   position: fixed;
