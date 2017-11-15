@@ -5,8 +5,14 @@
   src: local('Open Sans'), local('OpenSans'), url(fonts/Open_Sans/opensans.woff2) format('woff2');
 }
 
+@font-face {
+	font-family: 'proximanovalight';
+	src: url('fonts/proximanovalight/proximanovalight.eot');
+	src: local('proximanovalight'), url('fonts/proximanovalight/proximanovalight.woff') format('woff'), url('fonts/proximanovalight/proximanovalight.ttf') format('truetype');
+}
+
 body, .leaflet-container {
-  font-family: 'Open Sans', Verdana, sans-serif;
+  font-family: 'proximanovalight','Open Sans', Verdana, sans-serif;
   color: #333;
 }
 
