@@ -6,31 +6,31 @@
 
       <div ng-if="sendOK=='sending'">
 
-          Bitte warten, die Daten werden übertragen...
+          <strong>Bitte warten, die Daten werden übertragen...</strong>
           <progress max="100" class="row col-xs-11"  value="{{progress}}"></progress>{{progress}}%
           <!--ng-if="{{progressVisible}}"  -->
 
       </div>
 
-      <div ng-if="sendOK!='sending'" ng-class="{'text-success' : sendOK=='success', 'text-danger': sendOK =='failed'}">
+      <div ng-if="sendOK!='sending'" >
         {{appData.messageOfSubmit}}
-        <p ng-if="sendOK=='success'">
-                Anliegen gespeichert!<br><br>
-                Vielen Dank für Ihr Anliegen.<br>
-                Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
-                Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!
-        </p>
+        <div ng-if="sendOK=='success'">
+                <h2>Meldung gespeichert!</h2>
+                <p>Vielen Dank für Ihre Meldung.</p>
+                <p><strong>Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
+                Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!</strong></p>
+        </div>
       </div>
       <div class=""  ng-if="sendOK=='failed'">
-        <button class="btn btn-personalized" ng-click="changeView('report_saved')"><i class="ti-reload" aria-hidden="true"></i> Zurück zum form</button>
+        <button class="btn btn-personalized" ng-click="changeView('report_saved')"><i class="ti-reload" aria-hidden="true"></i> Zurück zur Eingabe</button>
         <br><br>
-        <button class="btn btn-personalized" ng-click="closeApp()"><i class=" ti-close" aria-hidden="true"></i> App Beenden</button>
+        <button class="btn btn-personalized" ng-click="closeApp()"><i class=" ti-close" aria-hidden="true"></i> App beenden</button>
         <br><br>
       </div>
       <div class=""  ng-if="sendOK=='success'">
         <button class="btn btn-personalized" ng-click="changeView('home')"> <i class="ti-reload" aria-hidden="true"></i> Zurück zum Anfang</button>
         <br><br>
-        <button class="btn btn-personalized" ng-click="closeApp()"><i class=" ti-close" aria-hidden="true"></i> App Beenden</button>
+        <button class="btn btn-personalized" ng-click="closeApp()"><i class=" ti-close" aria-hidden="true"></i> App beenden</button>
         <br><br>
       </div>
 

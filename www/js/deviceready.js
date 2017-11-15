@@ -129,10 +129,12 @@ var cordovaEvents = {
                           console.log("devready: BACK-BUTTON");
                       },
   onOffline : function() {
-      alert('you are offline');
+
+    navigator.notification.alert('you are offline', function(){}, 'Anliegenmanagement');
   },
   onOnline : function() {
-      alert('Great! you are back online');
+    navigator.notification.alert('Great! you are back online', function(){}, 'Anliegenmanagement');
+
   },
 
 };  // End var cordova

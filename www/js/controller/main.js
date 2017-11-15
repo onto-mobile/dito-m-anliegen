@@ -124,13 +124,13 @@ $rootScope.changeView = function (view, item, from) {
 										var crosshairs = L.divIcon({className:
 											'fa fa-crosshairs fa-2x ti-flag-alt currentPossition'});
 										var html = '<div ng-click="changeView(\'report1\')">'+
-										' Ihr markierter Ort. Click me to edit position</div>',
+										' Ihr markierter Ort. <br/>Klicken zum Bearbeiten.</div>',
     							linkFunction = $compile(angular.element(html));
 
 										appData.markerCurrentReport = L.marker(
 													appData.position.coordinates,
-													{icon:crosshairs,zIndexOffset:1000})
-											.bindPopup(linkFunction($scope)[0], {offset:[3,-20]})
+													{zIndexOffset:1000})
+											.bindPopup(linkFunction($scope)[0])
 											.addTo($rootScope.baseMap).togglePopup();
 								}
 								$rootScope.apply;

@@ -6,7 +6,7 @@ var rootApp = angular.module('rootApp',['ngRoute','ngSanitize']);
 //
 rootApp.config(function($routeProvider,$locationProvider,$compileProvider) {
 
-  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|content):|data:image\//);
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(http|https?|file|blob|cdvfile|content):|data:image\//);
 // config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
       // Note that some separate subcontrollers are declared in the html templates
