@@ -11,7 +11,7 @@ function messageDelete(id) {
       delete element;
 }
 
-
+var wasOffline = false;
 
 // =============== CORDOVA CONFIGURATION ===============
 
@@ -129,11 +129,12 @@ var cordovaEvents = {
                           console.log("devready: BACK-BUTTON");
                       },
   onOffline : function() {
-
-    navigator.notification.alert('you are offline', function(){}, 'Anliegenmanagement');
+    wasOffline = true;
+    navigator.notification.alert('Sie haben keine Internet-Verbindung!', function(){}, 'Anliegenmanagement');
   },
   onOnline : function() {
-    navigator.notification.alert('Great! you are back online', function(){}, 'Anliegenmanagement');
+    if(wasOffline)
+    navigator.notification.alert('Gut! Sie sind wieder online.', function(){}, 'Anliegenmanagement');
 
   },
 
