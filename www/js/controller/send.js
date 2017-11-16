@@ -14,10 +14,7 @@ GLOBAL_ONTO.init.debug && console.log('Created Dito Data:',ditoData);
 $scope.appData.messageOfSubmit ='';
 
 switch (appData.image.is_valid) {
-
-
     case true:  // If we have an image -> send all data with cordova plugin 'file transfer'
-
         GLOBAL_ONTO.init.uploadData.server = GLOBAL_ONTO.init.url_dito+"?";
         GLOBAL_ONTO.init.uploadData.uri = imageData.cdv;
         GLOBAL_ONTO.init.uploadData.options = {

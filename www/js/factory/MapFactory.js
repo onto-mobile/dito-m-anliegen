@@ -17,7 +17,7 @@ thisfactory = {
           // var baseMap = L.map('mapid').locate({setView: true; maxzoom: 16});
 
           L.layerGroup().addLayer(this.createTileLayer()).addTo(baseMap);
-          baseMap.setMaxBounds(GLOBAL_ONTO.init.bounds());
+          // baseMap.setMaxBounds(GLOBAL_ONTO.init.bounds());
           GLOBAL_ONTO.init.debug && console.warn('MapFactory: baseMap created');
           $rootScope.baseMap = baseMap;
           this.addOnClickEventToMap();
@@ -32,27 +32,44 @@ thisfactory = {
    * set in the properties file
    * @constructor
    */
-createTileLayer : function() {
+createTileLayer : function(which) {
   var miniLayer;
   switch (GLOBAL_ONTO.init.tile_server) {
 
       case 'mapbox':
-        miniLayer = L.tileLayer(GLOBAL_ONTO.init.url_tiles + GLOBAL_ONTO.init.mapbox_id + '/{z}/{x}/{y}.png?access_token=' + GLOBAL_ONTO.init.mapbox_access_token,
-                    {
-                          accessToken: GLOBAL_ONTO.init.mapbox_access_token,
-                          maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
-                          minZoom: GLOBAL_ONTO.init.minZoomLevel,
-                          attribution: GLOBAL_ONTO.init.mapAttribution,
-                     });
+        if(which == 'mini') {
+          miniLayer = L.tileLayer(GLOBAL_ONTO.init.url_tiles + GLOBAL_ONTO.init.mapbox_id + '/{z}/{x}/{y}.png?access_token=' + GLOBAL_ONTO.init.mapbox_access_token,
+                      {
+                            accessToken: GLOBAL_ONTO.init.mapbox_access_token,
+                            maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
+                            minZoom: GLOBAL_ONTO.init.minZoomLevel,
+                       });
+        } else {
+          miniLayer = L.tileLayer(GLOBAL_ONTO.init.url_tiles + GLOBAL_ONTO.init.mapbox_id + '/{z}/{x}/{y}.png?access_token=' + GLOBAL_ONTO.init.mapbox_access_token,
+                      {
+                            accessToken: GLOBAL_ONTO.init.mapbox_access_token,
+                            maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
+                            minZoom: GLOBAL_ONTO.init.minZoomLevel,
+                            attribution: GLOBAL_ONTO.init.mapAttribution,
+                       });
+        }
       break;
       case 'dito':
       default:
+      if(which == 'mini') {
+        miniLayer = L.tileLayer( GLOBAL_ONTO.init.url_ditoTiles() + '&z={z}&x={x}&y={y}&r=mapnik',
+                    {
+                          maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
+                          minZoom: GLOBAL_ONTO.init.minZoomLevel,
+                     });
+      } else {
         miniLayer = L.tileLayer( GLOBAL_ONTO.init.url_ditoTiles() + '&z={z}&x={x}&y={y}&r=mapnik',
                     {
                           maxZoom: GLOBAL_ONTO.init.maxZoomLevel,
                           minZoom: GLOBAL_ONTO.init.minZoomLevel,
                           attribution: GLOBAL_ONTO.init.mapAttribution,
                      });
+      }
       break;
   } // End switch
   return miniLayer;
@@ -70,7 +87,7 @@ createTileLayer : function() {
                                   scrollWheelZoom : false
                                   });
 
-          L.layerGroup().addLayer(this.createTileLayer()).addTo(miniMap);
+          L.layerGroup().addLayer(this.createTileLayer('mini')).addTo(miniMap);
 
 
           L.marker([lat,lng]).addTo(miniMap);
@@ -113,11 +130,11 @@ addControl: function(mode) {
             // SUCCESS
             function onLocationFound(e) {
                 GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
-                if(!GLOBAL_ONTO.init.bounds().contains(e.latlng)){
-                  $rootScope.pushAlert({msg:'User is outside of the bounding box.'});
-                  GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
-                  return ;
-                }
+                // if(!GLOBAL_ONTO.init.bounds().contains(e.latlng)){
+                //   $rootScope.pushAlert({msg:'Sie befinden Sich auerhalb der Stadtgerenzen.'});
+                //   GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
+                //   return ;
+                // }
                 mapCenter = e.latlng;
 
                 if (GLOBAL_ONTO.init.fake_geoloc) {
@@ -147,7 +164,7 @@ addControl: function(mode) {
              // FAIL
              function onLocationError(e) {
                   GLOBAL_ONTO.init.debug && console.log("Leaflet Geo-Control: Failed attempt to get localisation.");
-                  $rootScope.pushAlert({type: 'danger', msg:'Please turn on the geolocation on your device.'});
+                  $rootScope.pushAlert({type: 'danger', msg:'Die App konnte nicht auf Ihren Ort zugreifen.'});
 
                   // e.marker.closePopup()
                   // request location update?
@@ -168,6 +185,13 @@ addControl: function(mode) {
 // All map objects are pre-declared in $rootScope
 //
 addPlacemarks: function(vectorArray) {
+    if(typeof $rootScope.markerLayer != 'undefined') {
+      try {
+        $rootScope.markerLayer.clearLayers();
+      } catch(e){
+        GLOBAL_ONTO.init.debug && console.log('nothing to worry ' + e);
+      }
+    }
 
             GLOBAL_ONTO.init.markerArray.length = 0;  // clear array
 
@@ -178,13 +202,10 @@ addPlacemarks: function(vectorArray) {
 
                 // There may be entries w/o coordinates, entered in the Mühlheim Web Interface, so we need to test:
                 if(feature.geometry != null && feature.geometry.coordinates!= null) {
-                   var indexOfCat = listOfCategoryNames.indexOf(feature.properties.articleLabel);
+                   var indexOfCat = $rootScope.getNumberOfCategory(feature.properties.articleLabel);
                    var cssClassMarker = "default";
                    if(indexOfCat > 0){
-                      cssClassMarker = $rootScope.listOfCategories[indexOfCat].cssClass;
-                      indexOfCat++;
-                   }else {
-                     indexOfCat = 0;
+                      cssClassMarker = $rootScope.listOfCategories[listOfCategoryNames.indexOf(feature.properties.articleLabel)].cssClass;
                    }
                     var icon = L.divIcon({className: cssClassMarker+' '+cssClassMarker+'map-icon leaflet-div-icon-ont marker cat-'+indexOfCat, iconSize:null , popupAnchor:  [1, -22]});
                     var marker = L.marker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], { label:feature.properties.articleLabel,title: feature.properties.title, alt:feature.properties.id, icon:icon});

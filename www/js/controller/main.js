@@ -539,7 +539,7 @@ $scope.typeCssClass = function (type)   {
 				return '';
 		}
 };
-$scope.getNumberOfCategory = function (articleLabel){
+$rootScope.getNumberOfCategory = function (articleLabel){
 	var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
 	listOfCategoryNames.reverse(); // to align the color with the server
 	var indexOfCat = listOfCategoryNames.indexOf(articleLabel);

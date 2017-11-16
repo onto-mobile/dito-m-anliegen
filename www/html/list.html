@@ -2,7 +2,9 @@
   <div id="list-item-{{listItem.properties.id}}" href="#!detail" ng-repeat="listItem in geoJson">
     <li class="list-group-item"
         ng-click="changeView('detail',listItem, 'list')">
-      <span class="iconInList" ng-class="categoryCssClass(listItem.properties.articleLabel)"></span><span class="title">{{listItem.properties.title}}</span>
+      <span class="iconInList" ng-class="categoryCssClass(listItem.properties.articleLabel)"></span>
+      <span class="date">{{listItem.properties.date}}</span>
+      <span class="title">{{listItem.properties.title}}</span>
     </li>
   </div>
 </ul>
