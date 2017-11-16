@@ -26,13 +26,11 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFac
           }
       break;
     }; // End switch
-    $scope.reloadContent=function() {
+    $scope.$on('updateModel', function (event, data) {
     	$timeout(function(){
         GLOBAL_ONTO.init.debug && console.log('reload content');
-    		MapFactory.mapControl('load_placemarks');
-    	  $rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
-        $rootScope.$apply();
+        $scope.geoJson = $rootScope.geoJson;
     		$scope.$apply();
     	});
-    };
+    });
 });  // End controller

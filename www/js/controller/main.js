@@ -209,14 +209,15 @@ console.warn('view ',view);
 	} // End switch
 
 } // END CHANGE VIEW
-// $scope.reloadContent=function() {
-// 	$timeout(function(){
-// 		GLOBAL_ONTO.init.debug && console.log('MAin reload content');
-// 		MapFactory.mapControl('load_placemarks');
-// 		$rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
-// 		$scope.$apply();
-// 	});
-// };
+$scope.reloadContent=function() {
+	$timeout(function(){
+		GLOBAL_ONTO.init.debug && console.log('MAin reload content');
+		MapFactory.mapControl('load_placemarks');
+		$rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
+		$rootScope.$broadcast('updateModel');
+		$rootScope.$apply();
+	});
+};
 
 // This is an ansync promise/event thing, thus a little complicated.
 // Also calling separate methods to examine and validate the image features.
