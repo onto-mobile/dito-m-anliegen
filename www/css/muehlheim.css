@@ -12,7 +12,7 @@
 }
 
 body, .leaflet-container {
-  font-family: 'proximanovalight','Open Sans', Verdana, sans-serif;
+  font-family: Arial, Helvetica, 'proximanovalight','Open Sans', Verdana, sans-serif;
   color: #333;
 }
 
@@ -45,13 +45,31 @@ a:focus {background: none;}
  color: #666666;
 }
 
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+   background: none;
+   /* background: rgba(96, 0, 70, .5); */
+   border-color: #C40046;
+   text-shadow: none;
+   color: #333333;
+}
+
 .btn, .btn-default, button {
   color: #ffffff; 
   background: none;
   background-color: #C40046; 
   border-color: #FFFFFF; 
+  border-radius: 0;  
+}
+
+.btn-group-vertical button.btn-default {
+   background: none;
+   border-color: #C40046;
+   text-shadow: none;
+   color: #333333;
   border-radius: 0;
 }
+
+
 .btn.add-report {
   background: none;
   border: none;
