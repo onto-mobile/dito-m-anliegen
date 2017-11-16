@@ -13,6 +13,7 @@
 # Not igrnore these files:
 !/config.xml
 !/screen.png
+!/splash.png
 !/icon.png
 !.gitignore
 !/Readme*

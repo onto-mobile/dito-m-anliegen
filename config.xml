@@ -25,55 +25,55 @@
     <platform name="android">
         <preference name="orientation" value="portrait" />
         <!-- <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" /> -->
-        <icon density="mdpi" platform="android" src="img/icon/android/mdpi.png" />
-        <icon density="hdpi" platform="android" src="img/icon/android/hdpi.png" />
-        <icon density="xxhdpi" platform="android" src="img/icon/android/xxhdpi.png" />
-        <icon density="xhdpi"  platform="android" src="img/icon/android/xhdpi.png" />
-        <icon density="xxxhdpi" platform="android" src="img/icon/android/xxxhdpi.png" />
+        <icon density="mdpi" platform="android" src="www/img/icon/android/mdpi.png" />
+        <icon density="hdpi" platform="android" src="www/img/icon/android/hdpi.png" />
+        <icon density="xxhdpi" platform="android" src="www/img/icon/android/xxhdpi.png" />
+        <icon density="xhdpi"  platform="android" src="www/img/icon/android/xhdpi.png" />
+        <icon density="xxxhdpi" platform="android" src="www/img/icon/android/xxxhdpi.png" />
 
-        <splash density="land-ldpi" platform="android" src="img/screens/android/splash-land-ldpi.png" />
-        <splash density="land-mdpi" platform="android" src="img/screens/android/splash-land-mdpi.png" />
-        <splash density="land-hdpi" platform="android" src="img/screens/android/splash-land-hdpi.png" />
-        <splash density="land-xhdpi" platform="android" src="img/screens/android/splash-land-xhdpi.png" />
-        <splash density="land-xxhdpi" platform="android" src="img/screens/android/splash-land-xxhdpi.png" />
-        <splash density="land-xxxhdpi" platform="android" src="img/screens/android/splash-land-xxxhdpi.png" />
-        <splash density="port-ldpi" platform="android" src="img/screens/android/splash-port-ldpi.png" />
-        <splash density="port-mdpi" platform="android" src="img/screens/android/splash-port-mdpi.png" />
-        <splash density="port-hdpi" platform="android" src="img/screens/android/splash-port-hdpi.png" />
-        <splash density="port-xhdpi" platform="android" src="img/screens/android/splash-port-xhdpi.png" />
-        <splash density="port-xxhdpi" platform="android" src="img/screens/android/splash-port-xxhdpi.png" />
-        <splash density="port-xxxhdpi" platform="android" src="img/screens/android/splash-port-xxxhdpi.png" />
+        <splash density="land-ldpi" platform="android" src="www/img/screens/android/splash-land-ldpi.png" />
+        <splash density="land-mdpi" platform="android" src="www/img/screens/android/splash-land-mdpi.png" />
+        <splash density="land-hdpi" platform="android" src="www/img/screens/android/splash-land-hdpi.png" />
+        <splash density="land-xhdpi" platform="android" src="www/img/screens/android/splash-land-xhdpi.png" />
+        <splash density="land-xxhdpi" platform="android" src="www/img/screens/android/splash-land-xxhdpi.png" />
+        <splash density="land-xxxhdpi" platform="android" src="www/img/screens/android/splash-land-xxxhdpi.png" />
+        <splash density="port-ldpi" platform="android" src="www/img/screens/android/splash-port-ldpi.png" />
+        <splash density="port-mdpi" platform="android" src="www/img/screens/android/splash-port-mdpi.png" />
+        <splash density="port-hdpi" platform="android" src="www/img/screens/android/splash-port-hdpi.png" />
+        <splash density="port-xhdpi" platform="android" src="www/img/screens/android/splash-port-xhdpi.png" />
+        <splash density="port-xxhdpi" platform="android" src="www/img/screens/android/splash-port-xxhdpi.png" />
+        <splash density="port-xxxhdpi" platform="android" src="www/img/screens/android/splash-port-xxxhdpi.png" />
     </platform>
     <platform name="ios">
         <preference name="orientation" value="portrait" />
-        <icon height="57" platform="ios" src="img/icon/ios/icon.png" width="57" />
-        <icon height="114" platform="ios" src="img/icon/ios/icon@2x.png" width="114" />
-        <icon height="40" platform="ios" src="img/icon/ios/icon-40.png" width="40" />
-        <icon height="80" platform="ios" src="img/icon/ios/icon-40@2x.png" width="80" />
-        <icon height="50" platform="ios" src="img/icon/ios/icon-50.png" width="50" />
-        <icon height="100" platform="ios" src="img/icon/ios/icon-50@2x.png" width="100" />
-        <icon height="60" platform="ios" src="img/icon/ios/icon-60.png" width="60" />
-        <icon height="120" platform="ios" src="img/icon/ios/icon-60@2x.png" width="120" />
-        <icon height="180" platform="ios" src="img/icon/ios/icon-60@3x.png" width="180" />
-        <icon height="72" platform="ios" src="img/icon/ios/icon-72.png" width="72" />
-        <icon height="144" platform="ios" src="img/icon/ios/icon-72@2x.png" width="144" />
-        <icon height="76" platform="ios" src="img/icon/ios/icon-76.png" width="76" />
-        <icon height="152" platform="ios" src="img/icon/ios/icon-76@2x.png" width="152" />
-        <icon height="29" platform="ios" src="img/icon/ios/icon-small.png" width="29" />
-        <icon height="58" platform="ios" src="img/icon/ios/icon-small@2x.png" width="58" />
-        <icon height="87" platform="ios" src="img/icon/ios/icon-small@3x.png" width="87" />
+        <icon height="57" platform="ios" src="www/img/icon/ios/icon.png" width="57" />
+        <icon height="114" platform="ios" src="www/img/icon/ios/icon@2x.png" width="114" />
+        <icon height="40" platform="ios" src="www/img/icon/ios/icon-40.png" width="40" />
+        <icon height="80" platform="ios" src="www/img/icon/ios/icon-40@2x.png" width="80" />
+        <icon height="50" platform="ios" src="www/img/icon/ios/icon-50.png" width="50" />
+        <icon height="100" platform="ios" src="www/img/icon/ios/icon-50@2x.png" width="100" />
+        <icon height="60" platform="ios" src="www/img/icon/ios/icon-60.png" width="60" />
+        <icon height="120" platform="ios" src="www/img/icon/ios/icon-60@2x.png" width="120" />
+        <icon height="180" platform="ios" src="www/img/icon/ios/icon-60@3x.png" width="180" />
+        <icon height="72" platform="ios" src="www/img/icon/ios/icon-72.png" width="72" />
+        <icon height="144" platform="ios" src="www/img/icon/ios/icon-72@2x.png" width="144" />
+        <icon height="76" platform="ios" src="www/img/icon/ios/icon-76.png" width="76" />
+        <icon height="152" platform="ios" src="www/img/icon/ios/icon-76@2x.png" width="152" />
+        <icon height="29" platform="ios" src="www/img/icon/ios/icon-small.png" width="29" />
+        <icon height="58" platform="ios" src="www/img/icon/ios/icon-small@2x.png" width="58" />
+        <icon height="87" platform="ios" src="www/img/icon/ios/icon-small@3x.png" width="87" />
 
         <!--  Legacy portrait  -->
-        <splash src="img/screens/ios/Default@2x~iphone~anyany.png" />
-        <splash src="img/screens/ios/Default@2x~iphone~comany.png" />
-        <splash src="img/screens/ios/Default@3x~iphone~anyany.png" />
-        <splash src="img/screens/ios/Default@3x~iphone~comany.png" />
-        <splash src="img/screens/ios/Default@2x~ipad~comany.png" />
-        <splash src="img/screens/ios/Default@2x~ipad~anyany.png" />
-        
+
         <!-- Default splash screen -->
-        <splash src="splash.png" />
-        
+
+        <splash src="res/screens/ios/Default@2x~iphone~anyany.png" />
+        <splash src="res/screens/ios/Default@2x~iphone~comany.png" />
+        <splash src="res/screens/ios/Default@3x~iphone~anyany.png" />
+        <splash src="res/screens/ios/Default@3x~iphone~comany.png" />
+        <splash src="res/screens/ios/Default@2x~ipad~anyany.png" />
+        <splash src="res/screens/ios/Default@2x~ipad~comany.png" />
+
         <!-- <splash platform="ios" src="/www/img/screens/ios/Default~iphone.png" width="320" height="480"/>
         <splash platform="ios" src="/www/img/screens/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
         <splash platform="ios" src="/www/img/screens/ios/Default@2x~iphone.png" width="640" height="960"/>
@@ -107,6 +107,7 @@
 
 -->
     </platform>
+    <splash src="splash.png" />
     <access origin="*" />
     <access origin="cdvfile://*" />
     <allow-intent href="http://*/*" />
