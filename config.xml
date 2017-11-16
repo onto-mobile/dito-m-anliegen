@@ -107,7 +107,6 @@
 
 -->
     </platform>
-    <splash src="splash.png" />
     <access origin="*" />
     <access origin="cdvfile://*" />
     <allow-intent href="http://*/*" />
