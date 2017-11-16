@@ -67,12 +67,12 @@
 
         <!-- Default splash screen -->
 
-        <splash src="res/screens/ios/Default@2x~iphone~anyany.png" />
-        <splash src="res/screens/ios/Default@2x~iphone~comany.png" />
-        <splash src="res/screens/ios/Default@3x~iphone~anyany.png" />
-        <splash src="res/screens/ios/Default@3x~iphone~comany.png" />
-        <splash src="res/screens/ios/Default@2x~ipad~anyany.png" />
-        <splash src="res/screens/ios/Default@2x~ipad~comany.png" />
+        <splash src="www/img/screens/ios/Default@2x~iphone~anyany.png" />
+        <splash src="www/img/screens/ios/Default@2x~iphone~comany.png" />
+        <splash src="www/img/screens/ios/Default@3x~iphone~anyany.png" />
+        <splash src="www/img/screens/ios/Default@3x~iphone~comany.png" />
+        <splash src="www/img/screens/ios/Default@2x~ipad~anyany.png" />
+        <splash src="www/img/screens/ios/Default@2x~ipad~comany.png" />
 
         <!-- <splash platform="ios" src="/www/img/screens/ios/Default~iphone.png" width="320" height="480"/>
         <splash platform="ios" src="/www/img/screens/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
