@@ -2,6 +2,7 @@
 rootApp.controller('mapCtrl', function($scope,$rootScope,DataService,MapFactory) {
 
 
+
 switch($scope.view) {
 
 		case '/':		// CREATE PLACEMARKS

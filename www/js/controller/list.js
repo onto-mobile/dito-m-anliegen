@@ -25,5 +25,14 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFac
               $scope.listItem.properties.id+'&attachmentid='+$scope.listItem.properties.attachmentId;
           }
       break;
-    } // End switch
+    }; // End switch
+    $scope.reloadContent=function() {
+    	$timeout(function(){
+        GLOBAL_ONTO.init.debug && console.log('reload content');
+    		MapFactory.mapControl('load_placemarks');
+    	  $rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
+        $rootScope.$apply();
+    		$scope.$apply();
+    	});
+    };
 });  // End controller
