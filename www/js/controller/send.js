@@ -66,15 +66,17 @@ switch (appData.image.is_valid) {
         $scope.progress = 0;
         $scope.progressVisible = false;
         ft.onprogress = function(progressEvent) {
-            if (progressEvent.lengthComputable) {
-              $scope.progressVisible = true;
-              var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
-              GLOBAL_ONTO.init.debug && console.log(perc);
-              $scope.progress = perc;
-            } else {
-                $scope.progressVisible = false;
-                $scope.progress = 0;
-            }
+            $timeout(function(){
+              if (progressEvent.lengthComputable) {
+                $scope.progressVisible = true;
+                var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+                GLOBAL_ONTO.init.debug && console.log(perc);
+                $scope.progress = perc;
+              } else {
+                  $scope.progressVisible = false;
+                  $scope.progress = 0;
+              }
+            });
         };
         ft.upload(GLOBAL_ONTO.init.uploadData.uri, encodeURI(GLOBAL_ONTO.init.uploadData.server), onSucc, onFail, GLOBAL_ONTO.init.uploadData.options);
 
