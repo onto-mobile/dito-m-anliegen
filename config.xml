@@ -14,7 +14,7 @@
     <preference name="StatusBarBackgroundColor" value="#c40046" />
     <preference name="android-minSdkVersion" value="14" />
 
-    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreen" value="splash" />
     <splash src="splash.png" />
     <preference name="SplashScreenDelay" value="2500" />
     <preference name="FadeSplashScreenDuration" value="750"/>
@@ -31,18 +31,18 @@
         <icon density="xhdpi"  platform="android" src="www/img/icon/android/xhdpi.png" />
         <icon density="xxxhdpi" platform="android" src="www/img/icon/android/xxxhdpi.png" />
 
-        <splash density="land-ldpi" platform="android" src="www/img/screens/android/splash-land-ldpi.png" />
-        <splash density="land-mdpi" platform="android" src="www/img/screens/android/splash-land-mdpi.png" />
-        <splash density="land-hdpi" platform="android" src="www/img/screens/android/splash-land-hdpi.png" />
-        <splash density="land-xhdpi" platform="android" src="www/img/screens/android/splash-land-xhdpi.png" />
-        <splash density="land-xxhdpi" platform="android" src="www/img/screens/android/splash-land-xxhdpi.png" />
-        <splash density="land-xxxhdpi" platform="android" src="www/img/screens/android/splash-land-xxxhdpi.png" />
-        <splash density="port-ldpi" platform="android" src="www/img/screens/android/splash-port-ldpi.png" />
-        <splash density="port-mdpi" platform="android" src="www/img/screens/android/splash-port-mdpi.png" />
-        <splash density="port-hdpi" platform="android" src="www/img/screens/android/splash-port-hdpi.png" />
-        <splash density="port-xhdpi" platform="android" src="www/img/screens/android/splash-port-xhdpi.png" />
-        <splash density="port-xxhdpi" platform="android" src="www/img/screens/android/splash-port-xxhdpi.png" />
-        <splash density="port-xxxhdpi" platform="android" src="www/img/screens/android/splash-port-xxxhdpi.png" />
+        <splash qualifier="land-ldpi" platform="android" src="www/img/screens/android/splash-land-ldpi.png" />
+        <splash qualifier="land-mdpi" platform="android" src="www/img/screens/android/splash-land-mdpi.png" />
+        <splash qualifier="land-hdpi" platform="android" src="www/img/screens/android/splash-land-hdpi.png" />
+        <splash qualifier="land-xhdpi" platform="android" src="www/img/screens/android/splash-land-xhdpi.png" />
+        <splash qualifier="land-xxhdpi" platform="android" src="www/img/screens/android/splash-land-xxhdpi.png" />
+        <splash qualifier="land-xxxhdpi" platform="android" src="www/img/screens/android/splash-land-xxxhdpi.png" />
+        <splash qualifier="port-ldpi" platform="android" src="www/img/screens/android/splash-port-ldpi.png" />
+        <splash qualifier="port-mdpi" platform="android" src="www/img/screens/android/splash-port-mdpi.png" />
+        <splash qualifier="port-hdpi" platform="android" src="www/img/screens/android/splash-port-hdpi.png" />
+        <splash qualifier="port-xhdpi" platform="android" src="www/img/screens/android/splash-port-xhdpi.png" />
+        <splash qualifier="port-xxhdpi" platform="android" src="www/img/screens/android/splash-port-xxhdpi.png" />
+        <splash qualifier="port-xxxhdpi" platform="android" src="www/img/screens/android/splash-port-xxxhdpi.png" />
     </platform>
     <platform name="ios">
         <preference name="orientation" value="portrait" />
@@ -128,7 +128,7 @@
     <plugin name="cordova-plugin-console" spec="~1.0.2" />
     <plugin name="cordova-plugin-device" spec="~1.1.1" />
     <plugin name="cordova-plugin-network-information" spec="~1.2.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="~3.2.1" />
+    <plugin name="cordova-plugin-splashscreen" spec="~4.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" />
     <plugin name="cordova-plugin-compat" spec="~1.2.0" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
