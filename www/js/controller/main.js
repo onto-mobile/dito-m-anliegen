@@ -211,6 +211,10 @@ console.warn('view ',view);
 } // END CHANGE VIEW
 
 
+$scope.reloadContent=function() {
+	MapFactory.mapControl('load_placemarks');
+};
+
 // This is an ansync promise/event thing, thus a little complicated.
 // Also calling separate methods to examine and validate the image features.
 //

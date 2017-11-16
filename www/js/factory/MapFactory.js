@@ -255,6 +255,7 @@ mapControl: function(mode,coords,zoom)  {
                   NetworkService.getGeoJSON().then(
                       function (geoData) {
                           $rootScope.geoJson = geoData.features;
+                          $rootScope.geoJson.reverse(); // latest first 
                           $rootScope.baseMap.removeLayer(GLOBAL_ONTO.init.markerLayer);
                           markerArray = thisfactory.addPlacemarks(geoData.features);
                         }  // End function
