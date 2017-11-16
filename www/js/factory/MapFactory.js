@@ -17,7 +17,9 @@ thisfactory = {
           // var baseMap = L.map('mapid').locate({setView: true; maxzoom: 16});
 
           L.layerGroup().addLayer(this.createTileLayer()).addTo(baseMap);
-          // baseMap.setMaxBounds(GLOBAL_ONTO.init.bounds());
+          if(GLOBAL_ONTO.init.useBounds){
+            baseMap.setMaxBounds(GLOBAL_ONTO.init.bounds());
+          }
           GLOBAL_ONTO.init.debug && console.warn('MapFactory: baseMap created');
           $rootScope.baseMap = baseMap;
           this.addOnClickEventToMap();
@@ -130,11 +132,11 @@ addControl: function(mode) {
             // SUCCESS
             function onLocationFound(e) {
                 GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl successful enabled:", e.latlng);
-                // if(!GLOBAL_ONTO.init.bounds().contains(e.latlng)){
-                //   $rootScope.pushAlert({msg:'Sie befinden Sich auerhalb der Stadtgerenzen.'});
-                //   GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
-                //   return ;
-                // }
+                if(GLOBAL_ONTO.init.useBounds && !GLOBAL_ONTO.init.bounds().contains(e.latlng)){
+                  $rootScope.pushAlert({msg:'Sie befinden Sich auerhalb der Stadtgerenzen.'});
+                  GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is outside of the bounding box.");
+                  return ;
+                }
                 mapCenter = e.latlng;
 
                 if (GLOBAL_ONTO.init.fake_geoloc) {
@@ -142,7 +144,8 @@ addControl: function(mode) {
                      console.warn("Using fake coords:", GLOBAL_ONTO.init.fakeGeolocPosition);
                 }
                 thisfactory.mapControl('set_geoloc',mapCenter);
-                LOC.stop(); // setTimeout(function(){ LOC.stop(); }, 1000);
+                $rootScope.baseMap.fireEvent('click', {latlng: mapCenter});
+                // LOC.stop(); // setTimeout(function(){ LOC.stop(); }, 1000);
                 // unforttly stopping the Control, the marker disappears,
                 // so we need to manage this manually:
                 if (typeof geolocMarker !== "undefined") {
@@ -154,6 +157,7 @@ addControl: function(mode) {
 
                 geolocMarker = new L.circleMarker([mapCenter.lat,mapCenter.lng],GLOBAL_ONTO.init.geolocateOptions.markerStyle);
                 geolocMarker.addTo($rootScope.baseMap);
+                $rootScope.baseMap.fireEvent('click', {latlng: mapCenter});
                 GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: User is in the bounding box.");
 
                 GLOBAL_ONTO.init.debug && console.log("Leaflet GeoControl: Done.");

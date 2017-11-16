@@ -9,7 +9,6 @@
           <strong>Bitte warten, die Daten werden übertragen...</strong>
           <progress max="100" class="row col-xs-11"  value="{{progress}}"></progress>{{progress}}%
           <!--ng-if="{{progressVisible}}"  -->
-
       </div>
 
       <div ng-if="sendOK!='sending'" >
@@ -18,7 +17,10 @@
                 <h2>Meldung gespeichert!</h2>
                 <p>Vielen Dank für Ihre Meldung.</p>
                 <p><strong>Wir haben Ihnen eine E-Mail mit einem Bestätigungslink gesendet.<br>
-                Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!</strong></p>
+                Bitte klicken Sie auf den Link in der E-Mail, um das Anliegen zu veröffentlichen!</strong>
+                <br/><br/>
+              </p>
+
         </div>
       </div>
       <div class=""  ng-if="sendOK=='failed'">

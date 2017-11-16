@@ -87,6 +87,9 @@ li.disabled {
 .nav.navbar-nav {
   width:100%;
 }
+.list-group small, .list-group .small {
+    font-size: 75%;
+}
 .nav li  {
     padding-top: 15px;
     padding-bottom: 11px;
@@ -203,7 +206,7 @@ i.ok {
 }
 
 i.not-ok {
-  color:darkorange;
+  /*color:darkorange;*/
 }
 
 /*  checkbox */

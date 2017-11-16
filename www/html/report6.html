@@ -14,8 +14,8 @@
                spellcheck="false"
                ng-click="increaseDirtyness('email')"
                ng-blur="validateInput('email')"/>
-         <span class="input-group-addon" ng-if="!validState('email')" ng-click="appData.email.dirty=2"><i class="fa fa-question not-ok" aria-hidden="true"></i></span>
-         <span class="input-group-addon" ng-if="validState('email')"><i class="fa fa-check ok" aria-hidden="true"></i></span>
+         <span class="input-group-addon" ng-if="!validState('email')" ng-click="appData.email.dirty=2"><i class="fa fa-question ti-check not-ok" aria-hidden="true"></i></span>
+         <span class="input-group-addon" ng-if="validState('email')"><i class="fa fa-check ti-check ok" aria-hidden="true"></i></span>
       </div>
       <span  class="text-danger clearfix" ng-show="(appData.email.dirty > 1) && (!validState('email'))">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
       <p class="text">{{pageInfo.sendhint}} {{appData.email.text}}</p>
