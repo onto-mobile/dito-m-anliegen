@@ -253,17 +253,18 @@ GLOBAL_ONTO.init =  {
                     maxZoom: function(){return this.geolocZoomLevel},
                     // clickBehavior :  {inView: 'stop', outOfView: 'setView'},
                     position  : 'topleft',
-                    drawCircle  : false,
+                    drawCircle  : true,
+										drawMarker:true,
                     //markerClass : L.CircleMarker,
 										showPopup: true,
-                    markerStyle : {
-                                    radius: 12,
-                                    fillColor :'red',
-                                    color: 'white',
-                                    weight: 1,
-                                    opacity: 1,
-                                    fillOpacity: 0.8
-                                  },
+                    // markerStyle : {
+                    //                 radius: 12,
+                    //                 fillColor :'red',
+                    //                 color: 'white',
+                    //                 weight: 1,
+                    //                 opacity: 1,
+                    //                 fillOpacity: 0.8
+                    //               },
                     icon  : 'ti-location-arrow',
                     iconLoading : 'ti-reload',
 										iconElementTag : "i",

@@ -40,6 +40,7 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
       // $scope.alerts = $rootScope.alerts;
     	$rootScope.closeAlert = function(index) {
     		 $rootScope.alerts.splice(index, 1);
+         $rootScope.alerts = [];
      	};
       $rootScope.pushAlert = function( item ){
         $timeout(function(){

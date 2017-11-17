@@ -99,9 +99,9 @@ $rootScope.changeView = function (view, item, from) {
 								MapFactory.mapControl('center',
 																			GLOBAL_ONTO.init.cityCenter,
 																			GLOBAL_ONTO.init.initialZoomLevel);
-								$rootScope.apply;
 								MapFactory.showPlacemarks();
 								MapFactory.addOnClickEventToMap();
+								$rootScope.apply;
 						});
 					}
 					break;
