@@ -166,7 +166,11 @@ if (window.cordova) {
              console.log('deviceready.js: Initializing Angular App');
              // Angular needs to be initialized after deviceready
              angular.bootstrap(document, ['rootApp']);
-
+// var list = document.getElementsByClassName('alert-message');
+// for (var i = 0, length= list.length ; i < length ; i++) {
+//   list[i].style.display = 'block';
+//
+// }
       //   } else {  // device offline
        //
       //        messageCreate("netMsg", text_error, "text-device-error", "fa fa-spin fa-spinner fa-2x");
