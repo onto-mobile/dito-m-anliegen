@@ -35,7 +35,7 @@ switch($scope.view) {
                 case 'report4':
                 break;
 
-                default: $scope.debug && console.log('report switch: Nothing special here.'); break;
+                default: GLOBAL_ONTO.init.debug && console.log('report switch: Nothing special here.'); break;
 
 }  // End view switch
 

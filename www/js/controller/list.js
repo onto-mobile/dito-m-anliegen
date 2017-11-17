@@ -17,7 +17,7 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFac
             // $timeout(function(){MapFactory.createMiniMap('miniMap',$scope.listItem.geometry.coordinates)},3000);
             miniMap = MapFactory.createMiniMap('miniMap',$scope.listItem.geometry.coordinates[1], $scope.listItem.geometry.coordinates[0]);
           }
-          console.log($scope.listItem.properties.attachmentId);
+          GLOBAL_ONTO.init.debug && console.log($scope.listItem.properties.attachmentId);
           if(typeof $scope.listItem.properties.attachmentId == 'undefined' || $scope.listItem.properties.attachmentId == ''){
             $scope.linkForImg = 'img/missing.jpg';
           } else {

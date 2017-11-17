@@ -52,7 +52,7 @@ switch (appData.image.is_valid) {
               $scope.appData.sendOK = "failed";
               $scope.appData.messageOfSubmit = "Das hat leider nicht geklappt.";
 
-              console.log("Send FAILED !  Upload error response:", response);
+              GLOBAL_ONTO.init.debug && console.log("Send FAILED !  Upload error response:", response);
             });
         }
         // SEND
@@ -117,7 +117,7 @@ switch (appData.image.is_valid) {
                            function (response) {
                              $scope.sendOK = "failed";
                              $scope.appData.sendOK = "failed";
-                             console.error("Controller sendForm FAILED with response:", response);
+                             GLOBAL_ONTO.init.debug && console.error("Controller sendForm FAILED with response:", response);
                            }
                    ); // End then
 
@@ -126,7 +126,7 @@ switch (appData.image.is_valid) {
 } // End valid image switch
 
 } else {  // fake send
-  console.warn("Fake Send set in properties.js -- not sending.");
+  GLOBAL_ONTO.init.debug && console.warn("Fake Send set in properties.js -- not sending.");
   $scope.appData.sendOK = "success";
 }
 

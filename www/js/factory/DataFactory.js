@@ -17,7 +17,7 @@ initAppData : function()  {  // Inititalize user data
 
 resetData : function(choice)  {
 
-						console.log('Factory resetData: Resetting ' + choice + ' data.');
+						GLOBAL_ONTO.init.debug && console.log('Factory resetData: Resetting ' + choice + ' data.');
 
 						switch(choice) {
 

@@ -72,7 +72,7 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
       GLOBAL_ONTO.init.debug && console.log("http file transfer:", $rootScope.device_has_filetransfer);
       //
       $rootScope.device_has_filereader =  ( window.FileReader !== "undefined" ) ? true:false;
-      !$rootScope.device_has_filereader && console.log("Broswer does not support native html file-reader.");
+      !$rootScope.device_has_filereader && GLOBAL_ONTO.init.debug && console.log("Broswer does not support native html file-reader.");
       //
       // APP / REPORT DATA init
       //

@@ -189,7 +189,7 @@ $rootScope.changeView = function (view, item, from) {
 	$scope.hintMessage=GLOBAL_ONTO.init.pageInfo[view];
 	$scope.pageInfo = GLOBAL_ONTO.init.pageInfo;
 
-console.warn('view ',view);
+	GLOBAL_ONTO.init.debug && console.warn('view ',view);
 
 	// SET ROUTE by routeProvider $location service
 	$location.path(view);
@@ -300,7 +300,7 @@ $scope.getImage = function(mode) {
 																	makeImageData(result)
 															 },
 															function onFail(result) {
-																console.warn("Filepath conversion failed: ", result);
+																GLOBAL_ONTO.init.debug && console.warn("Filepath conversion failed: ", result);
 																DataService.updateAppData('image.text','failed fileptah conversion')
 															}
 												 ); // End resolve Path
@@ -321,7 +321,7 @@ $scope.getImage = function(mode) {
 		 	}, function( status ){
 
 // FAIL:
-			console.warn( 'Service getDeviceImage:', status.failed );
+			GLOBAL_ONTO.init.debug && console.warn( 'Service getDeviceImage:', status.failed );
 			// log failure:
 			DataService.updateAppData('image.text','failed device image',false)
 			$scope.imageMessage = "Das Bild konnte nicht geladen werden.";
@@ -353,7 +353,7 @@ $scope.getImage = function(mode) {
 //
 $scope.validateImage = function(mode,item)  {
 
-			$scope.debug && console.log('validateImage: Checking image input in mode:', mode);
+			GLOBAL_ONTO.init.debug && console.log('validateImage: Checking image input in mode:', mode);
 
 			let imgdata = DataService.examineImage(mode,item);
 

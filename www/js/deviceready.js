@@ -8,7 +8,7 @@ var wasOffline = false;
 var cordovaEvents = {
   // Application Constructor
   initialize: function() {
-      console.log("Cordova init.");
+      GLOBAL_ONTO.init.debug && console.log("Cordova init.");
       document.addEventListener('deviceready', this.onDeviceReady, false);
       document.addEventListener("resume", this.onResume, false);
       document.addEventListener("backbutton", this.onBackKeyDown, false);
@@ -19,7 +19,7 @@ var cordovaEvents = {
   // deviceready
   //
   onDeviceReady: function() {
-      console.warn("dito-m-anliegen: device ready.");
+      GLOBAL_ONTO.init.debug && console.warn("dito-m-anliegen: device ready.");
 
       // Update camera plugin options from template in properties.js
       // This is because Camera methods are not yet available when
@@ -86,7 +86,7 @@ if (window.cordova) {
     cordovaEvents.initialize();
 } else {  // browser debugging mode
     GLOBAL_ONTO.init.debug && console.log("Browser detected.");
-    console.warn("Online:", navigator.onLine);
+    GLOBAL_ONTO.init.debug && console.warn("Online:", navigator.onLine);
     // Angular needs to be initialized after deviceready
     angular.bootstrap(document, ['rootApp']);
     var elt = document.getElementById('outer-message');
