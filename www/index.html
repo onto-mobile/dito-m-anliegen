@@ -165,7 +165,7 @@ iOS: default-src 'self' gap://ready file://*
 <script type='application/javascript' src="js/extern/fastclick.js"></script>
 
 <script type='application/javascript'>
-console.log('1');
+alert('1');
 </script>
 <script type='application/javascript'>
 if ('addEventListener' in document) {
@@ -181,7 +181,7 @@ if ('addEventListener' in document) {
 <script type="text/javascript" src="js/extern/angular-route.min.js"></script>
 <script type="text/javascript" src="js/extern/angular-sanitize.js"></script>
 <script type='application/javascript'>
-console.log('2');
+alert('2');
 </script>
 <!-- LEAFLET -->
 <!-- Make sure you put this AFTER Leaflet css: -->
@@ -191,7 +191,7 @@ console.log('2');
 <!--    crossorigin=""></script> -->
 <script type="text/javascript" src="js/extern/L.Control.Locate.js"></script>
 <script type='application/javascript'>
-console.log('3');
+alert('3');
 </script>
 <!--  custom JS -->
 <script type="text/javascript" src="js/rootApp.js"></script>
@@ -209,22 +209,22 @@ console.log('3');
 <script type="text/javascript" src="js/controller/error.js"></script>
 <script type="text/javascript" src="js/directive/directives.js"></script>
 <script type='application/javascript'>
-  console.log('4');
+  alert('4');
 </script>
 
 <!-- CORDOVA and APP INIT on device ready -->
 <!-- These scripts need be loaed in this order, and after cordova.js -->
 <script type="text/javascript" src="cordova.js"></script>
 <script type='application/javascript'>
-  console.log('5');
+  alert('5');
 </script>
 <script type="text/javascript" src="js/properties.js"></script>
 <script type='application/javascript'>
-  console.log('6');
+  alert('6');
 </script>
 <script type="text/javascript" src="js/deviceready.js"></script>
 <script type='application/javascript'>
-  console.log('7');
+  alert('7');
 </script>
 <!-- angular support for cordova file plugin: -->
 <!-- <script type="text/javascript" src="js/cordova/ng-cordova.js"></script> -->
