@@ -120,8 +120,10 @@
     </ul>
   </nav>
 </div>  <!-- ng-cloak -->
-<!-- Alert -->
-<div class="alert-message" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" ng-click="closeAlert($index)">{{alert.msg}}</div>
+<!-- Alert style="display:none;"  -->
+<div id="outer-message" style="display:none;">
+<div id="alert-message-js" class="alert-message" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" ng-click="closeAlert($index)">{{alert.msg}}</div>
+</div>
 <!--#####################################################################################-->
 
 <div id="viewport">
