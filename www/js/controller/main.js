@@ -212,10 +212,18 @@ console.warn('view ',view);
 $scope.reloadContent=function() {
 	$timeout(function(){
 		GLOBAL_ONTO.init.debug && console.log('MAin reload content');
-		MapFactory.mapControl('load_placemarks');
-		$rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
-		$rootScope.$broadcast('updateModel');
-		$rootScope.$apply();
+		let features = [];
+		NetworkService.getGeoJSON().then(
+				function (geoData) {
+						$rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
+						$rootScope.geoJson = geoData.features;
+						$rootScope.geoJson.reverse(); // latest first
+						features = $rootScope.geoJson;
+						$rootScope.baseMap.removeLayer(GLOBAL_ONTO.init.markerLayer);
+						markerArray = thisfactory.addPlacemarks(geoData.features);
+						$rootScope.$broadcast('updateModel', features);
+					}  // End function
+		); // End then
 	});
 };
 

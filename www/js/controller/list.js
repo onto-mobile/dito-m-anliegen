@@ -28,9 +28,8 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFac
     }; // End switch
     $scope.$on('updateModel', function (event, data) {
     	$timeout(function(){
-        GLOBAL_ONTO.init.debug && console.log('reload content');
-        $scope.geoJson = $rootScope.geoJson;
-    		$scope.$apply();
+        GLOBAL_ONTO.init.debug && console.log('reload content',data);
+        $scope.geoJson = data;
     	});
     });
 });  // End controller
