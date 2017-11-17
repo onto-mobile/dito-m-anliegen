@@ -9,7 +9,7 @@ if (typeof GLOBAL_ONTO == 'undefined')
 GLOBAL_ONTO.init =  {
   // =============== DEBUG
   //
-  debug:false,
+  debug:true,
   fake_send : false,
   fake_geoloc:false,
   fakeGeolocPosition : { lat:50.1247648, lng:8.82783230 },

@@ -47,31 +47,27 @@ this.examineImage = function(mode,item)  {
 				imgdata.text = "";
 
 				if (GLOBAL_ONTO.init.imageTypesAllowed.includes(imgdata.type)) {
+						// Check size
+						//$rootScope.debug && console.log('File size:',imgdata.size, "Limit:", maxImageFileSize);
+						if (imgdata.size <= GLOBAL_ONTO.init.maxImageFileSize) {
+								 imgdata.valid = true;
+						} else {  // file too large
+									with (Math) {
+															imgdata.sizeKB = floor(imgdata.size/1000);
+															imgdata.maxKB = floor(GLOBAL_ONTO.init.maxImageFileSize/1000);
+															imgdata.maxMB = round(imgdata.maxKB/1000);
+													 		}
+									imgdata.valid = false;
+									imgdata.text="file too large";
 
-								// Check size
-								//$rootScope.debug && console.log('File size:',imgdata.size, "Limit:", maxImageFileSize);
-								if (imgdata.size <= GLOBAL_ONTO.init.maxImageFileSize) {
-
-										 imgdata.valid = true;
-
-								} else {  // file too large
-
-											with (Math) {
-																	imgdata.sizeKB = floor(imgdata.size/1000);
-																	imgdata.maxKB = floor(GLOBAL_ONTO.init.maxImageFileSize/1000);
-																	imgdata.maxMB = round(imgdata.maxKB/1000);
-															 		}
-											imgdata.valid = false;
-											imgdata.text="file too large";
-
-							 }  // End file too large
+					 }  // End file too large
 
 				} else {  // invalid file type
-										 imgdata.valid = false;
-										 imgdata.text = "unsupported format";
+						 imgdata.valid = false;
+						 imgdata.text = "unsupported format";
    			}
 
-return 	imgdata;
+				return 	imgdata;
 
 } // End validate
 
@@ -106,9 +102,12 @@ this.updateMandatoryCounter = function(value) {
 						}  // End switch
 
 					if ((appData.report_mandatory_completed_counter > report_mandatory_number)
-							|| (appData.report_mandatory_completed_counter <1)) console.error("Error: Mandatory counter screwed.");
+							|| (appData.report_mandatory_completed_counter <1)){
+							 console.error("Error: Mandatory counter screwed.");
+						 }
 
-					appData.report_mandatory_is_complete = (appData.report_mandatory_completed_counter == report_mandatory_number) ? true : false;
+					appData.report_mandatory_is_complete =
+						(appData.report_mandatory_completed_counter == report_mandatory_number) ? true : false;
 
 			}  // End mandatory counter
 
@@ -124,45 +123,47 @@ this.updateMandatoryCounter = function(value) {
 //
 this.updateAppData = function(property,value,is_valid) {
 
-					appData = $rootScope.appData;
+		appData = $rootScope.appData;
 
-					$rootScope.debug && console.log('updateAppData:');
+		$rootScope.debug && console.log('updateAppData:');
 
-					let path=property.split(".");
+		let path=property.split(".");
 
-					$rootScope.debug && console.log('Setting',path[0]+'.'+path[1]+' <-- ', value);
+		$rootScope.debug && console.log('Setting',path[0]+'.'+path[1]+' <-- ', value);
 
-					// handle cases
+		// handle cases
 
 
-					switch(value) {
+		switch(value) {
 
-									default:
-															appData[path[0]][path[1]] = value;
+						default:
+												appData[path[0]][path[1]] = value;
 
-															if ( ( appData[path[0]].mandatory == true )
+												if ( ( appData[path[0]].mandatory == true )
 
-																&& ( appData[path[0]].is_valid == false ))
+													&& ( appData[path[0]].is_valid == false ))
 
-																							{
-																										this.updateMandatoryCounter("+");
-																							}
-									break;
+																				{
+																							this.updateMandatoryCounter("+");
+																				}
+						break;
 
-									case "toggle":
-																	value = !appData[path[0]][path[1]]
-																	$rootScope.debug && console.log('Toggle: ', !value, "->", value);
-																	appData[path[0]][path[1]] = value;
-																	// check_privacy_accepted.is_valid is set in html
-																	if ( appData[path[0]].mandatory == true ) this.updateMandatoryCounter(value);
-									break;
+						case "toggle":
+														value = !appData[path[0]][path[1]]
+														$rootScope.debug && console.log('Toggle: ', !value, "->", value);
+														appData[path[0]][path[1]] = value;
+														// check_privacy_accepted.is_valid is set in html
+														if ( appData[path[0]].mandatory == true ) this.updateMandatoryCounter(value);
+						break;
 
-									}  // End switch
+		}  // End switch
 
-									// Update 'valid' state with thirrd parameter boolean if it was given
-									// (this is kind of a "function overloading" hack)
-									$rootScope.debug && console.log("Option is_valid:", is_valid);
-									if (typeof is_valid !== "undefined") appData[path[0]].is_valid = is_valid;
+		// Update 'valid' state with thirrd parameter boolean if it was given
+		// (this is kind of a "function overloading" hack)
+		$rootScope.debug && console.log("Option is_valid:", is_valid);
+		if (typeof is_valid !== "undefined") {
+			appData[path[0]].is_valid = is_valid;
+		}
 
 }  // End report data
 
