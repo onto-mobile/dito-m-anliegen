@@ -26,103 +26,102 @@ alert('config begin');
 alert('config end');
 });  // End rootApp config
 
-rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory){alert('run begin');});
 //
 //   APP INIT
 //
-// rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,NetworkService) {
-// alert('run begin');
-//       GLOBAL_ONTO.init.debug && console.log("rootApp.run init");
-//
-//       // Keep these things accessible through all controller instances
-//       // (We use rootscope, to avoid making things complicated and hard to debug)
-//  			$rootScope.debug=GLOBAL_ONTO.init.debug;
-//
-//       /**
-//        * Alert
-//        */
-//       $rootScope.alerts = [];
-//       // $scope.alerts = $rootScope.alerts;
-//     	$rootScope.closeAlert = function(index) {
-//     		 $rootScope.alerts.splice(index, 1);
-//      	};
-// alert('run msg');
-//       $rootScope.pushAlert = function( item ){
-//         $timeout(function(){
-//               $rootScope.alerts.push(item);
-//               $timeout(function(){
-//                     $rootScope.closeAlert($rootScope.alerts.indexOf(item));
-//               }, GLOBAL_ONTO.init.messageDelayInMS);
-//         });
-//
-//
-//       };
-//       // $rootScope.pushAlert(  { type: 'success', msg: 'Well done! You have successfully started the app.' });
-// alert('run msg end');
-//
-//       //
-// 			// DEVICE ENVIRONMENT
-//       //
-//       GLOBAL_ONTO.init.debug && console.log("Checking Cordova plugins:");
-//       $rootScope.device_has_geoloc = (typeof navigator.geolocation !== "undefined" ) ? true:false;
-//       GLOBAL_ONTO.init.debug && console.log("Geolocation:",$rootScope.device_has_geoloc);
-// 			$rootScope.device_has_cam = (typeof navigator.camera !== "undefined" ) ? true:false;
-// 			GLOBAL_ONTO.init.debug && console.log("Camera and Gallery:",$rootScope.device_has_cam);
-//       $rootScope.device_has_filetransfer = (typeof FileTransfer !== "undefined" ) ? true:false;
-//       GLOBAL_ONTO.init.debug && console.log("http file transfer:", $rootScope.device_has_filetransfer);
-//       //
-//       $rootScope.device_has_filereader =  ( window.FileReader !== "undefined" ) ? true:false;
-//       !$rootScope.device_has_filereader && GLOBAL_ONTO.init.debug && console.log("Broswer does not support native html file-reader.");
-//       //
-//       // APP / REPORT DATA init
-//       //
-//
-//       alert('config before init');
-//       DataFactory.initAppData();
-//       alert('config after init');
-//       //
-//       // Initial view
-//       //
-//       view=appData.view;
-//       GLOBAL_ONTO.init.debug && console.log("App initialized view:", view);
-//       $rootScope.map_view_active = GLOBAL_ONTO.init.map_view_active;
-//       //
-//       // MAP INIT
-//       //
-//       $rootScope.fake_geoloc=GLOBAL_ONTO.init.fake_geoloc;
-//       GLOBAL_ONTO.init.fake_geoloc && GLOBAL_ONTO.init.debug && console.warn("Debug option: Fake Geolocation");
-//       //
-// 			// CREATE LEAFLET MAP as singleton in rootscope
-//       $rootScope.geoJson = [];
-//       $rootScope.markerLayer = GLOBAL_ONTO.init.markerLayer;
-//       $rootScope.baseMap = MapFactory.createBaseMap();
-//       // Add placemarks layer:
-// 			MapFactory.mapControl('load_placemarks');
-//       // Set initial map view at city center:
-//       MapFactory.mapControl('center', GLOBAL_ONTO.init.cityCenter);
-//       // Try to set view by cordova plugin geolocation:
-//       // MapFactory.mapControl('get_cordova_geoloc');
-//       // However, the geolocation is done by leaflet plugin now:
-//       MapFactory.addControl('geoloc');
-//       //
-//       // Load categroies from server
-//       //
-//       NetworkService.getCategories().then(
-//             function (receivedCategories) {
-//                   // old version: only names
-//                   //  listOfCategories = receivedCategories.map(a => a.name);
-//                   //  $rootScope.listOfCategories = listOfCategories;
-//                   // but now we use the full data:
-//                   $rootScope.listOfCategories = receivedCategories;
-//             }
-//        ) // End then
-//
-//       //  report_mandatory_number = appData.mandatoryNumber();
-//        report_mandatory_number = appData.mandatoryNumber;
-//
-//        // We want to access these from all controllers and pages:
-//        $rootScope.appTitle = GLOBAL_ONTO.init.pageInfo.app_title;
-//        $rootScope.imageTypesAllowed = GLOBAL_ONTO.init.imageTypesAllowed;
-//        $rootScope.photoOptions = GLOBAL_ONTO.init.photoOptions;
-//        alert('config end');
-// 	});  // End rootApp run
+rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,NetworkService) {
+alert('run begin');
+      GLOBAL_ONTO.init.debug && console.log("rootApp.run init");
+
+      // Keep these things accessible through all controller instances
+      // (We use rootscope, to avoid making things complicated and hard to debug)
+ 			$rootScope.debug=GLOBAL_ONTO.init.debug;
+
+      /**
+       * Alert
+       */
+      $rootScope.alerts = [];
+      // $scope.alerts = $rootScope.alerts;
+    	$rootScope.closeAlert = function(index) {
+    		 $rootScope.alerts.splice(index, 1);
+     	};
+alert('run msg');
+      $rootScope.pushAlert = function( item ){
+        $timeout(function(){
+              $rootScope.alerts.push(item);
+              $timeout(function(){
+                    $rootScope.closeAlert($rootScope.alerts.indexOf(item));
+              }, GLOBAL_ONTO.init.messageDelayInMS);
+        });
+
+
+      };
+      // $rootScope.pushAlert(  { type: 'success', msg: 'Well done! You have successfully started the app.' });
+alert('run msg end');
+
+      //
+			// DEVICE ENVIRONMENT
+      //
+      GLOBAL_ONTO.init.debug && console.log("Checking Cordova plugins:");
+      $rootScope.device_has_geoloc = (typeof navigator.geolocation !== "undefined" ) ? true:false;
+      GLOBAL_ONTO.init.debug && console.log("Geolocation:",$rootScope.device_has_geoloc);
+			$rootScope.device_has_cam = (typeof navigator.camera !== "undefined" ) ? true:false;
+			GLOBAL_ONTO.init.debug && console.log("Camera and Gallery:",$rootScope.device_has_cam);
+      $rootScope.device_has_filetransfer = (typeof FileTransfer !== "undefined" ) ? true:false;
+      GLOBAL_ONTO.init.debug && console.log("http file transfer:", $rootScope.device_has_filetransfer);
+      //
+      $rootScope.device_has_filereader =  ( window.FileReader !== "undefined" ) ? true:false;
+      !$rootScope.device_has_filereader && GLOBAL_ONTO.init.debug && console.log("Broswer does not support native html file-reader.");
+      //
+      // APP / REPORT DATA init
+      //
+
+      alert('config before init');
+      DataFactory.initAppData();
+      alert('config after init');
+      //
+      // Initial view
+      //
+      view=appData.view;
+      GLOBAL_ONTO.init.debug && console.log("App initialized view:", view);
+      $rootScope.map_view_active = GLOBAL_ONTO.init.map_view_active;
+      //
+      // MAP INIT
+      //
+      $rootScope.fake_geoloc=GLOBAL_ONTO.init.fake_geoloc;
+      GLOBAL_ONTO.init.fake_geoloc && GLOBAL_ONTO.init.debug && console.warn("Debug option: Fake Geolocation");
+      //
+			// CREATE LEAFLET MAP as singleton in rootscope
+      $rootScope.geoJson = [];
+      $rootScope.markerLayer = GLOBAL_ONTO.init.markerLayer;
+      $rootScope.baseMap = MapFactory.createBaseMap();
+      // Add placemarks layer:
+			MapFactory.mapControl('load_placemarks');
+      // Set initial map view at city center:
+      MapFactory.mapControl('center', GLOBAL_ONTO.init.cityCenter);
+      // Try to set view by cordova plugin geolocation:
+      // MapFactory.mapControl('get_cordova_geoloc');
+      // However, the geolocation is done by leaflet plugin now:
+      MapFactory.addControl('geoloc');
+      //
+      // Load categroies from server
+      //
+      NetworkService.getCategories().then(
+            function (receivedCategories) {
+                  // old version: only names
+                  //  listOfCategories = receivedCategories.map(a => a.name);
+                  //  $rootScope.listOfCategories = listOfCategories;
+                  // but now we use the full data:
+                  $rootScope.listOfCategories = receivedCategories;
+            }
+       ) // End then
+
+      //  report_mandatory_number = appData.mandatoryNumber();
+       report_mandatory_number = appData.mandatoryNumber;
+
+       // We want to access these from all controllers and pages:
+       $rootScope.appTitle = GLOBAL_ONTO.init.pageInfo.app_title;
+       $rootScope.imageTypesAllowed = GLOBAL_ONTO.init.imageTypesAllowed;
+       $rootScope.photoOptions = GLOBAL_ONTO.init.photoOptions;
+       alert('config end');
+	});  // End rootApp run

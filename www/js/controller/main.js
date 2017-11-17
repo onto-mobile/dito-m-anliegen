@@ -2,7 +2,7 @@ rootApp.controller('mainCtrl', function($scope,$rootScope,$timeout,$location,$an
 // alternate:
 //	rootApp.controller('mainCtrl',['$scope','DataService','NetworkService','MapFactory', function($scope,DataService) {
 this.$onInit = function () {
-		console.warn("Initializing mainCtrl.");
+		$scope.debug && console.warn("Initializing mainCtrl.");
 
 		// Enable html debug switch button
 		$scope.switchDebug = function() {$rootScope.debug = !$scope.debug;}
