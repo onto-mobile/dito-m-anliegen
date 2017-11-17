@@ -5,7 +5,7 @@ var rootApp = angular.module('rootApp',['ngRoute','ngSanitize']);
 //   APP config: route provider
 //
 rootApp.config(function($routeProvider,$locationProvider,$compileProvider) {
-
+alert('config begin');
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(http|https?|file|blob|cdvfile|content):|data:image\//);
 // config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
@@ -23,7 +23,7 @@ rootApp.config(function($routeProvider,$locationProvider,$compileProvider) {
 
         // This is kind of a dirty hack because it seems like we can not inject scope to routeProvider.when()
         // We should rather have instead when(view, ...) and then .otherwise calling error.html
-
+alert('config end');
 });  // End rootApp config
 
 
@@ -31,7 +31,7 @@ rootApp.config(function($routeProvider,$locationProvider,$compileProvider) {
 //   APP INIT
 //
 rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,NetworkService) {
-
+alert('run begin');
       GLOBAL_ONTO.init.debug && console.log("rootApp.run init");
 
       // Keep these things accessible through all controller instances
@@ -46,7 +46,7 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
     	$rootScope.closeAlert = function(index) {
     		 $rootScope.alerts.splice(index, 1);
      	};
-
+alert('run msg');
       $rootScope.pushAlert = function( item ){
         $timeout(function(){
               $rootScope.alerts.push(item);
@@ -58,7 +58,7 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
 
       };
       // $rootScope.pushAlert(  { type: 'success', msg: 'Well done! You have successfully started the app.' });
-
+alert('run msg end');
 
       //
 			// DEVICE ENVIRONMENT
@@ -76,7 +76,10 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
       //
       // APP / REPORT DATA init
       //
+
+      alert('config before init');
       DataFactory.initAppData();
+      alert('config after init');
       //
       // Initial view
       //
@@ -87,7 +90,7 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
       // MAP INIT
       //
       $rootScope.fake_geoloc=GLOBAL_ONTO.init.fake_geoloc;
-      GLOBAL_ONTO.init.fake_geoloc && console.warn("Debug option: Fake Geolocation");
+      GLOBAL_ONTO.init.fake_geoloc && GLOBAL_ONTO.init.debug && console.warn("Debug option: Fake Geolocation");
       //
 			// CREATE LEAFLET MAP as singleton in rootscope
       $rootScope.geoJson = [];
@@ -121,4 +124,5 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
        $rootScope.appTitle = GLOBAL_ONTO.init.pageInfo.app_title;
        $rootScope.imageTypesAllowed = GLOBAL_ONTO.init.imageTypesAllowed;
        $rootScope.photoOptions = GLOBAL_ONTO.init.photoOptions;
+       alert('config end');
 	});  // End rootApp run
