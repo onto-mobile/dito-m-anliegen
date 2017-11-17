@@ -14,7 +14,7 @@ this.$onInit = function () {
 		$scope.minNote = GLOBAL_ONTO.init.minNote;
 		$scope.maxNote = GLOBAL_ONTO.init.maxNote;
 		$scope.forms = {};
-		let lastView = '';
+		var lastView = '';
 		$scope.fake_send = GLOBAL_ONTO.init.fake_send;
 	};	// End onInit
 
@@ -110,7 +110,7 @@ $rootScope.changeView = function (view, item, from) {
 					MapFactory.addOnClickEventToMap();
 				  // Zoom out a little compared to the crosshair view
 					// assuming we probably want to lookup nearby markers
-					let zoom = appData.report_saved_select_zoom-1;
+					var zoom = appData.report_saved_select_zoom-1;
 
 					if (isNaN(zoom) || zoom < GLOBAL_ONTO.init.minZoomLevel )
 							zoom = GLOBAL_ONTO.init.minZoomLevel;
@@ -212,7 +212,7 @@ $rootScope.changeView = function (view, item, from) {
 $scope.reloadContent=function() {
 	$timeout(function(){
 		GLOBAL_ONTO.init.debug && console.log('MAin reload content');
-		let features = [];
+		var features = [];
 		NetworkService.getGeoJSON().then(
 				function (geoData) {
 						$rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
@@ -306,7 +306,7 @@ $scope.getImage = function(mode) {
 												 ); // End resolve Path
 											} else {
 												// ios case
-												let uri = status.uri;
+												var uri = status.uri;
 												uri=uri.replace('assets-library://','cdvfile://localhost/assets-library/');
 												GLOBAL_ONTO.init.debug && console.log("uri",uri);
 												makeImageData(uri);
@@ -355,7 +355,7 @@ $scope.validateImage = function(mode,item)  {
 
 			GLOBAL_ONTO.init.debug && console.log('validateImage: Checking image input in mode:', mode);
 
-			let imgdata = DataService.examineImage(mode,item);
+			var imgdata = DataService.examineImage(mode,item);
 
 			if (imgdata.valid == true) {
 
@@ -556,7 +556,13 @@ $scope.typeCssClass = function (type)   {
 		}
 };
 $rootScope.getNumberOfCategory = function (articleLabel){
-	var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
+	// var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
+	var listOfCategoryNames  = [];
+	for(var i = 0, length = $rootScope.listOfCategories.length ;
+				i< length;i++) {
+				listOfCategoryNames.push($rootScope.listOfCategories[i].name);
+	}
+
 	listOfCategoryNames.reverse(); // to align the color with the server
 	var indexOfCat = listOfCategoryNames.indexOf(articleLabel);
 	return ++indexOfCat;

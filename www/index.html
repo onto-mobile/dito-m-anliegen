@@ -166,17 +166,6 @@ if ('addEventListener' in document) {
 		     FastClick.attach(document.body);
      }, false);
 }
-if(!(console && console.log) ){
-  var console = new Object();
-  console.log = function(log) {
-    var iframe = document.createElement("IFRAME");
-    iframe.setAttribute("src", "ios-log:#iOS#" + log);
-    document.documentElement.appendChild(iframe);
-    iframe.parentNode.removeChild(iframe);
-    iframe = null;
-  };
-}
-
 </script>
 
 <!--  ANGULAR -->

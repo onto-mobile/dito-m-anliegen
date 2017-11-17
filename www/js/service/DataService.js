@@ -20,7 +20,7 @@ this.examineImage = function(mode,item)  {
 				$rootScope.debug && console.log('DataService: Validating', mode);
 				// $rootScope.debug && console.log('Event:', event, 'File:', item);
 
-				let imgdata = {};
+				var imgdata = {};
 
 				switch(mode) {
 
@@ -127,7 +127,7 @@ this.updateAppData = function(property,value,is_valid) {
 
 		$rootScope.debug && console.log('updateAppData:');
 
-		let path=property.split(".");
+		var path=property.split(".");
 
 		$rootScope.debug && console.log('Setting',path[0]+'.'+path[1]+' <-- ', value);
 

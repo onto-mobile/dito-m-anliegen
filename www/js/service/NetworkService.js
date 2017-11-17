@@ -57,7 +57,7 @@ this.getCategories = function()  {
 //
 this.sendForm = function(data,format, configSpecial) {
 
-					let config="";
+					var config="";
 
 					switch (format) {  // use format specific headers
 

@@ -199,7 +199,12 @@ addPlacemarks: function(vectorArray) {
 
             GLOBAL_ONTO.init.markerArray.length = 0;  // clear array
 
-            var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name)
+            // var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
+            var listOfCategoryNames  = [];
+          	for(var i = 0, length = $rootScope.listOfCategories.length ;
+          				i< length;i++) {
+          				listOfCategoryNames.push($rootScope.listOfCategories[i].name);
+          	}
             for (var i = 0; i < vectorArray.length; i++) {
 
                 var feature = vectorArray[i];
@@ -255,7 +260,7 @@ mapControl: function(mode,coords,zoom)  {
                   NetworkService.getGeoJSON().then(
                       function (geoData) {
                           $rootScope.geoJson = geoData.features;
-                          $rootScope.geoJson.reverse(); // latest first 
+                          $rootScope.geoJson.reverse(); // latest first
                           $rootScope.baseMap.removeLayer(GLOBAL_ONTO.init.markerLayer);
                           markerArray = thisfactory.addPlacemarks(geoData.features);
                         }  // End function

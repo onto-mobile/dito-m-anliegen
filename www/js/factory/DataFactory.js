@@ -45,7 +45,7 @@ makeDitoData: function (appData) {
 
 
 				// create a copy of the json which will be send to dito
-				let ditoFormDataStatic = angular.copy(GLOBAL_ONTO.init.ditoFormDataStatic);
+				var ditoFormDataStatic = angular.copy(GLOBAL_ONTO.init.ditoFormDataStatic);
 
 
         // Note that we need to turn position coords to lng - lat
