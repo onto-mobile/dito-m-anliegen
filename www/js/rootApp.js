@@ -26,7 +26,7 @@ alert('config begin');
 alert('config end');
 });  // End rootApp config
 
-rootApp.run(function(){alert('run begin');});
+rootApp.run(function($rootScope,$location,$timeout){alert('run begin');});
 //
 //   APP INIT
 //
