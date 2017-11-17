@@ -5,7 +5,6 @@ var rootApp = angular.module('rootApp',['ngRoute','ngSanitize']);
 //   APP config: route provider
 //
 rootApp.config(function($routeProvider,$locationProvider,$compileProvider) {
-alert('config begin');
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(http|https?|file|blob|cdvfile|content):|data:image\//);
 // config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
@@ -20,10 +19,9 @@ alert('config begin');
         .when( 'home', { templateUrl: 'html/home.html' })
 
     		.otherwise({ templateUrl: function() { return "html/" + appData.view + ".html"; } });
-
+alert('config end');
         // This is kind of a dirty hack because it seems like we can not inject scope to routeProvider.when()
         // We should rather have instead when(view, ...) and then .otherwise calling error.html
-alert('config end');
 });  // End rootApp config
 
 //
