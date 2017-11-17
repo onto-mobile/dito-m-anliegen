@@ -50,7 +50,9 @@ var cordovaEvents = {
       // Check online / offline status
       // Using cordova plujgin network-information
       GLOBAL_ONTO.init.debug && console.log("isOnline", navigator.connection);
+      alert('before angular');
       angular.bootstrap(document, ['rootApp']);
+      alert('after angular');
       var elt = document.getElementById('outer-message');
       if(elt != null)
         elt.setAttribute('style', 'display:block;');
@@ -82,9 +84,11 @@ var cordovaEvents = {
 // =============== APP ENTRY ===============
 // Helper fork to support browser debugging
 if (window.cordova) {
+    alert('cordova');
     GLOBAL_ONTO.init.debug && console.log("Cordova detected.");
     cordovaEvents.initialize();
 } else {  // browser debugging mode
+  alert('browser');
     GLOBAL_ONTO.init.debug && console.log("Browser detected.");
     GLOBAL_ONTO.init.debug && console.warn("Online:", navigator.onLine);
     // Angular needs to be initialized after deviceready
