@@ -227,13 +227,11 @@ $scope.reloadContent=function() {
 	});
 };
 $scope.$watch('online', function(newStatus) {
-	if(!$rootScope.firstTime && newStatus)
+	if(!$rootScope.firstTime && newStatus	)
 		$timeout(function(){
 			console.log("back on line");
 			$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
-			if(typeof $rootScope.listOfCategory == 0) {
-				NetworkService.getCategories();
-			}
+			NetworkService.getCategories();
 			$scope.reloadContent();
 		});
 		else {
