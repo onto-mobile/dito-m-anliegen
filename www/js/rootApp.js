@@ -26,7 +26,7 @@ rootApp.config(function($routeProvider,$locationProvider,$compileProvider) {
 //
 //   APP INIT
 //
-rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,NetworkService) {
+rootApp.run(function($rootScope,$location,$timeout,$window,MapFactory,DataFactory,NetworkService) {
       GLOBAL_ONTO.init.debug && console.log("rootApp.run init");
 
       // Keep these things accessible through all controller instances
@@ -116,4 +116,20 @@ rootApp.run(function($rootScope,$location,$timeout,MapFactory,DataFactory,Networ
        $rootScope.appTitle = GLOBAL_ONTO.init.pageInfo.app_title;
        $rootScope.imageTypesAllowed = GLOBAL_ONTO.init.imageTypesAllowed;
        $rootScope.photoOptions = GLOBAL_ONTO.init.photoOptions;
+
+// online / offline
+$rootScope.firstTime = true;
+       $rootScope.online = navigator.onLine;
+             $window.addEventListener("offline", function() {
+               $rootScope.$apply(function() {
+                 $rootScope.online = false;
+               });
+             }, false);
+
+             $window.addEventListener("online", function() {
+               $rootScope.$apply(function() {
+                 $rootScope.online = true;
+               });
+             }, false);
+
 	});  // End rootApp run

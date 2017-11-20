@@ -226,25 +226,20 @@ $scope.reloadContent=function() {
 		); // End then
 	});
 };
-document.addEventListener('backOnLine', function (event, data) {
-	$timeout(function(){
-		console.log("back on line js");
-		$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
-		if($rootScope.listOfCategoryNames.length == 0) {
-			NetworkService.getCategories();
+$scope.$watch('online', function(newStatus) {
+	if(!$rootScope.firstTime && newStatus)
+		$timeout(function(){
+			console.log("back on line");
+			$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
+			if(typeof $rootScope.listOfCategory == 0) {
+				NetworkService.getCategories();
+			}
+			$scope.reloadContent();
+		});
+		else {
+			$rootScope.firstTime = false;
 		}
-		$scope.reloadContent();
-	},true);
-// $scope.$on('online', function (event, data) {
-// 	$timeout(function(){
-// 		console.log("back on line");
-// 		$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
-// 		if($rootScope.listOfCategoryNames.length == 0) {
-// 			NetworkService.getCategories();
-// 		}
-// 		$scope.reloadContent();
-// 	});
-// });
+});
 
 // This is an ansync promise/event thing, thus a little complicated.
 // Also calling separate methods to examine and validate the image features.
