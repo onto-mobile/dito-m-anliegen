@@ -3,7 +3,9 @@ body {padding-top: 50px; }
 /*********************************************/
 /***************     map      ****************/
 /*********************************************/
-
+.leaflet-popup-content-wrapper{
+	border-radius: 0px;
+}
 #mapid {
 	position: relative;
 	/*height:calc(100vh - 90px);/*-90px correspond to the topbar 40 + bottom bar 50*/
@@ -28,11 +30,11 @@ body {padding-top: 50px; }
 }
 .mapSelect:before {
   bottom: 50%;
-  border-bottom: 2px #A6033D solid;
+  border-bottom: 3px #0000FF solid;
 }
 .mapSelect:after {
   right: 50%;
-  border-right: 2px #A6033D solid;
+  border-right: 3px #0000FF solid;
 }
 
 /*********************************************/

@@ -145,7 +145,7 @@ addControl: function(mode) {
                 }
                 thisfactory.mapControl('set_geoloc',mapCenter);
                 $rootScope.baseMap.fireEvent('click', {latlng: mapCenter});
-                // LOC.stop(); // setTimeout(function(){ LOC.stop(); }, 1000);
+                LOC.stop(); // setTimeout(function(){ LOC.stop(); }, 1000);
                 // unforttly stopping the Control, the marker disappears,
                 // so we need to manage this manually:
                 if (typeof geolocMarker !== "undefined") {

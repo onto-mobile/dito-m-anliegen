@@ -139,9 +139,9 @@
     <ul class="nav navbar-nav">
       <li class="col-xs-2" ng-if="view != 'list'" ng-click="changeView('list')"><i class="ti-list" aria-hidden="true"></i></li>
       <li class="col-xs-2" ng-if="view == 'list'" ng-click="reloadContent()"><i class="ti-reload" aria-hidden="true"></i></li>
-      <li class="col-xs-8 text-center">{{appTitle}}</li>
-      <li class="col-xs-2 text-right" ng-if="view != 'map'" ng-click="changeView('map')"><i class="ti-map-alt" aria-hidden="true"></i></li>
-      <li class="col-xs-2 text-right" ng-if="view == 'map'" ng-click="reloadContent()"><i class="ti-reload" aria-hidden="true"></i></li>
+      <li class="col-xs-8 text-center"  ng-click="changeView('map')">{{appTitle}}</li>
+      <li class="col-xs-2 text-right" ng-if="view != 'map' && view != 'home'" ng-click="changeView('map')"><i class="ti-map-alt" aria-hidden="true"></i></li>
+      <li class="col-xs-2 text-right" ng-if="view == 'map' || view == 'home'" ng-click="reloadContent()"><i class="ti-reload" aria-hidden="true"></i></li>
     </ul>
   </nav>
 </div>   <!-- ng-cloak -->
