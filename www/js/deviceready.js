@@ -2,6 +2,7 @@
 // example: createElement('myID','OK!','text-ok','fa fa-check fa-2x')
 //
 var wasOffline = false;
+var offLineAlert = '';
 
 // =============== CORDOVA CONFIGURATION ===============
 
@@ -68,13 +69,19 @@ var cordovaEvents = {
   },
   onOffline : function() {
     wasOffline = true;
-    navigator.notification.alert('Sie haben keine Internet-Verbindung!',
+    offLineAlert = navigator.notification.alert('Sie haben keine Internet-Verbindung!',
         function(){}, 'Anliegenmanagement');
+
   },
   onOnline : function() {
-    if(wasOffline)
+    if(wasOffline){
+      if(offLineAlert != '' || offLineAlert!= null){
+        offLineAlert.close();
+      }
       navigator.notification.alert('Gut! Sie sind wieder online.',
         function(){}, 'Anliegenmanagement');
+
+      }
   },
 
 };  // End var cordova

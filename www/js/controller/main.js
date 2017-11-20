@@ -226,6 +226,16 @@ $scope.reloadContent=function() {
 		); // End then
 	});
 };
+$scope.$on('online', function (event, data) {
+	$timeout(function(){
+		console.log("back on line");
+		$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
+		if($rootScope.listOfCategoryNames.length == 0) {
+			NetworkService.getCategories();
+		}
+		$scope.reloadContent();
+	});
+});
 
 // This is an ansync promise/event thing, thus a little complicated.
 // Also calling separate methods to examine and validate the image features.
