@@ -231,8 +231,9 @@ $scope.$watch('online', function(newStatus) {
 		$timeout(function(){
 			console.log("back on line");
 			$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
-			NetworkService.getCategories();
+			  $rootScope.listOfCategories = NetworkService.getCategories();
 			$scope.reloadContent();
+
 		});
 		else {
 			$rootScope.firstTime = false;
