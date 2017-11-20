@@ -75,12 +75,12 @@ var cordovaEvents = {
   },
   onOnline : function() {
     if(wasOffline){
-      if(offLineAlert != '' || offLineAlert!= null){
-        offLineAlert.close();
-      }
+        // if(offLineAlert != '' || offLineAlert!= null){
+        //   offLineAlert.close();
+        // }
       navigator.notification.alert('Gut! Sie sind wieder online.',
         function(){}, 'Anliegenmanagement');
-
+        document.dispatchEvent( new Event('backOnLine') );
       }
   },
 
