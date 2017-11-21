@@ -19,7 +19,7 @@ body, .leaflet-container {
 a {
   color: #C40046;
   line-height: inherit;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 a:hover, a:focus {color: #a6033d; text-decoration: none;}
@@ -31,7 +31,7 @@ a:focus {background: none;}
 }
 .navbar.navbar-fixed-top .nav li.btn [class^="ti-"],
 .navbar.navbar-fixed-top .nav li.btn [class*=" ti-"],
-.leaflet-popup-content [class^="ti-"], 
+.leaflet-popup-content [class^="ti-"],
 .leaflet-popup-content [class*=" ti-"],
 .btn-personalized [class^="ti-"],
 .btn-personalized [class*=" ti-"],
@@ -54,11 +54,11 @@ a:focus {background: none;}
 }
 
 .btn, .btn-default, button {
-  color: #ffffff; 
+  color: #ffffff;
   background: none;
-  background-color: #C40046; 
-  border-color: #FFFFFF; 
-  border-radius: 0;  
+  background-color: #C40046;
+  border-color: #FFFFFF;
+  border-radius: 0;
 }
 
 .btn-group-vertical button.btn-default {
@@ -68,8 +68,9 @@ a:focus {background: none;}
    color: #333333;
   border-radius: 0;
 }
-
-
+progress[value] {
+  color : #A6033D;
+}
 .btn.add-report {
   background: none;
   border: none;
@@ -81,9 +82,9 @@ a:focus {background: none;}
 .btn.active,
 .btn.disabled,
 .btn[disabled] {
-  color: #ffffff; 
-  background-color: #A6033D; 
-  border-color: #FFFFFF; 
+  color: #ffffff;
+  background-color: #A6033D;
+  border-color: #FFFFFF;
   border-radius: 0;
 }
 .btn-default:active,
@@ -91,7 +92,7 @@ a:focus {background: none;}
   background-color: #5e0022 ;
 }
 
-.navbar.navbar-fixed-top .nav li.btn { 
+.navbar.navbar-fixed-top .nav li.btn {
     padding-left: 0px;
 }
 
@@ -102,4 +103,3 @@ a:focus {background: none;}
   background-color: #c40046;
   color: #ffffff;
 }
-

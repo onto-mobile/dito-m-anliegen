@@ -422,7 +422,7 @@ progress[value] {
   /* Reset the default appearance */
   -webkit-appearance: none;
    appearance: none;
-
+   color : #ccc;
   width: 95%;
   height: 20px;
 }
