@@ -229,11 +229,17 @@ $scope.reloadContent=function() {
 $scope.$watch('online', function(newStatus) {
 	if(!$rootScope.firstTime && newStatus	)
 		$timeout(function(){
-			console.log("back on line");
+			GLOBAL_ONTO.init.debug && console.log("back on line");
 			$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
 			NetworkService.getCategories().then(function(cat){
 				$rootScope.listOfCategories = cat;
 			});
+			if($scope.view == 'howTo'){
+
+			}
+			if($scope.view == 'info'){
+
+			}
 			$scope.reloadContent();
 			$rootScope.apply;
 		});

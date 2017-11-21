@@ -2,7 +2,9 @@ rootApp.controller('infoCtrl', function($scope,$rootScope, $http) {
   // var templateUrl = $sce.getTrustedResourceUrl(url_info);
   // $scope.templateUrl = templateUrl;
   $scope.contentValue = '';
+  $scope.what= '';
   $scope.loadContentInDiv = function(what) {
+    $scope.what = what;
     var urlToLoad = '';
     switch(what) {
       case 'privacy':
@@ -34,4 +36,11 @@ rootApp.controller('infoCtrl', function($scope,$rootScope, $http) {
           }
     )
   }
+  $scope.$on('updateModel', function (event, data) {
+    	$timeout(function(){
+        $scope.loadContentInDiv($scope.what);
+        $scope.$apply;
+      });
+  });
+
 });
