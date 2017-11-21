@@ -231,11 +231,12 @@ $scope.$watch('online', function(newStatus) {
 		$timeout(function(){
 			console.log("back on line");
 			$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
-			$rootScope.$appy(function(){
-				NetworkService.getCategories().then(function(cat){
-					$rootScope.listOfCategories = receivedCategories;
-				});
+
+			NetworkService.getCategories().then(function(cat){
+				$rootScope.listOfCategories = receivedCategories;
 			});
+
+			$rootScope.apply
 			$scope.reloadContent();
 		});
 		else {
@@ -514,7 +515,6 @@ $scope.increaseDirtyness = function(item)  {
 			appData[item].dirty += 1;
 			// debug && console.log("Dirty:", appData[item].dirty);
 };
-
 $scope.typeCssClass = function (type)   {
 	//$scope.debug && console.log(type);
 	switch (type) {
@@ -534,25 +534,7 @@ $scope.typeCssClass = function (type)   {
 				return 'label-default';
 		}
 };
-$scope.typeCssClass = function (type)   {
-	//$scope.debug && console.log(type);
-	switch (type) {
-				case 'gp.status.open':
-				return 'label-danger';
-
-				case 'gp.status.processing':
-				return 'label-info';
-
-				case 'gp.status.done':
-				return 'label-success';
-
-				case 'gp.notInOurCompetence':
-				return 'label-warning';
-
-				default :
-				return 'label-default';
-		}
-};$scope.translateStatus = function (type)   {
+$scope.translateStatus = function (type)   {
 	//$scope.debug && console.log(type);
 	switch (type) {
 				case 'gp.status.open':
