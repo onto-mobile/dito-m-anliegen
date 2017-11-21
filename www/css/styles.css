@@ -426,3 +426,17 @@ progress[value] {
   width: 95%;
   height: 20px;
 }
+div#info .btn-group button.btn-default {
+   background: none;
+   /* background: rgba(96, 0, 70, .5); */
+   border-color: #C40046;
+   text-shadow: none;
+   color: #333333;
+}
+div#info .btn-group button.btn-default.selected {
+   background: #C40046;
+   /* background: rgba(96, 0, 70, .5); */
+   border-color: #C40046;
+   text-shadow: none;
+   color: #ffffff;
+}
