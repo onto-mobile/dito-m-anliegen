@@ -211,11 +211,11 @@ $rootScope.changeView = function (view, item, from) {
 } // END CHANGE VIEW
 $scope.reloadContent=function() {
 	$timeout(function(){
-		GLOBAL_ONTO.init.debug && console.log('MAin reload content');
+		GLOBAL_ONTO.init.debug && console.log('Main reload content');
 		var features = [];
 		NetworkService.getGeoJSON().then(
 				function (geoData) {
-						$rootScope.pushAlert({type: 'success', msg:'Data successfully updated.'});
+						$rootScope.pushAlert({type: 'success', msg:'Daten wurden aktualisiert.'});
 						$rootScope.geoJson = geoData.features;
 						$rootScope.geoJson.reverse(); // latest first
 						features = $rootScope.geoJson;

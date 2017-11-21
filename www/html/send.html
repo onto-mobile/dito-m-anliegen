@@ -7,9 +7,19 @@
       <div ng-if="sendOK=='sending'">
 
           <strong>Bitte warten, die Daten werden übertragen...</strong>
-          <progress max="100" class="row col-xs-11"  value="{{progress}}"></progress>
-          <br/>{{progress}}%
-          <!--ng-if="{{progressVisible}}"  -->
+          <br/>
+          <progress max="100" class="row col-xs-11" ng-if="progressVisible" value="{{progress}}"></progress>
+          <div id="circularG" ng-if="!progressVisible">
+          	<div id="circularG_1" class="circularG"></div>
+          	<div id="circularG_2" class="circularG"></div>
+          	<div id="circularG_3" class="circularG"></div>
+          	<div id="circularG_4" class="circularG"></div>
+          	<div id="circularG_5" class="circularG"></div>
+          	<div id="circularG_6" class="circularG"></div>
+          	<div id="circularG_7" class="circularG"></div>
+          	<div id="circularG_8" class="circularG"></div>
+          </div>
+
       </div>
 
       <div ng-if="sendOK!='sending'" >
