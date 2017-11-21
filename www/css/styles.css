@@ -15,7 +15,9 @@ div.text-device-error {
 div.text-device-ok {
   background-color: green;
 }
-
+div.display-content{
+  width: 95%; 
+}
 div.deviceMessage {
   width:90vw;
   height:22vh;
