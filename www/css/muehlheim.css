@@ -71,6 +71,8 @@ a:focus {background: none;}
 progress[value] {
   color : #A6033D;
 }
+progress::-moz-progress-bar { background:  #A6033D; }
+progress::-webkit-progress-value { background:  #A6033D; }
 .btn.add-report {
   background: none;
   border: none;

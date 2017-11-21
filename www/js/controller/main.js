@@ -235,10 +235,10 @@ $scope.$watch('online', function(newStatus) {
 				$rootScope.listOfCategories = cat;
 			});
 			if($scope.view == 'howTo'){
-
+				$rootScope.$broadcast('updateModelHowTo');
 			}
 			if($scope.view == 'info'){
-
+				$rootScope.$broadcast('updateModelInfo');
 			}
 			$scope.reloadContent();
 			$rootScope.apply;

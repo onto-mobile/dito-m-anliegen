@@ -13,11 +13,12 @@ rootApp.controller('howToCtrl', function($scope,$rootScope, $http) {
            }
      );
   };
-  $scope.$on('updateModel', function (event, data) {
-    	$timeout(function(){
-        $scope.loadContent();
-        $scope.$apply;
-      });
+  $scope.$on('updateModelHowTo', function (event, data) {
+    console.log('updateModelHowTo');
+  	$timeout(function(){
+      $scope.loadContent();
+      $scope.$apply;
+    });
   });
   $scope.loadContent();
 });

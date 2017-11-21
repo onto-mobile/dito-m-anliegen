@@ -36,7 +36,8 @@ rootApp.controller('infoCtrl', function($scope,$rootScope, $http) {
           }
     )
   }
-  $scope.$on('updateModel', function (event, data) {
+  $scope.$on('updateModelInfo', function (event, data) {
+      console.log('updateModelInfo');
     	$timeout(function(){
         $scope.loadContentInDiv($scope.what);
         $scope.$apply;
