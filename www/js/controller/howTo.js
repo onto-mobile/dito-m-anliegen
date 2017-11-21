@@ -1,4 +1,4 @@
-rootApp.controller('howToCtrl', function($scope,$rootScope, $http) {
+rootApp.controller('howToCtrl', function($scope,$rootScope,$timeout,$http) {
   $scope.loadContent = function() {
     $http({
          method: 	'GET',

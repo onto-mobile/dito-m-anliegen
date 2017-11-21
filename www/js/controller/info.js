@@ -1,4 +1,4 @@
-rootApp.controller('infoCtrl', function($scope,$rootScope, $http) {
+rootApp.controller('infoCtrl', function($scope,$rootScope,$timeout,$http) {
   // var templateUrl = $sce.getTrustedResourceUrl(url_info);
   // $scope.templateUrl = templateUrl;
   $scope.contentValue = '';
