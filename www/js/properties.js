@@ -233,6 +233,7 @@ GLOBAL_ONTO.init =  {
             'gallery' : {
                         sourceType: 'SAVEDPHOTOALBUM',
                         destinationType: 'NATIVE_URI',
+												correctOrientation: true, 
                         mediaType: 'PICTURE'
                       },
             'cleanup' : {

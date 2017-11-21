@@ -1,19 +1,21 @@
 <div id="detail" class="detail" ng-controller="listCtrl">
 
   <!-- listItem gets parsed in from llist.html -->
-      <h4>{{listItem.properties.title}}</h4>
+
       <span class="iconInList" ng-class="categoryCssClass(listItem.properties.articleLabel)"></span>
 
       <small ng-class="categoryCssClassColor(listItem.properties.articleLabel)">{{listItem.properties.articleLabel}}</small>
       <small class="">{{listItem.properties.date}}</small>
       <small class="label " ng-class="typeCssClass(listItem.properties.type)">{{translateStatus(listItem.properties.type)}}</small>
+        <h4>{{listItem.properties.title}}</h4>
 <hr/>
       <p ng-bind-html="listItem.properties.note" class="note"></p>
       <!-- Image attachment -->
+<hr/>
 <div class="photo-map">
       <div class="col1">
         <!-- Mini Map -->
-        <div id="miniMap" class="img-rounded"></div>
+        <div id="miniMap" class="img-responsive"></div>
       </div><div class="col2">
         <img class="img-responsive "
           ng-src="{{linkForImg}}"
