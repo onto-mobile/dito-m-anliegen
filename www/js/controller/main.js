@@ -233,9 +233,9 @@ $scope.$watch('online', function(newStatus) {
 			$rootScope.baseMap._resetView($rootScope.baseMap.getCenter(), $rootScope.baseMap.getZoom(), true);
 			NetworkService.getCategories().then(function(cat){
 				$rootScope.listOfCategories = cat;
-				$rootScope.apply;
 			});
 			$scope.reloadContent();
+			$rootScope.apply;
 		});
 		else {
 			$rootScope.firstTime = false;
