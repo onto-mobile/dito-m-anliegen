@@ -20,15 +20,15 @@
     <preference name="FadeSplashScreenDuration" value="750"/>
 
     <variable name="CAMERA_USAGE_DESCRIPTION" value="Usage of this app implies attaching a photo of the reported incident." />
-    <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+    <!-- <edit-config target="NSPhotoLibraryUsageDescription" file="Info.plist" mode="merge">
       <string>Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung.</string>
   </edit-config>
-  <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+  <edit-config target="NSCameraUsageDescription" file="Info.plist" mode="merge">
       <string>Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung.</string>
   </edit-config>
-  <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+  <edit-config target="NSLocationWhenInUseUsageDescription" file="Info.plist" mode="merge">
     <string>Der Zugriff auf Ihren Standort erlaubt Ihnen, die Verortung ihrer Meldung.</string>
-</edit-config>
+</edit-config> -->
     <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Usage of this app implies attaching a photo of the reported incident." />
     <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Purpose of this application is to report geolocated incidents. Enabling geolocation detection helps users find their position and speeds up the reporting process." />
     <platform name="android">
