@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ontopica.muehlheim" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.ontopica.muehlheim" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>DitoAnliegen</name>
     <description>
         Mängelmelder-App der Stadt Mühlheim am Main.
@@ -138,4 +138,7 @@
     <plugin name="cordova-plugin-file-transfer" spec="1.6.3" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
+    <gap:config-file platform="ios" parent="NSPhotoLibraryUsageDescription">
+        <string>Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung.</string>
+    </gap:config-file>
 </widget>
