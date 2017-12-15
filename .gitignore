@@ -21,6 +21,7 @@
 !/config-phonegap.xml
 !/package.json-cordova
 !/package.json-phonegap
+!/Info.plist
 
 !/.project
 !/.bithoundrc
