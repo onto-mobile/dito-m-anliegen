@@ -47,7 +47,7 @@ GLOBAL_ONTO.init =  {
 	bounds : function(){return L.latLngBounds(this.boundsSouthWest,
 									this.boundsNorthEast)},
 	// set to true to activate the bounding box
-	useBounds : false,
+	useBounds : true,
   // here we need the bounding box
   mapCenter :function(){return angular.copy(this.cityCenter)},
   minZoomLevel : 12,
@@ -73,13 +73,13 @@ GLOBAL_ONTO.init =  {
   'app_title'  : "Anliegenmanagement",
   'home'    :  "Startseite",
   'map'  : "Neue Meldung",
-	'report1'  : "Ort markieren (1/5)", // Markieren Sie den Ort
+  'report1'  : "Ort markieren (1/5)", // Markieren Sie den Ort
   'report2'  : "Kategorie wählen (2/5)",
   'report3'  : "Bereits gemeldet? ",
   'report4'  : "Foto hinzufügen (3/5)",
   'report5'  : "Beschreibung (4/5)",
   'report6'  : "Ihr Kontakt (5/5)",
-	'sendhint'  : "Nach dem Absenden erhalten Sie einen Bestätigungslink per E-Mail an:",
+  'sendhint'  : "Nach dem Absenden erhalten Sie einen Bestätigungslink per E-Mail an:",
   'send'  : "Senden",
   'info'  : "Info zur App",
   'my'  : "Meine Meldungen",
