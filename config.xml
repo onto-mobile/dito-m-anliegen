@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ontopica.muehlheim" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>DitoAnliegen</name>
+<widget id="com.ontopica.muehlheim" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Mängelmelder Mühlheim a.M.</name>
     <description>
         Mängelmelder-App der Stadt Mühlheim am Main.
     </description>
