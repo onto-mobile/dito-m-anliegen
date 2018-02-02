@@ -8,7 +8,8 @@
         ontopica GmbH
     </author>
     <content src="index.html" />
-
+    <!-- try next line to avoid IOS missing app icon problem -->
+    <preference name="phonegap-version" value="cli-7.1.0" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#c40046" />
