@@ -54,7 +54,7 @@
     </platform>
     <platform name="ios">
         <preference name="orientation" value="portrait" />
-        <icon height="1024" src="www/img/icon/ios/icon-1024.png" width="1024" />
+        <icon height="1024" src="www/img/icon/ios/icon-1024.jpg" width="1024" />
         <!-- try next line to avoid IOS missing app icon problem 
         <preference name="phonegap-version" value="cli-7.1.0" /> -->
         <icon height="57" platform="ios" src="www/img/icon/ios/icon.png" width="57" />
