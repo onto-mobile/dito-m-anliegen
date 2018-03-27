@@ -17,8 +17,8 @@ GLOBAL_ONTO.init =  {
   // ::::::::::::::: URL
   //
   // URL
-  // url_dito : 'http://anliegen.noam.de:8080/dito/explore',
-  url_dito : 'http://anliegen.muehlheim.ontopica.de/dito/explore',
+   url_dito : 'http://anliegen.noam.de:8080/dito/explore',
+  //url_dito : 'http://anliegen.muehlheim.ontopica.de/dito/explore',
   url_geoData : function(){return this.url_dito+'?action=browsermap&id=2692&geojson'},
 	url_ditoTiles : function(){return this.url_dito+'?action=tiles'},
   url_categories : function(){return this.url_dito+'?action=journalhelperajax&id=2692&method=getCategories'},
