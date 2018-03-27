@@ -1,4 +1,4 @@
-rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFactory) {
+rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,NetworkService,MapFactory) {
 
   //	this.$onInit = function () { ... }
 
@@ -24,6 +24,19 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,MapFac
             $scope.linkForImg = GLOBAL_ONTO.init.url_dito+'?action=openattachment&id='+
               $scope.listItem.properties.id+'&attachmentid='+$scope.listItem.properties.attachmentId;
           }
+          // load the comments of this topic
+          $timeout(function(){
+        		GLOBAL_ONTO.init.debug && console.log('load comments for '+$scope.listItem.properties.id);
+        		var features = [];
+        		NetworkService.getComments($scope.listItem.properties.id).then(
+        				function (commentsArgs) {
+        						// $rootScope.pushAlert({type: 'success', msg:'Daten wurden aktualisiert.'});
+        						// $rootScope.geoJson.reverse(); // latest first
+        						$scope.comments = commentsArgs.comments;
+        						$rootScope.$broadcast('updateComments', commentsArgs);
+        					}  // End function
+        		); // End then
+        	});
       break;
     }; // End switch
     $scope.$on('updateModel', function (event, data) {

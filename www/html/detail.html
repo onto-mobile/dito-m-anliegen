@@ -16,9 +16,24 @@
       <div class="col1">
         <!-- Mini Map -->
         <div id="miniMap" class="img-responsive"></div>
+        <div class="address" ng-bind-html="listItem.properties.address"></div>
       </div><div class="col2">
         <img class="img-responsive "
           ng-src="{{linkForImg}}"
           />
-    </div></div>
+    </div>
+  </div>
+  <div class="comments">
+    <script type="text/ng-template" id="commentsTree">
+      <hr/>
+      <h5>{{commentSingle.title}}</h5>
+        <small class="label " ng-class="typeCssClass(commentSingle.label)">
+          {{commentSingle.label}}
+        </small>
+      <p ng-bind-html="commentSingle.note"></p>
+      <div ng-repeat="commentSingle in commentSingle.response"  ng-include="'commentsTree'">
+    </script>
+    <!-- = comment.responses | orderBy: 'creation_date': true -->
+     <div ng-repeat="commentSingle in comments"  ng-include="'commentsTree'"></div>
+  </div>
 </div>

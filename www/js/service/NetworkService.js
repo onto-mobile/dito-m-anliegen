@@ -28,6 +28,21 @@ this.getGeoJSON = function()  {
 										) // End then
 	}  // End getGeoJSON
 
+this.getComments = function(id)  {
+ 	return $http({
+				method: 	'GET',
+				url:			GLOBAL_ONTO.init.url_comments()+id
+			}).then(
+							function onSuccess(response){
+								$rootScope.debug && console.log('Service getComments response:', response.data);
+								return response.data;
+							},
+							function onFailed(response){
+								return response.statusText;
+							}
+			) // End then
+	}  // End getComments
+
 
 this.getCategories = function()  {
 
