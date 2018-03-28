@@ -56,6 +56,15 @@ $rootScope.changeView = function (view, item, from) {
 											// }
 			break;
 			case 'report1':
+					NetworkService.getAddress($rootScope.baseMap.getCenter().lng, $rootScope.baseMap.getCenter().lat).then(
+							function (response) {
+								GLOBAL_ONTO.init.debug && console.log("Address found and saved:", response);
+								DataService.updateAppData('address',response);
+							},
+							function (response) {
+								GLOBAL_ONTO.init.debug && console.log("No address found:", response);
+							}
+					);
 					DataService.updateAppData('position.coordinates', $rootScope.baseMap.getCenter());
 					// We want to recall the full selector map state so we also save the zoom
 					appData.report_saved_select_zoom = $rootScope.baseMap.getZoom();
@@ -79,6 +88,7 @@ $rootScope.changeView = function (view, item, from) {
 				// for the time being the step 3 is skiped
 				if(view == "report2")
 						appData.currentReportStep = 2;
+
 				else if (view == "report3")
 						appData.currentReportStep = 3;
 				else if (view == "report4")

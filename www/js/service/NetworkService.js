@@ -63,14 +63,58 @@ this.getCategories = function()  {
 		}  // End getCategories
 
 
+this.getAddress = function(lon, lat)  {
+			return $http({
+									method: 	'GET',
+									url:			GLOBAL_ONTO.init.url_getAddress()+"&lat="+ lat +"&lon="+lon
+							}).then(
+								function onSucc(response){
+										$rootScope.debug && console.log('Service getAddress response:', response.data);
+										var jsoncontent = response.data;
+										try {
+							       			var housenumber = jsoncontent.address.house_number;
+							            if (housenumber == undefinedStr.value) {
+							                housenumber = "";
+							            }
+						         } catch (err) {
+						             var housenumber = "";
+						         }
+					          try {
+					              var road = jsoncontent.address.road;
+					              if (road == undefinedStr.value) {
+					                  road = "";
+					              }
+					          } catch (err) {
+					              var road = "";
+					          }
+					          try {
+					              var city = jsoncontent.address.town;
+					              if (city == undefinedStr.value) {
+					                  city = "";
+					              }
+					          } catch (err) {
+					              var city = "";
+					          }
+					          try {
+					              var postcode = jsoncontent.address.postcode;
+					              if (postcode == undefinedStr.value) {
+					                  postcode = "";
+					              }
+					          } catch (err) {
+					              var postcode = "";
+					          }
+											return  road + ' ' + housenumber+"<br/>"+ postcode + ' ' + city;
+								},
+								function onFail(response){
+												return response.statusText;
+								}
+							) // End then
+		}  // End getAddress
+
 // @params
 // data: 			key-value paris encoded as stated by second parameter
 // format:
-//		"form": 		data = {key = value} pairs
-//    "json": 		data = {key:value} pairs
-// This method only works for form data w/o image
-//
-this.sendForm = function(data,format, configSpecial) {
+	this.sendForm = function(data,format, configSpecial) {
 
 					var config="";
 
