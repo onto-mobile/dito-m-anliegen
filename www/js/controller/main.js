@@ -567,6 +567,53 @@ $scope.translateStatus = function (type)   {
 				return '';
 		}
 };
+$scope.translateLL = function (type)   {
+	//$scope.debug && console.log(type);
+	switch (type) {
+				case 'linklabel.writerPro':
+				return 'unterstützt den Beitrag';
+
+				case 'linklabel.writerContra':
+				return 'lehnt den Beitrag ab';
+
+				case 'linklabel.writerNeutral':
+				return 'ist neutral';
+
+				case 'linklabel.writerQuestion':
+				return 'ist eine Frage';
+
+				case 'linklabel.administrationPriorityStatement':
+				return 'Stellungnahme der Verwaltung';
+
+				case 'linklabel.administrationPriorityHint':
+				return 'Wichtiger Hinweis der Verwaltung';
+
+				case 'linklabel.moderationPriorityHint':
+				return 'Wichtiger Hinweis der Moderation';
+
+				case 'linklabel.moderationAnswer':
+				return 'Antwort der Moderation';
+
+				case 'linklabel.writerAddition':
+				return 'ist eine inhaltliche Ergänzung';
+
+				case 'linklabel.writerOther':
+				return 'ist Sonstiges';
+
+				case 'linklabel.authorityStatement':
+				return 'Hinweis der Verwaltung';
+
+				case 'linklabel.authorityAnswer':
+				return 'Antwort der Verwaltung';
+
+				case 'linklabel.moderationStatement':
+				return 'Hinweis der Moderation';
+
+				default :
+				return '';
+		}
+};
+
 $rootScope.getNumberOfCategory = function (articleLabel){
 	// var listOfCategoryNames = $rootScope.listOfCategories.map(a => a.name);
 	var listOfCategoryNames  = [];

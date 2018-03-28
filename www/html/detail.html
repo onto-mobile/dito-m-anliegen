@@ -28,7 +28,7 @@
     <script type="text/ng-template" id="commentsTree">
       <hr/>
       <small class="label" ng-class="typeCssClass(commentSingle.label)">
-        {{commentSingle.label}}
+        {{translateLL(commentSingle.label)}}
       </small>
       <h5>{{commentSingle.title}}</h5>
       <p class="italic" ng-bind-html="commentSingle.note"></p>
