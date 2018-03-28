@@ -59,7 +59,7 @@ $rootScope.changeView = function (view, item, from) {
 					NetworkService.getAddress($rootScope.baseMap.getCenter().lng, $rootScope.baseMap.getCenter().lat).then(
 							function (response) {
 								GLOBAL_ONTO.init.debug && console.log("Address found and saved:", response);
-								DataService.updateAppData('address',response);
+								DataService.updateAppData('address.text',response);
 							},
 							function (response) {
 								GLOBAL_ONTO.init.debug && console.log("No address found:", response);
