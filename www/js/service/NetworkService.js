@@ -71,39 +71,39 @@ this.getAddress = function(lon, lat)  {
 								function onSucc(response){
 										var jsoncontent = response.data.address;
 										$rootScope.debug && console.log('Service getAddress response:',jsoncontent);
-										var housenumber = '', road ='', city='',postcode ='';
-										try {
-							       			housenumber = jsoncontent.house_number;
-							            if (housenumber == undefinedStr.value) {
-							                housenumber = "";
-							            }
-						         } catch (err) {
-						             housenumber = "";
-						         }
-					          try {
-					              road = jsoncontent.road;
-					              if (road == undefinedStr.value) {
-					                  road = "";
-					              }
-					          } catch (err) {
-					              road = "";
-					          }
-					          try {
-					              city = jsoncontent.town;
-					              if (city == undefinedStr.value) {
-					                  city = "";
-					              }
-					          } catch (err) {
-					              city = "";
-					          }
-					          try {
-					              postcode = jsoncontent.postcode;
-					              if (postcode == undefinedStr.value) {
-					                  postcode = "";
-					              }
-					          } catch (err) {
-					              postcode = "";
-					          }
+										var housenumber = jsoncontent.house_number, road =jsoncontent.road, city=jsoncontent.town,postcode =jsoncontent.postcode;
+										// try {
+							      //  			housenumber = jsoncontent.house_number;
+							      //       if (housenumber == undefinedStr.value) {
+							      //           housenumber = "";
+							      //       }
+						        //  } catch (err) {
+						        //      housenumber = "";
+						        //  }
+					          // try {
+					          //     road = jsoncontent.road;
+					          //     if (road == undefinedStr.value) {
+					          //         road = "";
+					          //     }
+					          // } catch (err) {
+					          //     road = "";
+					          // }
+					          // try {
+					          //     city = jsoncontent.town;
+					          //     if (city == undefinedStr.value) {
+					          //         city = "";
+					          //     }
+					          // } catch (err) {
+					          //     city = "";
+					          // }
+					          // try {
+					          //     postcode = jsoncontent.postcode;
+					          //     if (postcode == undefinedStr.value) {
+					          //         postcode = "";
+					          //     }
+					          // } catch (err) {
+					          //     postcode = "";
+					          // }
 										return  road + ' ' + housenumber+"<br/>"+ postcode + ' ' + city;
 								},
 								function onFail(response){
