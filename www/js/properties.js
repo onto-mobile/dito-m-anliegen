@@ -124,7 +124,7 @@ GLOBAL_ONTO.init =  {
   //
   appDataTemplate :  {
     'position' : { coordinates:{lat:"",lng:""},is_valid:true,mandatory:true},
-		'address' : {text:"",is_valid:true,mandatory:false},
+		'address' :  { text:"",is_valid:true,mandatory:false},
     'category' : { text:"undefined",is_valid:false,mandatory:true},
     'image'    : { text:"undefined",is_valid:false,mandatory:false},
     'title'    : { text:"",is_valid:false,mandatory:true,dirty:false},

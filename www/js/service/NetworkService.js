@@ -72,16 +72,16 @@ this.getAddress = function(lon, lat)  {
 										var jsoncontent = response.data.address;
 										$rootScope.debug && console.log('Service getAddress response:',jsoncontent);
 										var housenumber = jsoncontent.house_number, road =jsoncontent.road, city=jsoncontent.town,postcode =jsoncontent.postcode;
-										if (housenumber == undefined) {
+										if (typeof housenumber == "undefined") {
 							           housenumber = "";
 										}
-										if(road == undefined) {
+										if(typeof road == "undefined") {
 							           road = "";
 										}
-										if(city == undefined) {
+										if(typeof city == "undefined") {
 							           city = "";
 										}
-										if(postcode == undefined) {
+										if(typeof postcode == "undefined") {
 							           postcode = "";
 										}
 							      //       }if (housenumber == undefinedStr.value) {
