@@ -69,41 +69,42 @@ this.getAddress = function(lon, lat)  {
 									url:			GLOBAL_ONTO.init.url_getAddress()+"&lat="+ lat +"&lon="+lon
 							}).then(
 								function onSucc(response){
-										$rootScope.debug && console.log('Service getAddress response:', response.data);
-										var jsoncontent = response.data;
+										var jsoncontent = response.data.address;
+										$rootScope.debug && console.log('Service getAddress response:',jsoncontent);
+										var housenumber = '', road ='', city='',postcode ='';
 										try {
-							       			var housenumber = jsoncontent.address.house_number;
+							       			housenumber = jsoncontent.house_number;
 							            if (housenumber == undefinedStr.value) {
 							                housenumber = "";
 							            }
 						         } catch (err) {
-						             var housenumber = "";
+						             housenumber = "";
 						         }
 					          try {
-					              var road = jsoncontent.address.road;
+					              road = jsoncontent.road;
 					              if (road == undefinedStr.value) {
 					                  road = "";
 					              }
 					          } catch (err) {
-					              var road = "";
+					              road = "";
 					          }
 					          try {
-					              var city = jsoncontent.address.town;
+					              city = jsoncontent.town;
 					              if (city == undefinedStr.value) {
 					                  city = "";
 					              }
 					          } catch (err) {
-					              var city = "";
+					              city = "";
 					          }
 					          try {
-					              var postcode = jsoncontent.address.postcode;
+					              postcode = jsoncontent.postcode;
 					              if (postcode == undefinedStr.value) {
 					                  postcode = "";
 					              }
 					          } catch (err) {
-					              var postcode = "";
+					              postcode = "";
 					          }
-											return  road + ' ' + housenumber+"<br/>"+ postcode + ' ' + city;
+										return  road + ' ' + housenumber+"<br/>"+ postcode + ' ' + city;
 								},
 								function onFail(response){
 												return response.statusText;
