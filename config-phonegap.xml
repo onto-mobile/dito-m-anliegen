@@ -12,7 +12,12 @@
 
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#c40046" />
-
+    <feature name="Camera">
+       <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <feature name="Capture">
+       <param name="ios-package" value="CDVCapture" />
+    </feature>
 
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
