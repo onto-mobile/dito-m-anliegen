@@ -3,7 +3,8 @@
     <li class="list-group-item"
         ng-click="changeView('detail',listItem, 'list')">
       <span class=" iconInList" ng-class="categoryCssClass(listItem.properties.articleLabel)"></span>
-      <small class="date">{{listItem.properties.date}}</small><br/>
+      <small class="date">{{listItem.properties.date}}</small>
+      <small class="label " ng-class="typeCssClass(listItem.properties.type)">{{translateStatus(listItem.properties.type)}}</small><br/>
       <span class="title">{{listItem.properties.title}}</span>
     </li>
   </div>
