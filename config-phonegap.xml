@@ -111,7 +111,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="browser" spec="^5.0.1" />
-    <plugin name="cordova-plugin-camera" spec="~4.0.2" />
+    <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <plugin name="cordova-plugin-console" spec="~1.0.2" />
     <plugin name="cordova-plugin-device" spec="~1.1.1" />
     <plugin name="cordova-plugin-network-information" spec="~1.2.0" />
