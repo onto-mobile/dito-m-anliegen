@@ -35,7 +35,7 @@ this.examineImage = function(mode,item)  {
 							case 'device': 	// file from smartphone camera or gallery
 											imgdata.size = item.size;
 											// imgdata.type = item.type.split("/").pop();
-											imgdata.type = imgdata.type.replace("e", "");
+											// imgdata.type = imgdata.type.replace("e", "");
 
 							break;  // End browser image validation
 
