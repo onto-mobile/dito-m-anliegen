@@ -34,7 +34,7 @@ this.examineImage = function(mode,item)  {
 
 							case 'device': 	// file from smartphone camera or gallery
 											imgdata.size = item.size;
-											imgdata.type = item.type.split("/").pop();
+											// imgdata.type = item.type.split("/").pop();
 											imgdata.type = imgdata.type.replace("e", "");
 
 							break;  // End browser image validation
@@ -46,7 +46,7 @@ this.examineImage = function(mode,item)  {
 
 				imgdata.text = "";
 
-				if (GLOBAL_ONTO.init.imageTypesAllowed.includes(imgdata.type)) {
+				// if (GLOBAL_ONTO.init.imageTypesAllowed.includes(imgdata.type)) {
 						// Check size
 						//$rootScope.debug && console.log('File size:',imgdata.size, "Limit:", maxImageFileSize);
 						if (imgdata.size <= GLOBAL_ONTO.init.maxImageFileSize) {
@@ -62,10 +62,10 @@ this.examineImage = function(mode,item)  {
 
 					 }  // End file too large
 
-				} else {  // invalid file type
-						 imgdata.valid = false;
-						 imgdata.text = "unsupported format";
-   			}
+				// } else {  // invalid file type
+				// 		 imgdata.valid = false;
+				// 		 imgdata.text = "unsupported format";
+   		// 	}
 
 				return 	imgdata;
 
