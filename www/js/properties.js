@@ -9,7 +9,7 @@ if (typeof GLOBAL_ONTO == 'undefined')
 GLOBAL_ONTO.init =  {
   // =============== DEBUG
   //
-  debug:true,
+  debug:false,
   fake_send : false,
   fake_geoloc:false,
   fakeGeolocPosition : { lat:50.1247648, lng:8.82783230 },
@@ -18,7 +18,7 @@ GLOBAL_ONTO.init =  {
   //
   // URL
   // url_dito : 'http://anliegen.noam.de:8080/dito/explore',
-  url_dito : 'http://anliegen.muehlheim.ontopica.de/dito/explore',
+  url_dito : 'https://anliegen.muehlheim.de/dito/explore',
   url_geoData : function(){return this.url_dito+'?action=browsermap&id=2692&geojson'},
 	url_ditoTiles : function(){return this.url_dito+'?action=tiles'},
 	url_getAddress: function(){return this.url_dito+'?action=crossscriptingout'},
