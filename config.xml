@@ -11,7 +11,7 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#c40046" />
-    <preference name="android-minSdkVersion" value="14" />
+    <!-- <preference name="android-minSdkVersion" value="14" /> -->
 
     <preference name="SplashScreen" value="splash" />
     <splash src="splash.png" />
