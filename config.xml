@@ -151,7 +151,7 @@
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
     <plugin name="cordova-plugin-ios-camera-permissions">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value="Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung.">
-        <variable name="PHOTOLIBRARY_ADD_USAGE_DESCRIPTION" value="Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung.">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung."/>
+        <variable name="PHOTOLIBRARY_ADD_USAGE_DESCRIPTION" value="Der Zugriff auf ihre Fotos erlaubt ihnen, das Hochladen eines Bildes zusammen mit ihrer Meldung."/>
     </plugin>
 </widget>
