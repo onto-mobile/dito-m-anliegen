@@ -13,7 +13,8 @@ rootApp.controller('listCtrl', function($scope,$rootScope,$route,$timeout,Networ
 
     switch (appData.view) {
       case 'detail':  // create mini-map
-          if(typeof $scope.listItem.geometry.coordinates !== 'undefined'){
+      console.log();
+          if(typeof $scope.listItem.geometry.coordinates !== 'undefined' && $scope.listItem.geometry.coordinates[0] > 0){
             // $timeout(function(){MapFactory.createMiniMap('miniMap',$scope.listItem.geometry.coordinates)},3000);
             miniMap = MapFactory.createMiniMap('miniMap',$scope.listItem.geometry.coordinates[1], $scope.listItem.geometry.coordinates[0]);
           }

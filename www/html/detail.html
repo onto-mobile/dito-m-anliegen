@@ -13,26 +13,17 @@
       <!-- Image attachment -->
 <hr/>
 <div class="photo-map">
-      <!-- <div class="col1" ng-if="listItem.properties.coordinates[0] != -1.0">
-
-        <div id="miniMap" class="img-responsive"></div>
-        <div class="address" ng-bind-html="listItem.properties.address"></div>
-      </div>
-      <div class="col1" ng-if="listItem.properties.coordinates[0] == -1.0">
-
+  <div class="col1" ng-show="listItem.geometry.coordinates[0] > 0">
+    <div id="miniMap" class="img-responsive"></div>
+    <div class="address" ng-bind-html="listItem.properties.address"></div>
+  </div>
+  <div class="col1" ng-show="listItem.geometry.coordinates[0] < 0">
+    <img class="img-responsive " src="img/noCoordinate.png"/>
+    <div class="address" >Keine Adresse</div>
+  </div>
+  <div class="col2">
         <img class="img-responsive "
-          ng-src="img/icon/ios/icon@2x.png"
-          />
-        <div class="address" >Keine Adresse</div>
-      </div> -->
-      <div class="col1">
-        <div id="miniMap" class="img-responsive"></div>
-        <div class="address" ng-bind-html="listItem.properties.address"></div>
-      </div>
-      <div class="col2">
-        <img class="img-responsive "
-          ng-src="{{linkForImg}}"
-          />
+          ng-src="{{linkForImg}}"/>
     </div>
   </div>
   <!-- <h5>Kommentare</h5> -->
